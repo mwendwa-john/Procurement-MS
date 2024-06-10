@@ -1,0 +1,44 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+class RolesPermissionsSeeder extends Seeder
+{
+    public $adminRole;
+    public $directorRole;
+    public $AssignRolePermission;
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        $this->adminRole = Role::create(['name' => 'admin']);
+        Role::create(['name' => 'director']);
+        Role::create(['name' => 'headquarters']);
+        Role::create(['name' => 'store-keeper']);
+
+        $this->createPermissions();
+
+
+        $directorRole = Role::findByName('director');
+        $directorRole->givePermissionTo($this->AssignRolePermission);
+
+        // sync all permission with the admin role
+        $adminRole = Role::findByName('admin');
+        $allPermissions = Permission::all();
+        $adminRole->syncPermissions($allPermissions);
+    }
+
+    public function createPermissions()
+    {
+        Permission::create(['name' => 'access admin dashboard']);
+        Permission::create(['name' => 'create role']);
+        Permission::create(['name' => 'delete role']);
+        $this->AssignRolePermission = Permission::create(['name' => 'assign permissions']);
+    }
+}
