@@ -119,7 +119,8 @@
                             </h3>
                             <p class="text-gray-500">
                                 Temporarily remove this role. <br>
-                                This action is reversible, but you cannot delete roles that have users assigned to them, so please continue with caution.
+                                This action is reversible, but you cannot delete roles that have users assigned to them,
+                                so please continue with caution.
                             </p>
                         </div>
                     </div>
@@ -131,8 +132,9 @@
                         data-hs-overlay="#hs-delete-role">
                         Cancel
                     </button>
-                    
-                    <button wire:click='deleteRole' class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-500 text-white hover:bg-red-600 disabled:opacity-50 disabled:pointer-events-none">
+
+                    <button wire:click='deleteRole'
+                        class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-500 text-white hover:bg-red-600 disabled:opacity-50 disabled:pointer-events-none">
                         Delete role
                     </button>
                 </div>
@@ -193,8 +195,9 @@
                         data-hs-overlay="#hs-restore-role">
                         Cancel
                     </button>
-                    
-                    <button wire:click='restoreRole' class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-500 text-white hover:bg-red-600 disabled:opacity-50 disabled:pointer-events-none">
+
+                    <button wire:click='restoreRole'
+                        class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-500 text-white hover:bg-red-600 disabled:opacity-50 disabled:pointer-events-none">
                         Restore role
                     </button>
                 </div>
@@ -217,8 +220,8 @@
                         data-hs-overlay="#hs-permanently-delete-role">
                         <span class="sr-only">Close</span>
                         <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
+                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M18 6 6 18" />
                             <path d="m6 6 12 12" />
                         </svg>
@@ -243,7 +246,8 @@
                                 Permanently delete Role
                             </h3>
                             <p class="text-gray-500">
-                                Are you sure you want to permanently delete this role? Once deleted, all associated permissions and settings will be lost.
+                                Are you sure you want to permanently delete this role? Once deleted, all associated
+                                permissions and settings will be lost.
                             </p>
                         </div>
                     </div>
@@ -255,8 +259,9 @@
                         data-hs-overlay="#hs-permanently-delete-role">
                         Cancel
                     </button>
-                    
-                    <button wire:click='permanentlyDeleteRole' class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-500 text-white hover:bg-red-600 disabled:opacity-50 disabled:pointer-events-none">
+
+                    <button wire:click='permanentlyDeleteRole'
+                        class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-500 text-white hover:bg-red-600 disabled:opacity-50 disabled:pointer-events-none">
                         Permanently delete
                     </button>
                 </div>
@@ -264,4 +269,5 @@
         </div>
     </div>
     <!--End Permanently Delete Role -->
+
 </div>

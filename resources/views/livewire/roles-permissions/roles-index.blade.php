@@ -159,4 +159,6 @@
 
     </div>
     <!-- End Table Section -->
+
+    <livewire:roles-permissions.user-roles>
 @endsection
