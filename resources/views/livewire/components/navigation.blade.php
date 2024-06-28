@@ -5,7 +5,7 @@
             <div class="flex items-center justify-between">
                 <a class="flex text-xl font-semibold items-center whitespace-nowrap" href="{{ route('home') }}"
                     aria-label="Brand">
-                    <img class="w-8 p-2 md:w-10 md:p-1 lg:w-8" src="{{ asset('front-assets/images/superiorLogo.png') }}"
+                    <img class="w-8 p-2 md:w-10 md:p-1 lg:w-8 me-2" src="{{ asset('front-assets/images/superiorLogo.png') }}"
                         alt="logo">
                     <span>{{ config('app.name') }}</span>
                 </a>

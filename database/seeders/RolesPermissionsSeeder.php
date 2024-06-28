@@ -36,9 +36,14 @@ class RolesPermissionsSeeder extends Seeder
 
     public function createPermissions()
     {
+        $this->AssignRolePermission = Permission::create(['name' => 'assign permissions']);
         Permission::create(['name' => 'access admin dashboard']);
+        
+        // roles Permissions
         Permission::create(['name' => 'create role']);
         Permission::create(['name' => 'delete role']);
-        $this->AssignRolePermission = Permission::create(['name' => 'assign permissions']);
+
+        // stations Permissions
+        Permission::create(['name' => 'manage locations']);
     }
 }

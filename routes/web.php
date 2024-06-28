@@ -17,6 +17,8 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Livewire\RolesPermissions\AssignPermissions;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Livewire\RolesPermissions\TrashedRoles;
+use App\Livewire\Stations\Location\ShowLocations;
+use App\Livewire\Stations\Location\TrashedLocations;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,10 +79,16 @@ Route::middleware(['auth', 'isActive'])->group(function () {
 Route::middleware(['auth', 'isActive', 'role:admin|director'])->group(function () {
     Route::get('dashboard/admin', AdminDashboard::class)->name('dashboard.admin');
 
+    // stations routes
+    Route::get('locations/show', ShowLocations::class)->name('locations.show');
+    Route::get('locations/treashed', TrashedLocations::class)->name('locations.trashed');
+
+    // roles and permissions
     Route::get('roles', RolesIndex::class)->name('roles.index');
     Route::get('trashed/roles', TrashedRoles::class)->name('roles.trashed');
     Route::get('permissions/assign/{roleId}', AssignPermissions::class)->name('permissions.assign');
 
+    // users
     Route::get('users', ShowUsers::class)->name('users.show');
 });
 // End Admin
