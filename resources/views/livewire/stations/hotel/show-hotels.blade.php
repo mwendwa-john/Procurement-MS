@@ -1,7 +1,8 @@
 @extends('livewire.layouts.admin-dashboard')
 
 @section('admin-content')
-    @livewire('components.modals.location-modals')
+    @livewire('components.modals.hotel-modals')
+    {{-- @livewire('stations.hotel.edit-hotel') --}}
     <div>
         <!-- Header -->
         <div
@@ -29,14 +30,14 @@
                             </g>
                         </g>
                     </svg>
-                    <h1 class="text-xl font-bold text-gray-900 mt-1">Locations</h1>
+                    <h1 class="text-xl font-bold text-gray-900 mt-1">Hotels</h1>
                 </div>
             </header>
         </div>
 
         <div class="flex justify-end items-center mt-4">
-            @can('manage locations')
-                <a href="{{ route('locations.trashed') }}">
+            @can('manage hotels')
+                <a href="{{ route('hotels.trashed') }}">
                     <button
                         class="inline-flex items-center gap-x-2 bg-red-400 text-white font-bold py-2 px-4 mx-3 rounded-lg hover:bg-red-300 transition duration-300">
                         <svg class="flex-shrink-0 size-4" fill="#ffffff" viewBox="0 0 32 32" version="1.1"
@@ -50,93 +51,97 @@
                                 </path>
                             </g>
                         </svg>
-                        Trashed Locations
+                        Trashed Hotels
                     </button>
                 </a>
 
                 <div class="text-center">
                     <button type="button"
                         class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                        data-hs-overlay="#hs-modal-add-location">
+                        data-hs-overlay="#hs-modal-add-hotel">
                         <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round">
                             <path d="M5 12h14" />
                             <path d="M12 5v14" />
                         </svg>
-                        Add Location
+                        Add Hotel
                     </button>
                 </div>
             @endcan
 
         </div>
 
-
-        <!-- Card Section -->
-        <div class="max-w-5xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-            <!-- Grid -->
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
-                @foreach ($locations as $location)
-                    <!-- Card -->
-                    <div class="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition">
-                        <div class="p-4 md:p-5">
-                            <div class="flex">
-                                <svg class="mt-1 flex-shrink-0 size-6 text-gray-800" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                    <g id="SVGRepo_iconCarrier">
-                                        <path
-                                            d="M12 21C15.5 17.4 19 14.1764 19 10.2C19 6.22355 15.866 3 12 3C8.13401 3 5 6.22355 5 10.2C5 14.1764 8.5 17.4 12 21Z"
-                                            stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                        </path>
-                                        <path
-                                            d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z"
-                                            stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                        </path>
-                                    </g>
-                                </svg>
-
-                                <div class="grow ms-5">
-                                    <a href="{{ route('location.hotels', ['id' => $location->id]) }}">
-                                        <h3 class="group-hover:text-blue-600 font-semibold text-gray-800">
-                                            {{ $location->location_name }}
-                                        </h3>
-                                        <p class="text-sm text-gray-500">
-                                            See hotels
-                                        </p>
-                                    </a>
-
-                                    @can('manage locations')
-                                        <dl class="flex justify-center items-center divide-x divide-gray-200">
-                                            <dt class="pe-3">
-                                                <button wire:click="bindLocationId({{ $location->id }})"
-                                                    class="inline-flex items-center gap-x-1 px-2 text-sm text-blue-500 decoration-2 hover:underline font-medium"
-                                                    data-hs-overlay="#hs-modal-edit-location">
-                                                    Edit
-                                                </button>
-                                            </dt>
-                                            <dd class="text-start ps-3">
-                                                <button wire:click="bindLocationId({{ $location->id }})"
-                                                    class="inline-flex items-center gap-x-1 px-2 text-sm text-red-400 decoration-2 hover:underline font-medium"
-                                                    data-hs-overlay="#hs-modal-delete-location">
-                                                    Delete
-                                                </button>
-                                            </dd>
-                                        </dl>
-                                    @endcan
-                                </div>
-                            </div>
+        <!-- Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-10 lg:mb-14 py-6 overflow-auto">
+            @forelse ($hotels as $hotel)
+                <!-- Card -->
+                <div class="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition">
+                    <a href="#">
+                        <div class="aspect-w-16 aspect-h-9">
+                            <img class="w-full object-cover rounded-t-xl h-40"
+                                src="{{ Storage::url($hotel->hotel_image_path) }}" alt="hotel-image">
                         </div>
-                    </div>
-                    <!-- End Card -->
-                @endforeach
+                        <div class="p-2 md:p-3 text-center">
+                            <p class="mt-2 text-xs uppercase text-gray-600">
+                                {{ $hotel->location->location_name }}
+                            </p>
+                            <h2 class="mt-2 font-medium text-gray-800 group-hover:text-blue-600">
+                                {{ $hotel->hotel_name }}
+                            </h2>
+                        </div>
+                    </a>
 
-            </div>
-            <!-- End Grid -->
+                    <div class="text-center pb-4">
+                        @can('manage hotels')
+                            <dl class="flex justify-center items-center divide-x divide-gray-200">
+                                <dt class="pe-3">
+                                    <button wire:click="bindHotelId({{ $hotel->id }})"
+                                        class="inline-flex items-center gap-x-1 px-2 text-sm text-blue-500 decoration-2 hover:underline font-medium"
+                                        data-hs-overlay="#hs-modal-edit-hotel">
+                                        Edit
+                                    </button>
+                                </dt>
+                                <dd class="text-start ps-3">
+                                    <button wire:click="bindHotelId({{ $hotel->id }})"
+                                        class="inline-flex items-center gap-x-1 px-2 text-sm text-red-400 decoration-2 hover:underline font-medium"
+                                        data-hs-overlay="#hs-modal-delete-hotel">
+                                        Delete
+                                    </button>
+                                </dd>
+                            </dl>
+                        @endcan
+                    </div>
+                </div>
+                <!-- End Card -->
+
+            @empty
+                <div class="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition">
+                    <div class="aspect-w-16 aspect-h-9">
+                        <img class="w-full object-cover rounded-t-xl h-40"
+                            src="{{ asset('front-assets/images/superiorLogo.png') }}" alt="hotel-image">
+                    </div>
+                    <div class="p-4 md:p-5 text-center">
+                        <p class="mt-2 text-xs uppercase text-gray-600">
+                            Superior
+                        </p>
+                        <h2 class="mt-2 text-lg font-medium text-gray-800 group-hover:text-blue-600">
+                            No Hotels Uploaded
+                        </h2>
+                    </div>
+                </div>
+                <!-- End Card -->
+            @endforelse
         </div>
-        <!-- End Card Section -->
+        <!-- End Grid -->
+
+
+        <!-- Pagination -->
+        <div
+            class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 sm:justify-center sm:text-center">
+            {{ $hotels->links('vendor.pagination.custom') }}
+        </div>
+        <!-- End Pagination -->
+
     </div>
 @endsection

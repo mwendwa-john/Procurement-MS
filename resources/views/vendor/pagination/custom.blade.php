@@ -1,9 +1,9 @@
 @if ($paginator->hasPages())
-<div class="mt-4 text-sm text-gray-600">
-    Showing {{ $paginator->firstItem() }} to {{ $paginator->lastItem() }} of {{ $paginator->total() }} results
-</div>
+    <div class="mt-4 text-sm text-gray-600 text-center sm:text-left">
+        Showing {{ $paginator->firstItem() }} to {{ $paginator->lastItem() }} of {{ $paginator->total() }} results
+    </div>
 
-    <div class="inline-flex gap-x-2">
+    <div class="inline-flex gap-x-2 justify-center sm:justify-start mt-2 sm:mt-0">
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
             <button type="button"
@@ -54,5 +54,6 @@
             </button>
         @endif
     </div>
+
 
 @endif

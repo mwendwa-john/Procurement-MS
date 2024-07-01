@@ -117,8 +117,8 @@
                             <h3 class="mb-2 text-xl font-bold text-gray-800">
                                 Delete Role
                             </h3>
-                            <p class="text-gray-500">
-                                Temporarily remove this role. <br>
+                            <p class="text-gray-500 flex flex-col items-center">
+                                <span class="text-center">Temporarily delete this role.</span>
                                 This action is reversible, but you cannot delete roles that have users assigned to them,
                                 so please continue with caution.
                             </p>

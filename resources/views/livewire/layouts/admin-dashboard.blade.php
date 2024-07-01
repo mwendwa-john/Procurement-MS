@@ -122,19 +122,19 @@
                             <li>
                                 <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white hover:text-white rounded-lg hover:bg-blue-600"
                                     href="{{ route('locations.show') }}">
-                                    Location
+                                    Locations
+                                </a>
+                            </li>
+                            <li>
+                                <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white hover:text-white rounded-lg hover:bg-blue-600"
+                                    href="{{ route('hotels.show') }}">
+                                    Hotels
                                 </a>
                             </li>
                             <li>
                                 <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white hover:text-white rounded-lg hover:bg-blue-600"
                                     href="#">
-                                    Hotel
-                                </a>
-                            </li>
-                            <li>
-                                <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white hover:text-white rounded-lg hover:bg-blue-600"
-                                    href="#">
-                                    Supplier
+                                    Suppliers
                                 </a>
                             </li>
                         </ul>

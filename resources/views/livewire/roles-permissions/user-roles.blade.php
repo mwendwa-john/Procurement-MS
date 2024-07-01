@@ -4,10 +4,10 @@
     <div class="flex flex-col">
         <div class="-m-1.5 overflow-x-auto">
             <div class="p-1.5 min-w-full inline-block align-middle">
-                <div class="bg-[#DDEBFE] border border-[#c7d4e5] rounded-xl shadow-sm overflow-hidden">
+                <div class="bg-white border border-grey-200 rounded-xl shadow-sm overflow-hidden">
                     <!-- Header -->
                     <div
-                        class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-[#c7d4e5]">
+                        class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-grey-200">
                         <div>
                             <h2 class="text-xl font-semibold text-blue-600">
                                 User Roles
@@ -51,8 +51,8 @@
                     <!-- End Header -->
 
                     <!-- Table -->
-                    <table class="min-w-full divide-y divide-[#c7d4e5]">
-                        <thead class="bg-[#d2e0f2]">
+                    <table class="min-w-full divide-y divide-grey-200">
+                        <thead class="bg-gray-50">
                             <tr>
                                 <th scope="col" class="ps-6 py-3 text-start">
                                     <div class="flex items-center gap-x-2">
@@ -89,7 +89,7 @@
                             </tr>
                         </thead>
 
-                        <tbody class="divide-y divide-[#c7d4e5]">
+                        <tbody class="divide-y divide-grey-200">
                             @php
                                 $i = ($users->currentPage() - 1) * $users->perPage();
                             @endphp
@@ -197,7 +197,7 @@
 
                     <!-- Footer -->
                     <div
-                        class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-[#c7d4e5]">
+                        class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-grey-200">
 
                         {{ $users->links('vendor.pagination.custom') }}
 

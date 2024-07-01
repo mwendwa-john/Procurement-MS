@@ -17,6 +17,10 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Livewire\RolesPermissions\AssignPermissions;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Livewire\RolesPermissions\TrashedRoles;
+use App\Livewire\Stations\Hotel\ShowHotels;
+use App\Livewire\Stations\Hotel\TrashedHotels;
+use App\Livewire\Stations\Location\LocationHotel;
+use App\Livewire\Stations\Location\LocationHotels;
 use App\Livewire\Stations\Location\ShowLocations;
 use App\Livewire\Stations\Location\TrashedLocations;
 
@@ -81,7 +85,11 @@ Route::middleware(['auth', 'isActive', 'role:admin|director'])->group(function (
 
     // stations routes
     Route::get('locations/show', ShowLocations::class)->name('locations.show');
-    Route::get('locations/treashed', TrashedLocations::class)->name('locations.trashed');
+    Route::get('location/{id}/hotels', LocationHotels::class)->name('location.hotels');
+    Route::get('locations/trashed', TrashedLocations::class)->name('locations.trashed');
+
+    Route::get('hotels/show', ShowHotels::class)->name('hotels.show');
+    Route::get('hotels/trashed', TrashedHotels::class)->name('hotels.trashed');
 
     // roles and permissions
     Route::get('roles', RolesIndex::class)->name('roles.index');

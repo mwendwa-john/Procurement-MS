@@ -11,13 +11,25 @@ class Hotel extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'parent_id',
+        'hotel_image_path',
         'hotel_name',
         'hotel_kra_pin',
-        'hotel_image_path',
         'location_id',
     ];
 
-    public function location() {
+    public function parent()
+    {
+        return $this->belongsTo(Hotel::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Hotel::class, 'parent_id');
+    }
+
+    public function location()
+    {
         return $this->belongsTo(Location::class);
     }
 
