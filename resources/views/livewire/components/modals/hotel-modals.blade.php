@@ -197,6 +197,54 @@
                                     <img src="{{ Storage::url($oldImage) }}" width="200" height="200">
                                 @endif
 
+                                <!-- Form Group - Street -->
+                                <div>
+                                    <label for="street" class="block text-sm mb-2 text-start">Street *</label>
+                                    <input wire:model="street" type="text" id="street" name="street"
+                                        class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                        required>
+                                    @error('street')
+                                        <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <!-- End Form Group - Street -->
+
+                                <!-- Form Group - City -->
+                                <div>
+                                    <label for="city" class="block text-sm mb-2 text-start">City *</label>
+                                    <input wire:model="city" type="text" id="city" name="city"
+                                        class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                        required>
+                                    @error('city')
+                                        <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <!-- End Form Group - City -->
+
+                                <!-- Form Group - State -->
+                                <div>
+                                    <label for="state" class="block text-sm mb-2 text-start">State *</label>
+                                    <input wire:model="state" type="text" id="state" name="state"
+                                        class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                        required>
+                                    @error('state')
+                                        <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <!-- End Form Group - State -->
+
+                                <!-- Form Group - Postal Code -->
+                                <div>
+                                    <label for="postal_code" class="block text-sm mb-2 text-start">Postal Code</label>
+                                    <input wire:model="postal_code" type="text" id="postal_code"
+                                        name="postal_code"
+                                        class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                                    @error('postal_code')
+                                        <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <!-- End Form Group - Postal Code -->
+
                                 <!-- Buttons - Cancel and Create Hotel -->
                                 <div class="col-span-2 mt-6 flex justify-center gap-x-4">
                                     <button type="button"

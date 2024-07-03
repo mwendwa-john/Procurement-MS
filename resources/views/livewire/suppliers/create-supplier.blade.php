@@ -1,63 +1,86 @@
 <div>
-    <x-livewire-forms submitAction="createHotel" formId="createHotelForm">
+    <x-livewire-forms submitAction="createSupplier" formId="createSupplierForm">
         <div class="grid grid-cols-2 gap-y-4 gap-x-8">
-            <!-- Form Group - Location -->
+            <!-- Form Group - Supplier Name -->
             <div>
-                <label for="location_id" class="block text-sm mb-2 text-start">Location *</label>
-
-                <!-- Floating Select -->
+                <label for="supplier_name" class="block text-sm mb-2 text-start">Supplier name *</label>
                 <div class="relative">
-                    <select wire:model.live="location_id"
-                        class="peer p-4 pe-9 block w-full bg-gray-100 border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2">
+                    <input wire:model.live="supplier_name" type="text" id="supplier_name" name="supplier_name"
+                        class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                        required aria-describedby="supplier_name">
 
-                        <option value="">select location</option>
-                        @foreach ($locations as $location)
-                            <option value="{{ $location->id }}">{{ $location->location_name }}</option>
-                        @endforeach
-                    </select>
-                    <label
-                        class="absolute top-0 start-0 p-4 h-full truncate pointer-events-none transition ease-in-out duration-100 border border-transparent peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:text-xs peer-focus:-translate-y-1.5 peer-focus:text-gray-500 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500">Location</label>
+                    <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
+                        <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor"
+                            viewBox="0 0 16 16" aria-hidden="true">
+                            <path
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                        </svg>
+                    </div>
                 </div>
-                <!-- End Floating Select -->
 
-                @error('location_id')
+                @error('supplier_name')
                     <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
                 @enderror
             </div>
             <!-- End Form Group -->
 
-            <!-- Form Group - Hotel it Belongs To -->
+            <!-- Form Group - Slug -->
             <div>
-                <label for="parent_id" class="block text-sm mb-2 text-start">Hotel it belongs to</label>
+                <label for="slug" class="block text-sm mb-2 text-start">Slug *</label>
+                <div class="relative">
+                    <input wire:model.live="slug" type="text" id="slug" name="slug"
+                        class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                        required disabled aria-describedby="slug">
+
+                    <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
+                        <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor"
+                            viewBox="0 0 16 16" aria-hidden="true">
+                            <path
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                        </svg>
+                    </div>
+                </div>
+
+                @error('slug')
+                    <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                @enderror
+            </div>
+            <!-- End Form Group -->
+
+
+            <!-- Form Group - Supplies to -->
+            <div>
+                <label for="supplies_to" class="block text-sm mb-2 text-start">Supplies to *</label>
 
                 <!-- Floating Select -->
-                <div class="relative">
-                    <select wire:model.live="parent_id"
-                        class="peer p-4 pe-9 block w-full bg-gray-100 border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2">
-
-                        <option value="">select hotel</option>
-                        @foreach ($belongsToHotels as $hotel)
+                <div class="relative" wire:ignore>
+                    <!-- Select -->
+                    <select multiple wire:model.live="selectedHotelIds"
+                        data-hs-select='{"placeholder": "Select multiple options...", "toggleTag": "<button type=\"button\"></button>", "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative py-3 px-4 pe-9 flex text-nowrap w-full cursor-pointer bg-white border border-blue-200 rounded-lg text-start text-sm focus:border-blue-500 focus:ring-blue-500 before:absolute before:inset-0 before:z-[1]", "dropdownClasses": "mt-2 z-50 w-full max-h-72 p-1 space-y-0.5 bg-white border border-blue-200 rounded-lg overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300", "optionClasses": "py-2 px-4 w-full text-sm text-gray-800 cursor-pointer hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100", "optionTemplate": "<div class=\"flex justify-between items-center w-full\"><span data-title></span><span class=\"hidden hs-selected:block\"><svg class=\"flex-shrink-0 size-3.5 text-blue-600\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg></span></div>", "extraMarkup": "<div class=\"absolute top-1/2 end-3 -translate-y-1/2\"><svg class=\"flex-shrink-0 size-3.5 text-gray-500\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"}'
+                        class="hidden">
+                        <option value="">select hotels</option>
+                        @foreach ($hotels as $hotel)
                             <option value="{{ $hotel->id }}">{{ $hotel->hotel_name }}</option>
                         @endforeach
                     </select>
-                    <label
-                        class="absolute top-0 start-0 p-4 h-full truncate pointer-events-none transition ease-in-out duration-100 border border-transparent peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:text-xs peer-focus:-translate-y-1.5 peer-focus:text-gray-500 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500">Hotel</label>
+                    <!-- End Select -->
                 </div>
                 <!-- End Floating Select -->
 
-                @error('parent_id')
+                @error('selectedHotels')
                     <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
                 @enderror
             </div>
             <!-- End Form Group -->
 
-            <!--  Form Group - Hotel Name -->
+
+            <!-- Form Group - Email -->
             <div>
-                <label for="hotel_name" class="block text-sm mb-2 text-start">Hotel name *</label>
+                <label for="email" class="block text-sm mb-2 text-start">Email *</label>
                 <div class="relative">
-                    <input wire:model.live="hotel_name" type="text" id="hotel_name" name="hotel_name"
+                    <input wire:model.live="email" type="email" id="email" name="email"
                         class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                        required aria-describedby="hotel_name">
+                        required aria-describedby="email">
 
                     <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
                         <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor"
@@ -68,19 +91,20 @@
                     </div>
                 </div>
 
-                @error('hotel_name')
+                @error('email')
                     <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
                 @enderror
             </div>
-            <!-- End  Form Group -->
+            <!-- End Form Group -->
 
-            <!--  Form Group - KRA Pin -->
+
+            <!--  Form Group - Phone Number -->
             <div>
-                <label for="hotel_kra_pin" class="block text-sm mb-2 text-start">Hotel KRA PIN *</label>
+                <label for="phone_number" class="block text-sm mb-2 text-start">Phone Number *</label>
                 <div class="relative">
-                    <input wire:model.live="hotel_kra_pin" type="text" id="hotel_kra_pin" name="hotel_kra_pin"
+                    <input wire:model.live.live="phone_number" type="tel" id="phone_number" name="phone_number"
                         class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                        required aria-describedby="hotel_kra_pin">
+                        required aria-describedby="phone_number">
 
                     <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
                         <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor"
@@ -91,36 +115,15 @@
                     </div>
                 </div>
 
-                @error('hotel_kra_pin')
+                @error('phone_number')
                     <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
                 @enderror
             </div>
             <!-- End  Form Group -->
-
-            <!--  Form Group - Hotel Image -->
-            <div>
-                <label for="hotel_image_path" class="block text-sm mb-2 text-start">Hotel Image *</label>
-                <form class="max-w-sm">
-                    <label for="file-input" class="sr-only">Choose image</label>
-                    <input wire:model.live='hotel_image_path' type="file" name="file-input" id="file-input"
-                        class="block w-full border border-blue-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none file:bg-blue-600 file:text-white file:border-0 file:me-4 file:py-3 file:px-4">
-                </form>
-
-                @error('hotel_image_path')
-                    <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
-                @enderror
-            </div>
-            <!-- End  Form Group -->
-
-            @if ($hotel_image_path)
-                <div class="d-flex justify-content-center align-items-center m-3">
-                    <img width="200" height="200" src="{{ $hotel_image_path->temporaryUrl() }}" alt="">
-                </div>
-            @endif
 
             <!-- Form Group - Street -->
             <div>
-                <label for="street" class="block text-sm mb-2 text-start">Street *</label>
+                <label for="street" class="block text-sm mb-2 text-start">Street Address *</label>
                 <input wire:model.live="street" type="text" id="street" name="street"
                     class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                     required>
@@ -164,6 +167,9 @@
                 @enderror
             </div>
             <!-- End Form Group - Postal Code -->
+
+
+
 
             <!-- Buttons - Cancel and Create Hotel -->
             <div class="col-span-2 mt-6 flex justify-center gap-x-4">

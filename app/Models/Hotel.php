@@ -11,6 +11,7 @@ class Hotel extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'address_id',
         'parent_id',
         'hotel_image_path',
         'hotel_name',
@@ -37,5 +38,15 @@ class Hotel extends Model
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
+    }
+
+    public function suppliers()
+    {
+        return $this->belongsToMany(Supplier::class, 'supplier_hotel');
     }
 }

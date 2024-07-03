@@ -23,6 +23,7 @@ use App\Livewire\Stations\Location\LocationHotel;
 use App\Livewire\Stations\Location\LocationHotels;
 use App\Livewire\Stations\Location\ShowLocations;
 use App\Livewire\Stations\Location\TrashedLocations;
+use App\Livewire\Suppliers\ShowSuppliers;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +91,9 @@ Route::middleware(['auth', 'isActive', 'role:admin|director'])->group(function (
 
     Route::get('hotels/show', ShowHotels::class)->name('hotels.show');
     Route::get('hotels/trashed', TrashedHotels::class)->name('hotels.trashed');
+
+    // supplier routes
+    Route::get('suppliers/show', ShowSuppliers::class)->name('suppliers.show');
 
     // roles and permissions
     Route::get('roles', RolesIndex::class)->name('roles.index');

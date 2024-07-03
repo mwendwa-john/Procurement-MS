@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Address;
 use App\Models\User;
 use App\Models\Hotel;
 use App\Models\Person;
@@ -20,6 +21,7 @@ class LocationHotelUserSeeder extends Seeder
     public $naivasha;
     public $limuru;
 
+    public $addressId;
     // Hotels
     public $SuperiorHotel;
     public $ridgeCabinHotel;
@@ -67,61 +69,105 @@ class LocationHotelUserSeeder extends Seeder
         ]);
         // End Location
     }
-
+    public function createAddresses()
+    {
+        // You can call this method within the createHotels method
+        // to create an address for each hotel and get its ID
+    }
+    
     public function createHotels()
     {
-        // ----------------     Superior
-        // Ridge Cabin
+        // Create address for Superior Hotel and assign address_id
+        $superiorAddress = Address::create([
+            'street' => fake()->streetAddress,
+            'city' => fake()->city,
+            'state' => fake()->state,
+            'postal_code' => fake()->postcode,
+        ]);
+        
         $this->SuperiorHotel = Hotel::create([
+            'address_id'    => $superiorAddress->id,
             'hotel_name'    => 'Superior Hotels',
             'hotel_kra_pin' => 123456789,
             'location_id'   => $this->superior->id,
         ]);
-        // End Ridge Cabin
-
-        // ----------------     Limuru
-        // Ridge Cabin
+    
+        // Create address for Ridge Cabin Hotel and assign address_id
+        $ridgeCabinAddress = Address::create([
+            'street' => fake()->streetAddress,
+            'city' => fake()->city,
+            'state' => fake()->state,
+            'postal_code' => fake()->postcode,
+        ]);
+        
         $this->ridgeCabinHotel = Hotel::create([
+            'address_id'    => $ridgeCabinAddress->id,
             'hotel_name'    => 'Ridge Cabin',
             'hotel_kra_pin' => 123456789,
             'location_id'   => $this->limuru->id,
         ]);
-        // End Ridge Cabin
-
-        // ----------------     Nairobi
-        // West Wood
+    
+        // Create address for West Wood Hotel and assign address_id
+        $westwoodAddress = Address::create([
+            'street' => fake()->streetAddress,
+            'city' => fake()->city,
+            'state' => fake()->state,
+            'postal_code' => fake()->postcode,
+        ]);
+        
         $this->westwoodHotel = Hotel::create([
+            'address_id'    => $westwoodAddress->id,
             'hotel_name'    => 'West Wood Hotel',
             'hotel_kra_pin' => 123456789,
             'location_id'   => $this->nairobi->id,
         ]);
-        // End West Wood
-
-        // Hadassah Hotel
+    
+        // Create address for Hadassah Hotel and assign address_id
+        $hadassahAddress = Address::create([
+            'street' => fake()->streetAddress,
+            'city' => fake()->city,
+            'state' => fake()->state,
+            'postal_code' => fake()->postcode,
+        ]);
+        
         $this->hadassahHotel = Hotel::create([
+            'address_id'    => $hadassahAddress->id,
             'hotel_name'    => 'Hadassah Hotel',
             'hotel_kra_pin' => 123456789,
             'location_id'   => $this->nairobi->id,
         ]);
-        // End Hadassah Hotel
-
-        // ----------------     Naivasha
-        // Sweet Lake Resort
+    
+        // Create address for Sweet Lake Resort and assign address_id
+        $sweetLakeAddress = Address::create([
+            'street' => fake()->streetAddress,
+            'city' => fake()->city,
+            'state' => fake()->state,
+            'postal_code' => fake()->postcode,
+        ]);
+        
         $this->sweetLakeHotel = Hotel::create([
+            'address_id'    => $sweetLakeAddress->id,
             'hotel_name'    => 'Sweet Lake Resort',
             'hotel_kra_pin' => 123456789,
             'location_id'   => $this->naivasha->id,
         ]);
-        // End Sweet Lake Resort
-
-        // Lake Naivasha Resort
+    
+        // Create address for Lake Naivasha Resort and assign address_id
+        $lnrAddress = Address::create([
+            'street' => fake()->streetAddress,
+            'city' => fake()->city,
+            'state' => fake()->state,
+            'postal_code' => fake()->postcode,
+        ]);
+        
         $this->lnrHotel = Hotel::create([
+            'address_id'    => $lnrAddress->id,
             'hotel_name'    => 'Lake Naivasha Resort',
             'hotel_kra_pin' => 123456789,
             'location_id'   => $this->naivasha->id,
         ]);
-        // End Lake Naivasha Resort
     }
+    
 
     public function createUsers()
     {

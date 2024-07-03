@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hotels', function (Blueprint $table) {
+        Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('address_id')->constrained()->onDelete('cascade');
-            $table->integer('parent_id')->nullable();
-            $table->string('hotel_image_path')->nullable();
-            $table->string('hotel_name');
-            $table->string('hotel_kra_pin');
-            $table->foreignId('location_id')->constrained()->onDelete('cascade');
+            $table->string('supplier_name');
+            $table->string('slug')->unique()->index();
+            $table->string('phone_number')->nullable();
+            $table->string('email')->unique();
+            $table->boolean('is_active')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hotels');
+        Schema::dropIfExists('suppliers');
     }
 };

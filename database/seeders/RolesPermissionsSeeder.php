@@ -46,5 +46,6 @@ class RolesPermissionsSeeder extends Seeder
         // stations Permissions
         Permission::create(['name' => 'manage locations']);
         Permission::create(['name' => 'manage hotels']);
+        Permission::create(['name' => 'manage suppliers']);
     }
 }

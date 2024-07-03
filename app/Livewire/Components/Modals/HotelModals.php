@@ -22,6 +22,20 @@ class HotelModals extends Component
     public $parentHotel;
     public $oldImage;
 
+    // Address
+    #[Validate()]
+    public $street;
+
+    #[Validate()]
+    public $city;
+
+    #[Validate()]
+    public $state;
+
+    #[Validate()]
+    public $postal_code;
+
+    // Hotel
     #[Validate()]
     public $parent_id;
 
@@ -46,9 +60,15 @@ class HotelModals extends Component
         return view('livewire.components.modals.hotel-modals');
     }
 
-    protected $rules = [        
+    protected $rules = [
+        // Address
+        'street'        => 'required|string|max:255',
+        'city'          => 'required|string|max:255',
+        'state'         => 'required|string|max:255',
+        'postal_code'   => 'nullable|string|max:20',
+        // Hotels     
         'parent_id'        => 'nullable|exists:hotels,id',
-        'hotel_image_path'  => 'nullable|image|max:4096',
+        'hotel_image_path' => 'nullable|image|max:4096',
         'hotel_name'       => 'required|string|max:255',
         'hotel_kra_pin'    => 'required|string|max:255',
         'location_id'      => 'required|exists:locations,id',
@@ -70,6 +90,13 @@ class HotelModals extends Component
         $this->hotelLocation = $this->hotelToEdit->location->location_name;
         $this->parentHotel = $this->hotelToEdit->parent ? $this->hotelToEdit->parent->hotel_name : 'No Parent';
         $this->oldImage = $this->hotelToEdit->hotel_image_path;
+
+        $this->fill($this->hotelToEdit->address->only(
+            'street',
+            'city',
+            'state',
+            'postal_code',
+        ));
 
         $this->fill($this->hotelToEdit->only(
             'parent_id',
@@ -113,13 +140,16 @@ class HotelModals extends Component
 
             if ($this->hotel_image_path) {
                 $hotelImageName = uniqid() . '-' . date('Ymd') . '-' . auth()->user()->first_name . '-' . auth()->user()->last_name . '.' . $this->hotel_image_path->getClientOriginalExtension();
-                
+
                 $hotelImagePath = $this->hotel_image_path->storeAs('public/images/hotel-images', $hotelImageName);
                 $imageUpdated = true;
             }
 
+            // Update the address record
+            $addressUpdated = $this->hotelToEdit->address->update($validatedData);
+
             // Update the hotel record
-            $this->hotelToEdit->update([
+            $hotelUpdated = $this->hotelToEdit->update([
                 'parent_id'        => $validatedData['parent_id'],
                 'hotel_image_path' => $hotelImagePath,
                 'hotel_name'       => $validatedData['hotel_name'],
@@ -127,7 +157,10 @@ class HotelModals extends Component
                 'location_id'      => $validatedData['location_id'],
             ]);
 
-            $detailsUpdated = true;
+            if ($addressUpdated || $hotelUpdated) {
+                $detailsUpdated = true;
+            }
+
 
             if ($imageUpdated && $detailsUpdated) {
                 Alert::toast($this->hotelToEdit->hotel_name . ' details and image updated successfully', 'success');

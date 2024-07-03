@@ -3,10 +3,11 @@
 namespace App\Livewire\Stations\Hotel;
 
 use App\Models\Hotel;
+use App\Models\Address;
 use Livewire\Component;
 use App\Models\Location;
-use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
+use Livewire\Attributes\Validate;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CreateHotels extends Component
@@ -16,6 +17,20 @@ class CreateHotels extends Component
     public $locations;
     public $belongsToHotels;
 
+    // Address
+    #[Validate()]
+    public $street;
+
+    #[Validate()]
+    public $city;
+
+    #[Validate()]
+    public $state;
+
+    #[Validate()]
+    public $postal_code;
+
+    // Hotel
     #[Validate()]
     public $parent_id;
 
@@ -43,6 +58,12 @@ class CreateHotels extends Component
     }
 
     protected $rules = [
+        // Address
+        'street'            => 'required|string|max:255',
+        'city'              => 'required|string|max:255',
+        'state'             => 'required|string|max:255',
+        'postal_code'       => 'nullable|string|max:20',
+        // Hotels
         'parent_id'         => 'nullable|integer',
         'hotel_image_path'  => 'nullable|image|max:4096',
         'hotel_name'        => 'required|unique:hotels,hotel_name|min:3',
@@ -61,15 +82,23 @@ class CreateHotels extends Component
 
             if ($this->hotel_image_path) {
                 // Generate a safe filename for the hotel image
-                // $hotelImageName = uniqid() . '.' . $this->hotel_image_path->getClientOriginalExtension();
                 $hotelImageName = uniqid() . '-' . date('Y-m-d') . '-' . auth()->user()->first_name . '-' . auth()->user()->last_name . '.' . $this->hotel_image_path->getClientOriginalExtension();
 
                 // Store the image
                 $hotelImagePath = $this->hotel_image_path->storeAs('public/images/hotel-images', $hotelImageName);
             }
 
-            // Create the hotel
+            // Create the address
+            $address = Address::create([
+                'street'        => $validatedData['street'],
+                'city'          => $validatedData['city'],
+                'state'         => $validatedData['state'],
+                'postal_code'   => $validatedData['postal_code'],
+            ]);
+
+            // Create the hotel with the address ID
             Hotel::create([
+                'address_id'        => $address->id,
                 'parent_id'         => $validatedData['parent_id'],
                 'hotel_image_path'  => $hotelImagePath,
                 'hotel_name'        => $validatedData['hotel_name'],
