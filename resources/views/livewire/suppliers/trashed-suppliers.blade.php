@@ -6,58 +6,50 @@
         <!-- Header -->
         @php
             $dynamicSvg = <<<SVG
-                <svg class="flex-shrink-0 size-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="flex-shrink-0 size-4" fill="#F87171" viewBox="-6.7 0 122.88 122.88" version="1.1" id="Layer_1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        style="enable-background:new 0 0 109.48 122.88" xml:space="preserve">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                         <g id="SVGRepo_iconCarrier">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M11 2C9.34315 2 8 3.34315 8 5V6.00038C7.39483 6.00219 6.86113 6.01237 6.41261 6.06902C5.8235 6.14344 5.25718 6.31027 4.76902 6.73364C4.28087 7.15702 4.03562 7.69406 3.87865 8.26672C3.73286 8.79855 3.63761 9.46561 3.52795 10.2335L3.51947 10.2929L2.65222 16.3636C2.50907 17.3653 2.38687 18.2204 2.38563 18.9086C2.38431 19.6412 2.51592 20.3617 3.03969 20.9656C3.56347 21.5695 4.25813 21.8017 4.98354 21.904C5.66496 22.0001 6.52877 22.0001 7.54064 22H16.4594C17.4713 22.0001 18.3351 22.0001 19.0165 21.904C19.7419 21.8017 20.4366 21.5695 20.9604 20.9656C21.4842 20.3617 21.6158 19.6412 21.6144 18.9086C21.6132 18.2204 21.491 17.3653 21.3478 16.3635L20.4721 10.2335C20.3625 9.46561 20.2672 8.79855 20.1214 8.26672C19.9645 7.69406 19.7192 7.15702 19.2311 6.73364C18.7429 6.31027 18.1766 6.14344 17.5875 6.06902C17.1389 6.01237 16.6052 6.00219 16 6.00038V5C16 3.34315 14.6569 2 13 2H11ZM14 6V5C14 4.44772 13.5523 4 13 4H11C10.4477 4 10 4.44772 10 5V6L14 6ZM9 8C9.55228 8 10 8.44772 10 9V11C10 11.5523 9.55228 12 9 12C8.44772 12 8 11.5523 8 11V9C8 8.44772 8.44772 8 9 8ZM16 9C16 8.44772 15.5523 8 15 8C14.4477 8 14 8.44772 14 9V11C14 11.5523 14.4477 12 15 12C15.5523 12 16 11.5523 16 11V9Z"
-                                fill="#2563EB"></path>
+                            <style type="text/css">
+                                .st0 {
+                                    fill-rule: evenodd;
+                                    clip-rule: evenodd;
+                                }
+                            </style>
+                            <g>
+                                <path class="st0"
+                                    d="M2.35,9.63h38.3V3.76C40.64,1.69,42.33,0,44.4,0h21.14c2.07,0,3.76,1.69,3.76,3.76v5.87h37.83 c1.29,0,2.35,1.06,2.35,2.35V23.5H0V11.98C0,10.69,1.05,9.63,2.35,9.63L2.35,9.63z M8.69,29.61h92.92c1.94,0,3.7,1.6,3.52,3.52 l-7.86,86.23c-0.18,1.93-1.59,3.52-3.52,3.52l-77.3,0c-1.93,0-3.35-1.59-3.52-3.52L5.17,33.13C4.99,31.2,6.75,29.61,8.69,29.61 L8.69,29.61L8.69,29.61z M33.93,95.11l-6.16-10.59c-1.11-1.92-1.53-3.42-0.6-5.64l3.62-6.09l-3.63-1.95l12.17-0.05l6.07,10.61 l-3.75-2.15l-6.08,10.78c-0.58,1.02-1.06,1.8-1.35,2.96C34.05,93.7,33.96,94.41,33.93,95.11L33.93,95.11z M36.38,62.36l5.86-10.2 c1.65-2.05,3.7-2.79,5.65-2.24c1.68,0.48,2.15,1.23,3.04,2.6c1.07,1.63,2,3.37,2.98,5.08l-6.55,11.26L36.38,62.36L36.38,62.36z M49.71,48.43l12.26-0.04c2.22-0.01,3.73,0.39,5.18,2.3l3.46,6.18l3.51-2.17l-6.04,10.56l-12.23-0.05l3.74-2.17l-6.3-10.66 c-0.6-1.01-1.03-1.81-1.89-2.65C50.88,49.23,50.31,48.81,49.71,48.43L49.71,48.43z M76.4,67.42l5.9,10.17 c0.95,2.45,0.57,4.6-0.89,6.01c-1.25,1.22-2.14,1.24-3.77,1.34c-1.95,0.11-3.92,0.05-5.89,0.04l-6.47-11.3L76.4,67.42L76.4,67.42z M81.8,85.93l-6.09,10.64c-1.1,1.92-2.2,3.03-4.58,3.34l-7.08-0.09l0.12,4.12l-6.13-10.52l6.15-10.56l0.01,4.32l12.38-0.12 c1.17-0.01,2.09,0.01,3.24-0.31C80.52,86.54,81.17,86.26,81.8,85.93L81.8,85.93z M52.67,99.7l-11.76,0.02 c-2.6-0.4-4.27-1.81-4.77-3.77c-0.43-1.69-0.01-2.48,0.73-3.94c0.88-1.74,1.92-3.42,2.91-5.12l13.02,0.05L52.67,99.7L52.67,99.7z">
+                                </path>
+                            </g>
                         </g>
                     </svg>
             SVG;
         @endphp
 
-        @livewire('components.admin-header', ['svgIcon' => $dynamicSvg, 'pageTitle' => 'Suppliers'])
+        @livewire('components.admin-header', ['svgIcon' => $dynamicSvg, 'pageTitle' => 'Trashed Suppliers'])
 
         <!-- End: Header -->
-        
+
 
         <div class="flex justify-end items-center mt-4">
-            @can('manage suppliers')
-                <a href="{{ route('suppliers.trashed') }}">
-                    <button
-                        class="inline-flex items-center gap-x-2 bg-red-400 text-white font-bold py-2 px-4 mx-3 rounded-lg hover:bg-red-300 transition duration-300">
-                        <svg class="flex-shrink-0 size-4" fill="#ffffff" viewBox="0 0 32 32" version="1.1"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                                <title>recycle</title>
-                                <path
-                                    d="M15.966 1.232c-0.97 0.021-1.901 0.261-2.807 0.655l1.404 2.62c0.463-0.165 0.937-0.277 1.404-0.281 1.599 0 3.292 0.853 4.585 3.088l5.333 9.264 1.778-2.901-4.491-7.86c-1.714-2.964-4.434-4.608-7.205-4.585 0 0 0 0 0 0zM7.171 8.811l-4.117 7.205c-1.569 2.715-1.68 5.792-0.374 8.234 0.541 1.012 1.362 1.842 2.339 2.526l1.497-2.526c-0.502-0.397-0.929-0.867-1.216-1.403-0.781-1.46-0.831-3.41 0.281-5.334l5.053-8.702h-3.462zM27.194 21.536c-0.098 0.48-0.239 0.896-0.468 1.311-0.801 1.448-2.372 2.526-4.866 2.526h-10.199l1.778 2.994h8.421c3.402 0 6.146-1.601 7.486-4.023 0.472-0.855 0.732-1.824 0.842-2.807l-2.994 0zM11.272 12.6l-6.728-3.879 6.728-3.879-0 7.759zM22.219 15.005l6.728 3.879 0-7.759-6.729 3.879zM8.193 26.81l6.728-3.879 0 7.759-6.729-3.879z">
-                                </path>
-                            </g>
-                        </svg>
-                        Trashed Suppliers
-                    </button>
-                </a>
+            <a href="{{ route('suppliers.show') }}">
+                <button
+                    class="inline-flex items-center gap-x-2 bg-blue-600 text-white font-bold py-2 px-4 mx-3 rounded-lg hover:bg-blue-500 transition duration-300">
 
-                <div class="text-center">
-                    <button type="button"
-                        class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                        data-hs-overlay="#hs-modal-add-supplier">
-                        <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <path d="M5 12h14" />
-                            <path d="M12 5v14" />
-                        </svg>
-                        Add Supplier
-                    </button>
-                </div>
-            @endcan
-
+                    <svg class="flex-shrink-0 size-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        stroke="">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path d="M4 12L10 6M4 12L10 18M4 12H14.5M20 12H17.5" stroke="#ffffff" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round"></path>
+                        </g>
+                    </svg>
+                    Back
+                </button>
+            </a>
         </div>
 
 
@@ -73,7 +65,7 @@
                                 class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200]">
                                 <div>
                                     <p class="text-sm text-blue-500">
-                                        Add suppliers, edit and more.
+                                        Resore deleted suppliers.
                                     </p>
                                 </div>
                             </div>
@@ -115,24 +107,22 @@
                                             </div>
                                         </th>
 
-                                        @can('manage suppliers')
-                                            <th scope="col" class="px-6 py-3 text-start">
-                                                <div class="flex items-center gap-x-2">
-                                                    <span class="text-sm font-semibold uppercase tracking-wide text-blue-600">
-                                                        Action
-                                                    </span>
-                                                </div>
-                                            </th>
-                                        @endcan
+                                        <th scope="col" class="px-6 py-3 text-start">
+                                            <div class="flex items-center gap-x-2">
+                                                <span class="text-sm font-semibold uppercase tracking-wide text-blue-600">
+                                                    Action
+                                                </span>
+                                            </div>
+                                        </th>
 
                                     </tr>
                                 </thead>
 
                                 <tbody class="divide-y divide-gray-200">
                                     @php
-                                        $i = ($suppliers->currentPage() - 1) * $suppliers->perPage();
+                                        $i = ($trashedSuppliers->currentPage() - 1) * $trashedSuppliers->perPage();
                                     @endphp
-                                    @forelse ($suppliers as $supplier)
+                                    @forelse ($trashedSuppliers as $trashedSupplier)
                                         <tr>
                                             <td class="size-px whitespace-nowrap">
                                                 <div class="ps-6 py-3 text-blue-600">
@@ -147,7 +137,7 @@
                                                     <div class="flex items-center gap-x-3">
                                                         <div class="grow">
                                                             <span
-                                                                class="block text-sm font-semibold text-gray-800">{{ $supplier->supplier_name }}
+                                                                class="block text-sm font-semibold text-gray-800">{{ $trashedSupplier->supplier_name }}
                                                             </span>
                                                         </div>
                                                     </div>
@@ -157,13 +147,14 @@
                                             <td class="h-px w-72 whitespace-nowrap">
                                                 <div class="px-6 py-3">
                                                     <span
-                                                        class="block text-sm font-semibold text-gray-800">{{ $supplier->phone_number }}</span>
-                                                    <span class="block text-sm text-gray-500">{{ $supplier->email }}</span>
+                                                        class="block text-sm font-semibold text-gray-800">{{ $trashedSupplier->phone_number }}</span>
+                                                    <span
+                                                        class="block text-sm text-gray-500">{{ $trashedSupplier->email }}</span>
                                                 </div>
                                             </td>
 
                                             <td class="size-px whitespace-nowrap">
-                                                @if ($supplier->hotels->isNotEmpty())
+                                                @if ($trashedSupplier->hotels->isNotEmpty())
                                                     <div class="px-6 py-3">
                                                         <div class="hs-dropdown hs-dropdown-example relative inline-flex">
                                                             <button id="hs-dropdown-example" type="button"
@@ -181,7 +172,7 @@
                                                             <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 w-56 hidden z-10 mt-2 min-w-60 bg-white shadow-md rounded-lg p-2"
                                                                 aria-labelledby="hs-dropdown-example">
 
-                                                                @foreach ($supplier->hotels as $hotel)
+                                                                @foreach ($trashedSupplier->hotels as $hotel)
                                                                     <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
                                                                         href="#">
                                                                         {{ $hotel->hotel_name }}
@@ -201,22 +192,21 @@
                                             <td class="size-px whitespace-nowrap">
                                                 @can('manage suppliers')
                                                     <div class="px-6 py-1.5">
-                                                        <a class="inline-flex items-center gap-x-1 px-1.5 text-sm text-orange-400 decoration-2 hover:underline font-medium"
-                                                            href="#">
-                                                            View
-                                                        </a>
-
-                                                        <a class="inline-flex items-center gap-x-1 px-1.5 text-sm text-blue-600 decoration-2 hover:underline font-medium"
-                                                            href="#">
-                                                            Edit
-                                                        </a>
-
                                                         <button
-                                                            wire:click="$dispatch('pass-slug', { slug: '{{ $supplier->slug }}' })"
-                                                            class="inline-flex items-center gap-x-1 px-2 text-sm text-red-400 decoration-2 hover:underline font-medium"
-                                                            data-hs-overlay="#hs-modal-delete-supplier">
-                                                            Delete
+                                                            wire:click="$dispatch('pass-slug', { slug: '{{ $trashedSupplier->slug }}' })"
+                                                            class="inline-flex items-center gap-x-1 px-3 py-2 text-sm text-blue-500 decoration-2 hover:underline font-medium"
+                                                            data-hs-overlay="#hs-modal-restore-supplier">
+                                                            Restore
                                                         </button>
+
+                                                        {{-- @role('admin')
+                                                            <button
+                                                                wire:click="$dispatch('pass-slug', { slug: '{{ $trashedSupplier->slug }}' })"
+                                                                class="inline-flex items-center gap-x-1 px-2 text-sm text-red-400 decoration-2 hover:underline font-medium"
+                                                                data-hs-overlay="#hs-modal-permanently-delete-supplier">
+                                                                Permanent Delete
+                                                            </button>
+                                                        @endrole --}}
                                                     </div>
                                                 @endcan
                                             </td>
@@ -228,7 +218,7 @@
                                                     <div class="flex justify-center items-center gap-x-3">
                                                         <div class="grow">
                                                             <span class="block text-sm font-semibold text-gray-800">No
-                                                                suppliers registered in the system</span>
+                                                                suppliers deleted in the system</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -245,11 +235,12 @@
                                 class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t divide-gray-200">
                                 <div>
                                     <p class="text-sm text-gray-600">
-                                        <span class="font-semibold text-gray-800">{{ count($suppliers) }}</span> suppliers
+                                        <span class="font-semibold text-gray-800">{{ count($trashedSuppliers) }}</span>
+                                        suppliers
                                     </p>
                                 </div>
 
-                                {{ $suppliers->links('vendor.pagination.custom') }}
+                                {{ $trashedSuppliers->links('vendor.pagination.custom') }}
 
                             </div>
                             <!-- End Footer -->

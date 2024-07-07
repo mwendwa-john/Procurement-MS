@@ -5,13 +5,9 @@
 
     <div>
         <!-- Header -->
-        <div
-            style="margin-left: -1rem; margin-right: -1rem; margin-top: -2rem; sm:margin-left: -1.5rem; sm:margin-right: -1.5rem; sm:margin-top: -2rem; md:margin-left: -2rem; md:margin-right: -2rem; md:margin-top: -2rem; lg:margin-left: -18rem; lg:margin-right: -18rem; lg:margin-top: -2rem;">
-            <header class="w-full bg-white shadow-md p-3 px-4 flex items-center justify-between rounded-2xl">
-                <div class="inline-flex items-center gap-x-2">
-                    <!-- Page Title -->
-                    <div class="px-2">
-                        <svg class="flex-shrink-0 size-6" fill="#2563EB" height="200px" width="200px" version="1.1"
+        @php
+            $dynamicSvg = <<<SVG
+                <svg class="flex-shrink-0 size-6" fill="#2563EB" height="200px" width="200px" version="1.1"
                             id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                             viewBox="0 0 512 512" xml:space="preserve">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -33,11 +29,13 @@
                                 </g>
                             </g>
                         </svg>
-                    </div>
-                    <h1 class="text-xl font-bold text-gray-900 mt-1">Permissions for {{ $roleName }} role.</h1>
-                </div>
-            </header>
-        </div>
+            SVG;
+        @endphp
+
+        @livewire('components.admin-header', ['svgIcon' => $dynamicSvg, 'pageTitle' => 'Assign Permissions'])
+
+        <!-- End: Header -->
+
 
         <div class="flex justify-end items-center mt-4">
             <a href="{{ route('roles.index') }}">
@@ -71,7 +69,7 @@
                                 class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200">
                                 <div>
                                     <p class="text-sm text-blue-500">
-                                        Assign permissions to roles
+                                        Assign permissions to {{ $roleName }} role.
                                     </p>
                                 </div>
                             </div>

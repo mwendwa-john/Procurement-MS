@@ -16,7 +16,6 @@ class Supplier extends Model
         'slug',
         'phone_number',
         'email',
-        'is_active',
     ];
 
     public function address()

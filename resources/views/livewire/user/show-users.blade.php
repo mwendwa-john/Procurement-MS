@@ -3,12 +3,9 @@
 @section('admin-content')
     <div>
         <!-- Header -->
-        <div
-            style="margin-left: -1rem; margin-right: -1rem; margin-top: -2rem; sm:margin-left: -1.5rem; sm:margin-right: -1.5rem; sm:margin-top: -2rem; md:margin-left: -2rem; md:margin-right: -2rem; md:margin-top: -2rem; lg:margin-left: -18rem; lg:margin-right: -18rem; lg:margin-top: -2rem;">
-            <header class="w-full bg-white shadow-md p-3 px-4 flex items-center justify-between rounded-2xl">
-                <div class="inline-flex items-center gap-x-2">
-                    <!-- Page Title -->
-                    <svg class="flex-shrink-0 size-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        @php
+            $dynamicSvg = <<<SVG
+                <svg class="flex-shrink-0 size-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                         <g id="SVGRepo_iconCarrier">
@@ -32,10 +29,12 @@
                                 stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                         </g>
                     </svg>
-                    <h1 class="text-xl font-bold text-gray-900 mt-1">Users</h1>
-                </div>
-            </header>
-        </div>
+            SVG;
+        @endphp
+
+        @livewire('components.admin-header', ['svgIcon' => $dynamicSvg, 'pageTitle' => 'Users'])
+
+        <!-- End: Header -->
 
         <div class="flex justify-end items-center mt-4">
             @can('manage locations')

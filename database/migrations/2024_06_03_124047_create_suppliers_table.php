@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('slug')->unique()->index();
             $table->string('phone_number')->nullable();
             $table->string('email')->unique();
-            $table->boolean('is_active')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });

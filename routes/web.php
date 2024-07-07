@@ -12,18 +12,19 @@ use App\Livewire\Auth\Passwords\Reset;
 use App\Livewire\User\EditUserProfile;
 use App\Livewire\Auth\Passwords\Confirm;
 use App\Livewire\Layouts\AdminDashboard;
-use App\Livewire\RolesPermissions\RolesIndex;
-use App\Http\Controllers\Auth\LogoutController;
-use App\Livewire\RolesPermissions\AssignPermissions;
-use App\Http\Controllers\Auth\EmailVerificationController;
-use App\Livewire\RolesPermissions\TrashedRoles;
-use App\Livewire\Stations\Hotel\ShowHotels;
-use App\Livewire\Stations\Hotel\TrashedHotels;
-use App\Livewire\Stations\Location\LocationHotel;
-use App\Livewire\Stations\Location\LocationHotels;
-use App\Livewire\Stations\Location\ShowLocations;
-use App\Livewire\Stations\Location\TrashedLocations;
 use App\Livewire\Suppliers\ShowSuppliers;
+use App\Livewire\Stations\Hotel\ShowHotels;
+use App\Livewire\Suppliers\TrashedSuppliers;
+use App\Livewire\RolesPermissions\RolesIndex;
+use App\Livewire\Stations\Hotel\TrashedHotels;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Livewire\RolesPermissions\TrashedRoles;
+use App\Livewire\Stations\Location\LocationHotel;
+use App\Livewire\Stations\Location\ShowLocations;
+use App\Livewire\Stations\Location\LocationHotels;
+use App\Livewire\RolesPermissions\AssignPermissions;
+use App\Livewire\Stations\Location\TrashedLocations;
+use App\Http\Controllers\Auth\EmailVerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,6 +95,7 @@ Route::middleware(['auth', 'isActive', 'role:admin|director'])->group(function (
 
     // supplier routes
     Route::get('suppliers/show', ShowSuppliers::class)->name('suppliers.show');
+    Route::get('suppliers/trashed', TrashedSuppliers::class)->name('suppliers.trashed');
 
     // roles and permissions
     Route::get('roles', RolesIndex::class)->name('roles.index');

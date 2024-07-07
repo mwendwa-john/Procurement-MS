@@ -16,4 +16,5 @@ class ShowSuppliers extends Component
 
         return view('livewire.suppliers.show-suppliers', compact('suppliers'));
     }
+
 }

@@ -107,7 +107,6 @@ class HotelModals extends Component
         $this->location_id = $this->hotelToEdit->location_id;
     }
 
-
     #[On('delete-hotel')]
     public function bindHotel($id)
     {

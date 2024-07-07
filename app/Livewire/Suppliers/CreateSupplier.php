@@ -13,8 +13,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 class CreateSupplier extends Component
 {
     public $hotels;
-    public $selectHotels = [];
-    public $selectedHotelIds = [];
+    public $selectedHotels = [];
 
     // Address
     #[Validate()]
@@ -73,16 +72,9 @@ class CreateSupplier extends Component
         $this->slug = Str::slug($this->supplier_name);
     }
 
-    public function updatedSelectedHotelIds($hotelId)
-    {
-        dd('Hello World');
-        // Ensure the selectedHotelIds array only contains unique values
-        $this->selectedHotelIds = array_unique($hotelId);
-    }
-
     public function createSupplier()
     {
-        dd($this->selectedHotelIds);
+        // dd($this->selectedHotels);
         try {
             // Validate input
             $validatedData = $this->validate();
@@ -100,8 +92,8 @@ class CreateSupplier extends Component
             ]);
 
             // Attach hotels if provided
-            if ($this->selectedHotelIds) {
-                $supplier->hotels()->attach($this->selectedHotelIds);
+            if ($this->selectedHotels) {
+                $supplier->hotels()->attach($this->selectedHotels);
             }
 
             Alert::toast('Supplier created successfully', 'success');
