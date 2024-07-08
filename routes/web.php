@@ -25,6 +25,7 @@ use App\Livewire\Stations\Location\LocationHotels;
 use App\Livewire\RolesPermissions\AssignPermissions;
 use App\Livewire\Stations\Location\TrashedLocations;
 use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Livewire\Suppliers\ViewSupplier;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +96,7 @@ Route::middleware(['auth', 'isActive', 'role:admin|director'])->group(function (
 
     // supplier routes
     Route::get('suppliers/show', ShowSuppliers::class)->name('suppliers.show');
+    Route::get('supplier/{slug}/view', ViewSupplier::class)->name('suppliers.view');
     Route::get('suppliers/trashed', TrashedSuppliers::class)->name('suppliers.trashed');
 
     // roles and permissions
