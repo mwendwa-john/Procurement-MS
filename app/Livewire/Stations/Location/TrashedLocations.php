@@ -16,12 +16,5 @@ class TrashedLocations extends Component
 
         return view('livewire.stations.location.trashed-locations', compact('trashedLocations'));
     }
-    
-    public function bindLocationId($id)
-    {
-        $this->dispatch('restore-location', $id);
-        
-        $this->dispatch('permanent-delete-location', $id);
-    }
 
 }

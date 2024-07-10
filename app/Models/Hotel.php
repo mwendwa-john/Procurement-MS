@@ -19,12 +19,12 @@ class Hotel extends Model
         'location_id',
     ];
 
-    public function parent()
+    public function parentHotel()
     {
         return $this->belongsTo(Hotel::class, 'parent_id');
     }
 
-    public function children()
+    public function childHotels()
     {
         return $this->hasMany(Hotel::class, 'parent_id');
     }

@@ -15,9 +15,7 @@ class RolesPermissionsModals extends Component
     #[Validate()]
     public $name;
 
-    public $deleteId;
-    public $restoreId;
-    public $permanentDeleteId;
+    public $roleId;
 
     public function render()
     {
@@ -43,29 +41,17 @@ class RolesPermissionsModals extends Component
         return redirect()->route('roles.index');
     }
 
-    #[On('delete-role')]
+    #[On('pass-role-id')]
     public function findRole($id)
     {
-        $this->deleteId = $id;
-    }
-
-    #[On('restore-role')]
-    public function findRoleRestore($id)
-    {
-        $this->restoreId = $id;
-    }
-
-    #[On('permanent-delete-role')]
-    public function findRoleDelete($id)
-    {
-        $this->permanentDeleteId = $id;
+        $this->roleId = $id;
     }
 
     public function deleteRole()
     {
         try {
             // Find the role
-            $roleToDelete = Role::findOrFail($this->deleteId);
+            $roleToDelete = Role::findOrFail($this->roleId);
 
             // Check if any users are assigned to this role
             if ($roleToDelete->users->isNotEmpty()) {
@@ -88,7 +74,7 @@ class RolesPermissionsModals extends Component
     {
         try {
             // Find the role
-            $roleToRestore = Role::onlyTrashed()->findOrFail($this->restoreId);
+            $roleToRestore = Role::onlyTrashed()->findOrFail($this->roleId);
 
             // Restore the role
             $roleToRestore->restore();
@@ -105,7 +91,7 @@ class RolesPermissionsModals extends Component
     {
         try {
             // Find the role
-            $roleToDelete = Role::onlyTrashed()->findOrFail($this->permanentDeleteId);
+            $roleToDelete = Role::onlyTrashed()->findOrFail($this->roleId);
 
             // Permanently Delete the role
             $roleToDelete->forceDelete();

@@ -212,7 +212,7 @@
                                             </button>
 
                                             <button
-                                                wire:click="$dispatch('pass-slug', { slug: '{{ $supplier->slug }}' })"
+                                                wire:click="$dispatch('pass-supplier-slug', { slug: '{{ $supplier->slug }}' })"
                                                 class="inline-flex items-center gap-x-1 px-2 text-sm text-red-400 decoration-2 hover:underline font-medium"
                                                 data-hs-overlay="#hs-modal-delete-supplier">
                                                 Delete

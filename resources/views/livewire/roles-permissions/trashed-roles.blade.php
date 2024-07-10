@@ -89,6 +89,7 @@
                                         </div>
                                     </th>
 
+                                    @can('manage roles')
                                     <th scope="col" class="px-6 py-3 text-start">
                                         <div class="flex items-center gap-x-2">
                                             <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">
@@ -96,6 +97,7 @@
                                             </span>
                                         </div>
                                     </th>
+                                    @endcan
 
                                 </tr>
                             </thead>
@@ -124,19 +126,17 @@
 
                                     <td class="size-px whitespace-nowrap">
                                         <div class="px-6 py-1.5">
-                                            @can('assign permissions')
-                                            <button wire:click="bindRoleId({{ $trashedRole->id }})"
+                                            @can('manage roles')
+                                            <button wire:click="$dispatch('pass-role-id', { id: '{{ $trashedRole->id }}' })"
                                                 class="inline-flex items-center gap-x-1 px-2 text-sm text-blue-600 decoration-2 hover:underline font-medium"
                                                 data-hs-overlay="#hs-restore-role">
                                                 Restore
                                             </button>
-                                            @endcan
 
-                                            @can('delete role')
-                                            <button wire:click="bindRoleId({{ $trashedRole->id }})"
+                                            <button wire:click="$dispatch('pass-role-id', { id: '{{ $trashedRole->id }}' })"
                                                 class="inline-flex items-center gap-x-1 px-2 text-sm text-red-500 decoration-2 hover:underline font-medium"
                                                 data-hs-overlay="#hs-permanently-delete-role">
-                                                Delete role
+                                                Permanent Delete
                                             </button>
                                             @endcan
                                         </div>

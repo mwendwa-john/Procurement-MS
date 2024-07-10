@@ -74,14 +74,14 @@
                 @can('manage hotels')
                 <dl class="flex justify-center items-center divide-x divide-gray-200">
                     <dt class="pe-3">
-                        <button wire:click="bindHotelId({{ $hotel->id }})"
+                        <button wire:click="$dispatch('pass-hotel-id', { id: '{{ $hotel->id }}' })"
                             class="inline-flex items-center gap-x-1 px-3 py-2 text-sm text-blue-500 decoration-2 hover:underline font-medium"
                             data-hs-overlay="#hs-modal-restore-hotel">
                             Restore
                         </button>
                     </dt>
                     <dd class="pl-3">
-                        <button wire:click="bindHotelId({{ $hotel->id }})"
+                        <button wire:click="$dispatch('pass-hotel-id', { id: '{{ $hotel->id }}' })"
                             class="inline-flex items-center gap-x-1 px-3 py-2 text-sm text-red-400 decoration-2 hover:underline font-medium"
                             data-hs-overlay="#hs-modal-permanently-delete-hotel">
                             Permanently Delete

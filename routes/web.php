@@ -19,13 +19,13 @@ use App\Livewire\RolesPermissions\RolesIndex;
 use App\Livewire\Stations\Hotel\TrashedHotels;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Livewire\RolesPermissions\TrashedRoles;
-use App\Livewire\Stations\Location\LocationHotel;
 use App\Livewire\Stations\Location\ShowLocations;
 use App\Livewire\Stations\Location\LocationHotels;
 use App\Livewire\RolesPermissions\AssignPermissions;
 use App\Livewire\Stations\Location\TrashedLocations;
 use App\Http\Controllers\Auth\EmailVerificationController;
-use App\Livewire\Suppliers\ViewSupplier;
+use App\Livewire\Stations\Hotel\HotelProfile;
+use App\Livewire\Suppliers\SupplierProfile;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +39,6 @@ use App\Livewire\Suppliers\ViewSupplier;
 */
 // Route::view('/', 'welcome')->name('home');
 Route::get('/', Home::class)->name('home');
-Route::view('/dump', 'dump')->name('dump');
 
 
 Route::middleware('guest')->group(function () {
@@ -92,11 +91,12 @@ Route::middleware(['auth', 'isActive', 'role:admin|director'])->group(function (
     Route::get('locations/trashed', TrashedLocations::class)->name('locations.trashed');
 
     Route::get('hotels/show', ShowHotels::class)->name('hotels.show');
+    Route::get('hotel/{id}/profile', HotelProfile::class)->name('hotel.profile');
     Route::get('hotels/trashed', TrashedHotels::class)->name('hotels.trashed');
 
     // supplier routes
     Route::get('suppliers/show', ShowSuppliers::class)->name('suppliers.show');
-    Route::get('supplier/{slug}/view', ViewSupplier::class)->name('suppliers.view');
+    Route::get('supplier/{slug}/view', SupplierProfile::class)->name('suppliers.view');
     Route::get('suppliers/trashed', TrashedSuppliers::class)->name('suppliers.trashed');
 
     // roles and permissions

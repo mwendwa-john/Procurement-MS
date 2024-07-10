@@ -47,6 +47,7 @@
 
                             <div>
                                 <div class="inline-flex gap-x-2">
+                                    @can('manage roles')
                                     <a href="{{ route('roles.trashed') }}">
                                         <button
                                             class="inline-flex items-center gap-x-2 bg-red-400 text-white font-bold py-2 px-4 mx-3 rounded-lg hover:bg-red-300 transition duration-300">
@@ -66,8 +67,6 @@
                                         </button>
                                     </a>
 
-
-                                    @can('create role')
                                     <div class="text-center">
                                         <button type="button"
                                             class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-500 disabled:opacity-50 disabled:pointer-events-none"
@@ -151,8 +150,8 @@
                                             </a>
                                             @endcan
 
-                                            @can('delete role')
-                                            <button wire:click="bindRoleId({{ $role->id }})"
+                                            @can('manage roles')
+                                            <button wire:click="$dispatch('pass-role-id', { id: '{{ $role->id }}' })"
                                                 class="inline-flex items-center gap-x-1 px-2 text-sm text-red-500 decoration-2 hover:underline font-medium"
                                                 data-hs-overlay="#hs-delete-role">
                                                 Delete role

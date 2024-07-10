@@ -16,10 +16,4 @@ class ShowLocations extends Component
         return view('livewire.stations.location.show-locations', compact('locations'));
     }
     
-    public function bindLocationId($id)
-    {
-        $this->dispatch('edit-location', $id);
-
-        $this->dispatch('delete-location', $id);
-    }
 }

@@ -69,11 +69,6 @@ class LocationHotelUserSeeder extends Seeder
         ]);
         // End Location
     }
-    public function createAddresses()
-    {
-        // You can call this method within the createHotels method
-        // to create an address for each hotel and get its ID
-    }
     
     public function createHotels()
     {
@@ -101,6 +96,7 @@ class LocationHotelUserSeeder extends Seeder
         ]);
         
         $this->ridgeCabinHotel = Hotel::create([
+            'parent_id'     => $this->SuperiorHotel->id,
             'address_id'    => $ridgeCabinAddress->id,
             'hotel_name'    => 'Ridge Cabin',
             'hotel_kra_pin' => 123456789,
@@ -116,6 +112,7 @@ class LocationHotelUserSeeder extends Seeder
         ]);
         
         $this->westwoodHotel = Hotel::create([
+            'parent_id'     => $this->SuperiorHotel->id,
             'address_id'    => $westwoodAddress->id,
             'hotel_name'    => 'West Wood Hotel',
             'hotel_kra_pin' => 123456789,
@@ -131,6 +128,7 @@ class LocationHotelUserSeeder extends Seeder
         ]);
         
         $this->hadassahHotel = Hotel::create([
+            'parent_id'     => $this->SuperiorHotel->id,
             'address_id'    => $hadassahAddress->id,
             'hotel_name'    => 'Hadassah Hotel',
             'hotel_kra_pin' => 123456789,
@@ -146,6 +144,7 @@ class LocationHotelUserSeeder extends Seeder
         ]);
         
         $this->sweetLakeHotel = Hotel::create([
+            'parent_id'     => $this->SuperiorHotel->id,
             'address_id'    => $sweetLakeAddress->id,
             'hotel_name'    => 'Sweet Lake Resort',
             'hotel_kra_pin' => 123456789,
@@ -161,6 +160,7 @@ class LocationHotelUserSeeder extends Seeder
         ]);
         
         $this->lnrHotel = Hotel::create([
+            'parent_id'     => $this->SuperiorHotel->id,
             'address_id'    => $lnrAddress->id,
             'hotel_name'    => 'Lake Naivasha Resort',
             'hotel_kra_pin' => 123456789,

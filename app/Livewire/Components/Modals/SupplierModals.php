@@ -92,7 +92,7 @@ class SupplierModals extends Component
         $this->slug = Str::slug($this->supplier_name);
     }
 
-    #[On('pass-slug')]
+    #[On('pass-supplier-slug')]
     public function setDeleteSupplier($slug)
     {
         $this->supplierSlug = $slug;

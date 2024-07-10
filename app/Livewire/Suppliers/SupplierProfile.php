@@ -8,7 +8,7 @@ use App\Models\Supplier;
 use Livewire\WithPagination;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class ViewSupplier extends Component
+class SupplierProfile extends Component
 {
     use WithPagination;
 
@@ -25,12 +25,12 @@ class ViewSupplier extends Component
         })->get();
         
     }
-
+    
     public function render()
     {
         $supplierHotels = $this->supplier ? $this->supplier->hotels()->paginate(15) : collect();
 
-        return view('livewire.suppliers.view-supplier', compact('supplierHotels'));
+        return view('livewire.suppliers.supplier-profile', compact('supplierHotels'));
     }
 
     public function attachHotels($slug, $hotelId)
@@ -50,5 +50,4 @@ class ViewSupplier extends Component
 
         return redirect()->route('suppliers.view', ['slug' => $slug]);
     }
-
 }

@@ -16,10 +16,4 @@ class TrashedRoles extends Component
         return view('livewire.roles-permissions.trashed-roles', compact('trashedRoles'));
     }
     
-    public function bindRoleId($id)
-    {
-        $this->dispatch('restore-role', $id);
-        
-        $this->dispatch('permanent-delete-role', $id);
-    }
 }

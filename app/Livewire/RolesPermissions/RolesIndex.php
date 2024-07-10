@@ -18,8 +18,4 @@ class RolesIndex extends Component
         return view('livewire.roles-permissions.roles-index', compact('roles'));
     }
 
-    public function bindRoleId($id)
-    {
-        $this->dispatch('delete-role', $id);
-    }
 }

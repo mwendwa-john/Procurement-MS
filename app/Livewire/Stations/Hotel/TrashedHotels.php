@@ -14,10 +14,4 @@ class TrashedHotels extends Component
         return view('livewire.stations.hotel.trashed-hotels', compact('trashedHotels'));
     }
     
-    public function bindHotelId($id)
-    {
-        $this->dispatch('restore-hotel', $id);
-        
-        $this->dispatch('permanent-delete-hotel', $id);
-    }
 }

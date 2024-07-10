@@ -6,8 +6,9 @@ use App\Models\Hotel;
 use Livewire\Component;
 use App\Models\Location;
 use Livewire\Attributes\On;
-use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
+use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class HotelModals extends Component
@@ -51,9 +52,9 @@ class HotelModals extends Component
     #[Validate()]
     public $location_id;
 
-    public $deleteId;
-    public $restoreId;
-    public $permanentDeleteId;
+    public $hotelId;
+    public $childId;
+    public $parentId;
 
     public function render()
     {
@@ -107,22 +108,10 @@ class HotelModals extends Component
         $this->location_id = $this->hotelToEdit->location_id;
     }
 
-    #[On('delete-hotel')]
+    #[On('pass-hotel-id')]
     public function bindHotel($id)
     {
-        $this->deleteId = $id;
-    }
-
-    #[On('restore-hotel')]
-    public function bindHotelRestore($id)
-    {
-        $this->restoreId = $id;
-    }
-
-    #[On('permanent-delete-hotel')]
-    public function bindHotelDelete($id)
-    {
-        $this->permanentDeleteId = $id;
+        $this->hotelId = $id;
     }
 
     public function editHotel()
@@ -183,7 +172,7 @@ class HotelModals extends Component
     {
         try {
             // Find the hotel
-            $hotelToDelete = Hotel::findOrFail($this->deleteId);
+            $hotelToDelete = Hotel::findOrFail($this->hotelId);
 
             // Check if any users are assigned to this hotel
             if ($hotelToDelete->users->isNotEmpty()) {
@@ -206,7 +195,7 @@ class HotelModals extends Component
     {
         try {
             // Find the hotel
-            $hotelToRestore = Hotel::onlyTrashed()->findOrFail($this->restoreId);
+            $hotelToRestore = Hotel::onlyTrashed()->findOrFail($this->hotelId);
 
             // Restore the hotel
             $hotelToRestore->restore();
@@ -223,7 +212,7 @@ class HotelModals extends Component
     {
         try {
             // Find the hotel
-            $hotelToDelete = Hotel::onlyTrashed()->findOrFail($this->permanentDeleteId);
+            $hotelToDelete = Hotel::onlyTrashed()->findOrFail($this->hotelId);
 
             // Permanently Delete the hotel
             $hotelToDelete->forceDelete();
@@ -233,6 +222,38 @@ class HotelModals extends Component
         } catch (\Exception $e) {
             Alert::toast('Failed to delete hotel: ' . $e->getMessage(), 'error');
             return redirect()->route('hotels.trashed');
+        }
+    }
+
+    #[On('pass-child-parent-hotel-id')]
+    public function bindChildParentId($childId, $parentId)
+    {
+        $this->childId = $childId;
+        $this->parentId = $parentId;
+    }
+
+    public function removeChildHotel()
+    {
+        DB::beginTransaction();
+
+        try {
+            // Fetch the child hotel and remove its parent_id
+            $childHotel = Hotel::findOrFail($this->childId);
+            $childHotel->parent_id = null;
+            $childHotel->save();
+
+            DB::commit();
+
+            // Provide user feedback
+            Alert::toast('Removed hotel successfully', 'success');
+            return redirect()->route('hotel.profile', ['id' => $this->parentId]);
+            
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            // Handle the exception, e.g., log the error or show a user-friendly message
+            Alert::toast('Failed to remove the hotel. Please try again.', 'error');
+            return redirect()->route('hotel.profile', ['id' => $this->parentId]);
         }
     }
 }

@@ -90,13 +90,13 @@
                 </div>
 
                 <div class="mt-auto flex justify-between gap-x-2 py-3 px-4 pb-5">
-                    <button wire:click="$dispatch('pass-slug', { slug: '{{ $supplier->slug }}' })"
+                    <button wire:click="$dispatch('edit-supplier', { slug: '{{ $supplier->slug }}' })"
                         class="inline-flex items-center gap-x-1 px-1.5 text-sm text-blue-600 decoration-2 hover:underline font-medium"
                         data-hs-overlay="#hs-modal-edit-supplier">
                         Edit
                     </button>
 
-                    <button wire:click="$dispatch('pass-slug', { slug: '{{ $supplier->slug }}' })"
+                    <button wire:click="$dispatch('pass-supplier-slug', { slug: '{{ $supplier->slug }}' })"
                         class="inline-flex items-center gap-x-1 px-2 text-sm text-red-400 decoration-2 hover:underline font-medium"
                         data-hs-overlay="#hs-modal-delete-supplier">
                         Delete

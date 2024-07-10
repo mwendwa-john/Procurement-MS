@@ -16,9 +16,7 @@ class LocationModals extends Component
     public $editId;
     public $locationToEdit;
 
-    public $deleteId;
-    public $restoreId;
-    public $permanentDeleteId;
+    public $locationId;
 
     public function render()
     {
@@ -58,22 +56,10 @@ class LocationModals extends Component
         ));
     }
 
-    #[On('delete-location')]
+    #[On('pass-location-id')]
     public function findLocation($id)
     {
-        $this->deleteId = $id;
-    }
-
-    #[On('restore-location')]
-    public function findLocationRestore($id)
-    {
-        $this->restoreId = $id;
-    }
-
-    #[On('permanent-delete-location')]
-    public function findRoleDelete($id)
-    {
-        $this->permanentDeleteId = $id;
+        $this->locationId = $id;
     }
 
     public function editLocation()
@@ -98,7 +84,7 @@ class LocationModals extends Component
     {
         try {
             // Find the location
-            $locationToDelete = Location::findOrFail($this->deleteId);
+            $locationToDelete = Location::findOrFail($this->locationId);
 
             // Check if any hotels are assigned to this location
             if ($locationToDelete->hotels->isNotEmpty()) {
@@ -121,7 +107,7 @@ class LocationModals extends Component
     {
         try {
             // Find the location
-            $locationToRestore = Location::onlyTrashed()->findOrFail($this->restoreId);
+            $locationToRestore = Location::onlyTrashed()->findOrFail($this->locationId);
 
             // Restore the location
             $locationToRestore->restore();
@@ -138,7 +124,7 @@ class LocationModals extends Component
     {
         try {
             // Find the location
-            $locationToDelete = Location::onlyTrashed()->findOrFail($this->permanentDeleteId);
+            $locationToDelete = Location::onlyTrashed()->findOrFail($this->locationId);
 
             // Permanently Delete the location
             $locationToDelete->forceDelete();

@@ -139,7 +139,7 @@
 
                                     <td class="size-px whitespace-nowrap">
                                         <div class="px-6 py-1.5">
-                                            @can('assign permissions')
+                                            @can('assign roles')
                                                 <div class="hs-dropdown hs-dropdown-example relative inline-flex">
                                                     <button id="hs-dropdown-example" type="button"
                                                         class="hs-dropdown-toggle py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none">
@@ -167,7 +167,7 @@
                                                 </div>
                                             @endcan
 
-                                            @can('delete role')
+                                            @can('manage roles')
                                                 <button wire:click="removeRoles({{ $user->id }})"
                                                     class="inline-flex items-center gap-x-1 px-2 text-sm text-red-500 decoration-2 hover:underline font-medium">
                                                     Delete role

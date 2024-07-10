@@ -207,9 +207,8 @@
                         <a class="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition"
                             href="#">
                             <div class="aspect-w-16 aspect-h-9">
-                                <img class="w-full object-cover rounded-t-xl h-60"
-                                    src="{{ asset('front-assets/images/hotels/blooming-suites.jpg') }}"
-                                    alt="hotel-image">
+                                <img class="w-full object-cover rounded-t-xl h-40"
+                                    src="{{ Storage::url($hotel->hotel_image_path) }}" alt="hotel-image">
                             </div>
                             <div class="p-4 md:p-5 text-center">
                                 <p class="mt-2 text-xs uppercase text-gray-600">

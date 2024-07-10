@@ -18,11 +18,4 @@ class ShowHotels extends Component
 
         return view('livewire.stations.hotel.show-hotels', compact('hotels'));
     }
-    
-    public function bindHotelId($id)
-    {
-        $this->dispatch('edit-hotel', $id);
-
-        $this->dispatch('delete-hotel', $id);
-    }
 }

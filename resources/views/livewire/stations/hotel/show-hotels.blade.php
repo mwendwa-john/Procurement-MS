@@ -63,7 +63,7 @@
         @forelse ($hotels as $hotel)
         <!-- Card -->
         <div class="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition">
-            <a href="#">
+            <a href="{{ route('hotel.profile', ['id' => $hotel->id]) }}">
                 <div class="aspect-w-16 aspect-h-9">
                     <img class="w-full object-cover rounded-t-xl h-40"
                         src="{{ Storage::url($hotel->hotel_image_path) }}" alt="hotel-image">
@@ -82,14 +82,14 @@
                 @can('manage hotels')
                 <dl class="flex justify-center items-center divide-x divide-gray-200">
                     <dt class="pe-3">
-                        <button wire:click="bindHotelId({{ $hotel->id }})"
+                        <button wire:click="$dispatch('edit-hotel', { id: '{{ $hotel->id }}' })"
                             class="inline-flex items-center gap-x-1 px-2 text-sm text-blue-500 decoration-2 hover:underline font-medium"
                             data-hs-overlay="#hs-modal-edit-hotel">
                             Edit
                         </button>
                     </dt>
                     <dd class="text-start ps-3">
-                        <button wire:click="bindHotelId({{ $hotel->id }})"
+                        <button wire:click="$dispatch('pass-hotel-id', { id: '{{ $hotel->id }}' })"
                             class="inline-flex items-center gap-x-1 px-2 text-sm text-red-400 decoration-2 hover:underline font-medium"
                             data-hs-overlay="#hs-modal-delete-hotel">
                             Delete

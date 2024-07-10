@@ -107,14 +107,14 @@
                             @can('manage locations')
                             <dl class="flex justify-center items-center divide-x divide-gray-200">
                                 <dt class="pe-3">
-                                    <button wire:click="bindLocationId({{ $location->id }})"
+                                    <button wire:click="$dispatch('edit-location', { id: '{{ $location->id }}' })"
                                         class="inline-flex items-center gap-x-1 px-2 text-sm text-blue-500 decoration-2 hover:underline font-medium"
                                         data-hs-overlay="#hs-modal-edit-location">
                                         Edit
                                     </button>
                                 </dt>
                                 <dd class="text-start ps-3">
-                                    <button wire:click="bindLocationId({{ $location->id }})"
+                                    <button wire:click="$dispatch('pass-location-id', { id: '{{ $location->id }}' })"
                                         class="inline-flex items-center gap-x-1 px-2 text-sm text-red-400 decoration-2 hover:underline font-medium"
                                         data-hs-overlay="#hs-modal-delete-location">
                                         Delete

@@ -40,12 +40,15 @@ class RolesPermissionsSeeder extends Seeder
         Permission::create(['name' => 'access admin dashboard']);
         
         // roles Permissions
-        Permission::create(['name' => 'create role']);
-        Permission::create(['name' => 'delete role']);
+        Permission::create(['name' => 'assign roles']);
+        Permission::create(['name' => 'manage roles']);
 
         // stations Permissions
         Permission::create(['name' => 'manage locations']);
         Permission::create(['name' => 'manage hotels']);
         Permission::create(['name' => 'manage suppliers']);
+        
+        // User Permissions
+        Permission::create(['name' => 'manage users']);
     }
 }

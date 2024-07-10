@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {{-- @hasSection('title')
-        <title>@yield('title') - {{ config('app.name') }}</title>
+    <title>@yield('title') - {{ config('app.name') }}</title>
     @else
-        <title>{{ config('app.name') }}</title>
+    <title>{{ config('app.name') }}</title>
     @endif --}}
 
     <title>{{ $title ?? config('app.name', 'Procurement MS') }}</title>
@@ -17,7 +17,8 @@
     <link rel="shortcut icon" href="{{ url(asset('front-assets/images/superiorLogo.png')) }}">
 
     <!-- Fonts -->
-    {{-- <link rel="stylesheet" href="https://rsms.me/inter/inter.css"> --}}
+    {{--
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css"> --}}
 
     {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
     @vite('resources/css/app.css')
@@ -37,12 +38,13 @@
         [&::-webkit-scrollbar-thumb]:rounded-full
         [&::-webkit-scrollbar-thumb]:bg-blue-600">
 
-        @livewire('components.modals.signout')
-
+    @livewire('components.modals.signout')
+    <div class="overflow-auto">
         @yield('body')
+    </div>
 
 
-        @include('sweetalert::alert')
+    @include('sweetalert::alert')
 
 </body>
 
