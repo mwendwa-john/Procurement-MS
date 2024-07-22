@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesPermissionsSeeder::class);
         $this->call(LocationHotelUserSeeder::class);
         $this->call(SuppliersSeeder::class);
+        $this->call(LposInvoicesSeeder::class);
 
         // User::create([
         //     'username'          => 'Super-Admin',

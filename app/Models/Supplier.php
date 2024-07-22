@@ -27,4 +27,9 @@ class Supplier extends Model
     {
         return $this->belongsToMany(Hotel::class, 'supplier_hotel');
     }
+
+    public function lpos()
+    {
+        return $this->hasMany(Lpo::class);
+    }
 }

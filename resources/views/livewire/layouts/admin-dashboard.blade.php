@@ -1,179 +1,169 @@
+@extends('livewire.layouts.admin-sidebar')
+
+@section('admin-content')
 <div>
+    <!-- Header -->
+    @livewire('components.admin-header', [
+    'svgIcon' => '
+    <svg class="flex-shrink-0 size-6" fill="#2563EB" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="dashboard" class="icon glyph">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <rect x="2" y="2" width="9" height="11" rx="2"></rect>
+            <rect x="13" y="2" width="9" height="7" rx="2"></rect>
+            <rect x="2" y="15" width="9" height="7" rx="2"></rect>
+            <rect x="13" y="11" width="9" height="11" rx="2"></rect>
+        </g>
+    </svg>
+    ',
+    'pageTitle' => 'Dashboard',
+    ])
+    <!-- End: Header -->
 
-    <!-- ========== MAIN CONTENT ========== -->
-    <!-- Sidebar Toggle -->
-    <div class="sticky top-0 inset-x-0 z-20 bg-white border-y px-4 sm:px-6 md:px-8 lg:hidden">
-        <div class="flex items-center py-4">
-            <!-- Navigation Toggle -->
-            <button type="button" class="text-gray-500 hover:text-gray-600" data-hs-overlay="#application-sidebar-brand"
-                aria-controls="application-sidebar-brand" aria-label="Toggle navigation">
-                <span class="sr-only">Toggle Navigation</span>
-                <svg class="size-5" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-                </svg>
-            </button>
-            <!-- End Navigation Toggle -->
-        </div>
-    </div>
-    <!-- End Sidebar Toggle -->
 
-    <!-- Sidebar -->
-    <div id="application-sidebar-brand"
-        class="hs-overlay [--auto-close:lg] hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 start-0 bottom-0 z-[60] w-64 bg-blue-700 pt-7 pb-10 overflow-y-auto lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300">
-        <div class="px-6">
-            <a class="flex-none text-xl font-semibold text-white flex flex-col items-center" href="{{ route('home') }}"
-                aria-label="Brand">
-                <img class="w-8" src="{{ asset('front-assets/images/superiorLogo.png') }}" alt="logo">
-                <span class="mt-2 sm:mt-4">{{ config('app.name') }}</span>
-            </a>
 
-        </div>
-
-        <nav class="hs-accordion-group p-6 w-full flex flex-col flex-wrap" data-hs-accordion-always-open>
-            <ul class="space-y-1.5">
-                <li>
-                    <a class="flex items-center gap-x-3 py-2 px-2.5 bg-blue-600 text-sm text-white rounded-lg"
-                        href="#">
-                        <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
+    <!-- Icon Blocks -->
+    <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 items-center gap-6 md:gap-10">
+            <!-- Card -->
+            <div class="size-full bg-white shadow-lg rounded-lg p-5">
+                <div class="flex items-center gap-x-4 mb-3">
+                    <div
+                        class="inline-flex justify-center items-center size-[62px] rounded-full border-4 border-blue-50 bg-blue-100">
+                        <svg class="shrink-0 size-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24"
                             height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
-                            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                            <polyline points="9 22 9 12 15 12 15 22" />
+                            <circle cx="13.5" cy="6.5" r=".5" />
+                            <circle cx="17.5" cy="10.5" r=".5" />
+                            <circle cx="8.5" cy="7.5" r=".5" />
+                            <circle cx="6.5" cy="12.5" r=".5" />
+                            <path
+                                d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
                         </svg>
-                        Dashboard
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ route('users.show') }}">
-                        <button type="button"
-                            class="hs-accordion-toggle w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white hover:text-white rounded-lg hover:bg-blue-600">
-                            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
-                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                                <circle cx="9" cy="7" r="4" />
-                                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                            </svg>
-                            Users
-                        </button>
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="{{ route('roles.index') }}">
-                        <button type="button"
-                            class="hs-accordion-toggle w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white hover:text-white rounded-lg hover:bg-blue-600">
-                            <svg class="flex-shrink-0 size-4" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"
-                                fill="#ffffff">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                <g id="SVGRepo_iconCarrier">
-                                    <path
-                                        d="m 3 1 c -1.644531 0 -3 1.355469 -3 3 v 2 h 1 s 1 0 1 -1 v -1 c 0 -0.570312 0.429688 -1 1 -1 h 1 s 1 0 1 -1 v -1 z m 8 0 v 1 c 0 1 1 1 1 1 h 1 c 0.570312 0 1 0.429688 1 1 v 1 c 0 1 1 1 1 1 h 1 v -2 c 0 -1.644531 -1.355469 -3 -3 -3 z m -5 4.019531 c -0.550781 0 -1 0.445313 -1 1 c 0 0.550781 0.449219 1 1 1 s 1 -0.449219 1 -1 c 0 -0.554687 -0.449219 -1 -1 -1 z m 4 0 c -0.550781 0 -1 0.445313 -1 1 c 0 0.550781 0.449219 1 1 1 s 1 -0.449219 1 -1 c 0 -0.554687 -0.449219 -1 -1 -1 z m -5.574219 3.988281 c -0.050781 0.003907 -0.101562 0.023438 -0.148437 0.046876 c -0.246094 0.121093 -0.347656 0.421874 -0.226563 0.667968 c 0 0 1.183594 2.277344 3.949219 2.277344 s 3.949219 -2.277344 3.949219 -2.277344 c 0.121093 -0.246094 0.019531 -0.546875 -0.226563 -0.667968 c -0.246094 -0.125 -0.546875 -0.023438 -0.671875 0.222656 c 0 0 -0.816406 1.722656 -3.050781 1.722656 s -3.050781 -1.722656 -3.050781 -1.722656 c -0.097657 -0.195313 -0.308594 -0.304688 -0.523438 -0.269532 z m -4.425781 0.992188 v 2 c 0 1.644531 1.355469 3 3 3 h 2 v -2 h -2 c -0.570312 0 -1 -0.429688 -1 -1 v -1 c 0 -1 -1 -1 -1 -1 z m 15 0 c -1 0 -1 1 -1 1 v 1 c 0 0.570312 -0.429688 1 -1 1 h -2 v 2 h 2 c 1.644531 0 3 -1.355469 3 -3 v -2 z m 0 0"
-                                        fill="#FFFFFF"></path>
-                                </g>
-                            </svg>
-                            Roles & Permisssions
-                        </button>
-                    </a>
-                </li>
-
-
-                <li class="hs-accordion" id="station-accordion">
-                    <button type="button"
-                        class="hs-accordion-toggle w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 hs-accordion-active:text-white hs-accordion-active:hover:bg-transparent text-sm text-white hover:text-white rounded-lg hover:bg-blue-600">
-                        <svg class="flex-shrink-0 size-4" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                                <path
-                                    d="M3 21H5M5 21H10M5 21V3M10 21H14M10 21V16L8 16C10 13.3333 14 13.3333 16 16L14 16V21M14 21H19M19 21H21M19 21V3M3 3H5M5 3H19M19 3H21M9 6.5H10M14 6.5H15M9 10.5H10M14 10.5H15"
-                                    stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                </path>
-                            </g>
-                        </svg>
-                        Stations
-
-                        <svg class="hs-accordion-active:block ms-auto hidden size-4" xmlns="http://www.w3.org/2000/svg"
-                            width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="m18 15-6-6-6 6" />
-                        </svg>
-
-                        <svg class="hs-accordion-active:hidden ms-auto block size-4" xmlns="http://www.w3.org/2000/svg"
-                            width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="m6 9 6 6 6-6" />
-                        </svg>
-                    </button>
-
-                    <div id="station-accordion-child"
-                        class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300 hidden">
-                        <ul class="pt-2 ps-2">
-                            <li>
-                                <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white hover:text-white rounded-lg hover:bg-blue-600"
-                                    href="{{ route('locations.show') }}">
-                                    Locations
-                                </a>
-                            </li>
-                            <li>
-                                <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white hover:text-white rounded-lg hover:bg-blue-600"
-                                    href="{{ route('hotels.show') }}">
-                                    Hotels
-                                </a>
-                            </li>
-                        </ul>
                     </div>
-                </li>
+                    <div class="shrink-0">
+                        <h3 class="block text-lg font-semibold text-gray-800">Build your portfolio</h3>
+                    </div>
+                </div>
+                <p class="text-gray-600">The simplest way to keep your portfolio always up-to-date.</p>
+            </div>
+            <!-- End Card -->
 
-                <li>
-                    <a href="{{ route('suppliers.show') }}">
-                        <button type="button"
-                            class="hs-accordion-toggle w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white hover:text-white rounded-lg hover:bg-blue-600">
+            <!-- Card -->
+            <div class="size-full bg-white shadow-lg rounded-lg p-5">
+                <div class="flex items-center gap-x-4 mb-3">
+                    <div
+                        class="inline-flex justify-center items-center size-[62px] rounded-full border-4 border-blue-50 bg-blue-100">
+                        <svg class="shrink-0 size-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24"
+                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 3h20" />
+                            <path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3" />
+                            <path d="m7 21 5-5 5 5" />
+                        </svg>
+                    </div>
+                    <div class="shrink-0">
+                        <h3 class="block text-lg font-semibold text-gray-800">Get freelance work</h3>
+                    </div>
+                </div>
+                <p class="text-gray-600">New design projects delivered to your inbox each morning.</p>
+            </div>
+            <!-- End Card -->
 
-                            <svg class="flex-shrink-0 size-4" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                <g id="SVGRepo_iconCarrier">
-                                    <path d="M5 7H19V17C19 18.6569 17.6569 20 16 20H8C6.34315 20 5 18.6569 5 17V7Z"
-                                        stroke="#FFFF" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
-                                    <path d="M9 10L9 11C9 12.6569 10.3431 14 12 14V14C13.6569 14 15 12.6569 15 11L15 10"
-                                        stroke="#FFFF" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
-                                    <path d="M7 4H17L19 7H5L7 4Z" stroke="#FFFF" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"></path>
-                                </g>
-                            </svg>
-                            Suppliers
-                        </button>
-                    </a>
-                </li>
+            <!-- Card -->
+            <div class="size-full bg-white shadow-lg rounded-lg p-5">
+                <div class="flex items-center gap-x-4 mb-3">
+                    <div
+                        class="inline-flex justify-center items-center size-[62px] rounded-full border-4 border-blue-50 bg-blue-100">
+                        <svg class="shrink-0 size-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24"
+                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7" />
+                            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+                            <path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4" />
+                            <path d="M2 7h20" />
+                            <path
+                                d="M22 7v3a2 2 0 0 1-2 2v0a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12v0a2 2 0 0 1-2-2V7" />
+                        </svg>
+                    </div>
+                    <div class="shrink-0">
+                        <h3 class="block text-lg font-semibold text-gray-800">Sell your goods</h3>
+                    </div>
+                </div>
+                <p class="text-gray-600">Get your goods in front of millions of potential customers with ease.</p>
+            </div>
+            <!-- End Card -->
 
-            </ul>
-        </nav>
-    </div>
-    <!-- End Sidebar -->
+            <!-- Card -->
+            <div class="size-full bg-white shadow-lg rounded-lg p-5">
+                <div class="flex items-center gap-x-4 mb-3">
+                    <div
+                        class="inline-flex justify-center items-center size-[62px] rounded-full border-4 border-blue-50 bg-blue-100">
+                        <svg class="shrink-0 size-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24"
+                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5.5 8.5 9 12l-3.5 3.5L2 12l3.5-3.5Z" />
+                            <path d="m12 2 3.5 3.5L12 9 8.5 5.5 12 2Z" />
+                            <path d="M18.5 8.5 22 12l-3.5 3.5L15 12l3.5-3.5Z" />
+                            <path d="m12 15 3.5 3.5L12 22l-3.5-3.5L12 15Z" />
+                        </svg>
+                    </div>
+                    <div class="shrink-0">
+                        <h3 class="block text-lg font-semibold text-gray-800">Get freelance work</h3>
+                    </div>
+                </div>
+                <p class="text-gray-600">New design projects delivered to your inbox each morning.</p>
+            </div>
+            <!-- End Card -->
 
-    <!-- Content -->
-    <!-- Hero -->
-    <div class="min-h-screen bg-[#DDEBFE]">
-        <div class="w-full pt-10 px-4 sm:px-6 md:px-8 lg:ps-72">
-            <!-- your content goes here ... -->
-            @yield('admin-content')
+            <!-- Card -->
+            <div class="size-full bg-white shadow-lg rounded-lg p-5">
+                <div class="flex items-center gap-x-4 mb-3">
+                    <div
+                        class="inline-flex justify-center items-center size-[62px] rounded-full border-4 border-blue-50 bg-blue-100">
+                        <svg class="shrink-0 size-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24"
+                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M16.466 7.5C15.643 4.237 13.952 2 12 2 9.239 2 7 6.477 7 12s2.239 10 5 10c.342 0 .677-.069 1-.2" />
+                            <path d="m15.194 13.707 3.814 1.86-1.86 3.814" />
+                            <path
+                                d="M19 15.57c-1.804.885-4.274 1.43-7 1.43-5.523 0-10-2.239-10-5s4.477-5 10-5c4.838 0 8.873 1.718 9.8 4" />
+                        </svg>
+                    </div>
+                    <div class="shrink-0">
+                        <h3 class="block text-lg font-semibold text-gray-800">Sell your goods</h3>
+                    </div>
+                </div>
+                <p class="text-gray-600">Get your goods in front of millions of potential customers with ease.</p>
+            </div>
+            <!-- End Card -->
+
+            <!-- Card -->
+            <div class="size-full bg-white shadow-lg rounded-lg p-5">
+                <div class="flex items-center gap-x-4 mb-3">
+                    <div
+                        class="inline-flex justify-center items-center size-[62px] rounded-full border-4 border-blue-50 bg-blue-100">
+                        <svg class="shrink-0 size-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24"
+                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M8.3 10a.7.7 0 0 1-.626-1.079L11.4 3a.7.7 0 0 1 1.198-.043L16.3 8.9a.7.7 0 0 1-.572 1.1Z" />
+                            <rect x="3" y="14" width="7" height="7" rx="1" />
+                            <circle cx="17.5" cy="17.5" r="3.5" />
+                        </svg>
+                    </div>
+                    <div class="shrink-0">
+                        <h3 class="block text-lg font-semibold text-gray-800">Build your portfolio</h3>
+                    </div>
+                </div>
+                <p class="text-gray-600">The simplest way to keep your portfolio always up-to-date.</p>
+            </div>
+            <!-- End Card -->
         </div>
     </div>
-    <!-- End Hero -->
+    <!-- End Icon Blocks -->
 
-
-
-    <!-- End Content -->
-
-    <!-- ========== END MAIN CONTENT ========== -->
 </div>
+
+@endsection

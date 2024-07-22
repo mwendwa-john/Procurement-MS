@@ -92,7 +92,7 @@
                                         </div>
                                     </a>
 
-                                    <a class="group flex gap-x-5 hover:bg-gray-100 rounded-lg p-4" href="#">
+                                    <a class="group flex gap-x-5 hover:bg-gray-100 rounded-lg p-4" href="{{ route('lpos.show') }}">
                                         <svg class="flex-shrink-0 size-5 mt-1" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -143,7 +143,7 @@
                                         </div>
                                     </a>
 
-                                    <a class="group flex gap-x-5 hover:bg-gray-100 rounded-lg p-4" href="#">
+                                    <a class="group flex gap-x-5 hover:bg-gray-100 rounded-lg p-4" href="{{ route('invoices.show') }}">
                                         <svg class="flex-shrink-0 size-5 mt-1" viewBox="0 0 1024 1024" class="icon"
                                             version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -167,29 +167,18 @@
                                 </div>
 
                                 <div class="flex flex-col pt-4 md:pt-0 mx-1 md:mx-0">
-                                    <span class="text-sm font-semibold uppercase text-gray-800">Customer
-                                        stories</span>
+                                    <span class="text-sm font-semibold uppercase text-gray-800">Procurement
+                                        Management System</span>
 
                                     <!-- Link -->
                                     <a class="group mt-2 p-3 flex gap-x-5 items-center rounded-xl hover:bg-gray-100"
                                         href="#">
                                         <img class="size-32 rounded-lg"
-                                            src="https://images.unsplash.com/photo-1648737967328-690548aec14f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=320&h=320&q=80"
-                                            alt="Image Description">
+                                            src="{{ asset('front-assets/images/superiorLogo.png') }}"
+                                            alt="Superior Logo">
                                         <div class="grow">
                                             <p class="text-sm text-gray-800">
-                                                Preline Projects has proved to be most efficient cloud based project
-                                                tracking and bug tracking tool.
-                                            </p>
-                                            <p
-                                                class="mt-3 inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline font-medium">
-                                                Learn more
-                                                <svg class="flex-shrink-0 size-4 transition ease-in-out group-hover:translate-x-1"
-                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="m9 18 6-6-6-6" />
-                                                </svg>
+                                                Streamline procurement with Superior Hotels' management system. Efficiently handle LPOs, invoices, approvals, payments, and auditing for superior operational control.
                                             </p>
                                         </div>
                                     </a>

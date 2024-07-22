@@ -1,4 +1,4 @@
-@extends('livewire.layouts.admin-dashboard')
+@extends('livewire.layouts.admin-sidebar')
 
 @section('admin-content')
     @livewire('components.modals.location-modals')

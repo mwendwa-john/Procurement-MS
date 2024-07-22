@@ -1,31 +1,4 @@
-@extends('livewire.layouts.admin-sidebar')
-
-@section('admin-content')
-@livewire('components.modals.roles-permissions-modals')
 <div>
-    <!-- Header -->
-    @livewire('components.admin-header', [
-    'svgIcon' => '
-    <svg class="flex-shrink-0 size-6" fill="#2563EB" viewBox="0 0 52 52" data-name="Layer 1"
-        xmlns="http://www.w3.org/2000/svg">
-        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-        <g id="SVGRepo_iconCarrier">
-            <path
-                d="M38.3,27.2A11.4,11.4,0,1,0,49.7,38.6,11.46,11.46,0,0,0,38.3,27.2Zm2,12.4a2.39,2.39,0,0,1-.9-.2l-4.3,4.3a1.39,1.39,0,0,1-.9.4,1,1,0,0,1-.9-.4,1.39,1.39,0,0,1,0-1.9l4.3-4.3a2.92,2.92,0,0,1-.2-.9,3.47,3.47,0,0,1,3.4-3.8,2.39,2.39,0,0,1,.9.2c.2,0,.2.2.1.3l-2,1.9a.28.28,0,0,0,0,.5L41.1,37a.38.38,0,0,0,.6,0l1.9-1.9c.1-.1.4-.1.4.1a3.71,3.71,0,0,1,.2.9A3.57,3.57,0,0,1,40.3,39.6Z">
-            </path>
-            <circle cx="21.7" cy="14.9" r="12.9"></circle>
-            <path
-                d="M25.2,49.8c2.2,0,1-1.5,1-1.5h0a15.44,15.44,0,0,1-3.4-9.7,15,15,0,0,1,1.4-6.4.77.77,0,0,1,.2-.3c.7-1.4-.7-1.5-.7-1.5h0a12.1,12.1,0,0,0-1.9-.1A19.69,19.69,0,0,0,2.4,47.1c0,1,.3,2.8,3.4,2.8H24.9C25.1,49.8,25.1,49.8,25.2,49.8Z">
-            </path>
-        </g>
-    </svg>
-    ',
-    'pageTitle' => 'Roles and Permissions',
-    ])
-    <!-- End: Header -->
-
-
     <!-- Table Section -->
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <!-- Card -->
@@ -38,10 +11,10 @@
                             class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200">
                             <div>
                                 <h2 class="text-xl font-semibold text-blue-600">
-                                    Roles
+                                    Invoices
                                 </h2>
                                 <p class="text-sm text-blue-500">
-                                    Add roles, edit and more.
+                                    Link lpos, edit and more.
                                 </p>
                             </div>
 
@@ -103,7 +76,7 @@
                                     <th scope="col" class="px-6 py-3 text-start">
                                         <div class="flex items-center gap-x-2">
                                             <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">
-                                                Role Name
+                                                Supplier
                                             </span>
                                         </div>
                                     </th>
@@ -111,16 +84,33 @@
                                     <th scope="col" class="px-6 py-3 text-start">
                                         <div class="flex items-center gap-x-2">
                                             <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">
-                                                Action
+                                                Order Number
                                             </span>
                                         </div>
                                     </th>
 
+                                    <th scope="col" class="px-6 py-3 text-start">
+                                        <div class="flex items-center gap-x-2">
+                                            <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                                                Hotel
+                                            </span>
+                                        </div>
+                                    </th>
+
+                                    @can('manage lpos')
+                                    <th scope="col" class="px-6 py-3 text-start">
+                                        <div class="flex items-center gap-x-2">
+                                            <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                                                Action
+                                            </span>
+                                        </div>
+                                    </th>
+                                    @endcan
                                 </tr>
                             </thead>
 
                             <tbody class="divide-y divide-gray-200">
-                                @forelse ($roles as $role)
+                                @forelse ($invoices as $invoice)
                                 <tr>
                                     <td class="size-px whitespace-nowrap">
                                         <div class="ps-6 py-3 text-blue-600">
@@ -135,7 +125,7 @@
                                             <div class="flex items-center gap-x-3">
                                                 <div class="grow">
                                                     <span class="block text-sm font-semibold text-gray-800">{{
-                                                        $role->name }}</span>
+                                                        $invoice->supplier->supplier_name }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -143,21 +133,43 @@
 
                                     <td class="size-px whitespace-nowrap">
                                         <div class="px-6 py-1.5">
-                                            @can('assign permissions')
-                                            <a class="inline-flex items-center gap-x-1 px-2 text-sm text-blue-600 decoration-2 hover:underline font-medium"
-                                                href="{{ route('permissions.assign', ['roleId' => $role->id]) }}">
-                                                Assign permission
-                                            </a>
-                                            @endcan
-
-                                            @can('manage roles')
-                                            <button wire:click="$dispatch('pass-role-id', { id: '{{ $role->id }}' })"
-                                                class="inline-flex items-center gap-x-1 px-2 text-sm text-red-500 decoration-2 hover:underline font-medium"
-                                                data-hs-overlay="#hs-delete-role">
-                                                Delete role
-                                            </button>
-                                            @endcan
+                                            <div class="flex text-sm items-center gap-x-3">
+                                                {{ $invoice->order_number }}
+                                            </div>
                                         </div>
+                                    </td>
+
+                                    <td class="size-px whitespace-nowrap">
+                                        <div class="px-6 py-1.5">
+                                            <div class="flex text-sm items-center gap-x-3">
+                                                {{ $invoice->hotel->hotel_name }}
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td class="size-px whitespace-nowrap">
+                                        @can('manage lpos')
+                                        <div class="px-6 py-1.5">
+                                            <a class="inline-flex text-sm items-center gap-x-1 px-1.5 text-sm text-orange-400 decoration-2 hover:underline font-medium"
+                                                href="{{ route('lpos.view', ['id' => $lpo->id]) }}">
+                                                View
+                                            </a>
+
+                                            <button
+                                                wire:click="$dispatch('edit-supplier', { slug: '{{ $lpo->slug }}' })"
+                                                class="inline-flex text-sm items-center gap-x-1 px-1.5 text-sm text-blue-600 decoration-2 hover:underline font-medium"
+                                                data-hs-overlay="#hs-modal-edit-supplier">
+                                                Edit
+                                            </button>
+
+                                            <button
+                                                wire:click="$dispatch('pass-supplier-slug', { slug: '{{ $lpo->slug }}' })"
+                                                class="inline-flex text-sm items-center gap-x-1 px-2 text-sm text-red-400 decoration-2 hover:underline font-medium"
+                                                data-hs-overlay="#hs-modal-delete-supplier">
+                                                Delete
+                                            </button>
+                                        </div>
+                                        @endcan
                                     </td>
                                 </tr>
                                 @empty
@@ -167,8 +179,7 @@
                                             <div class="flex justify-center items-center gap-x-3">
                                                 <div class="grow">
                                                     <span class="block text-sm font-semibold text-gray-800">No
-                                                        system
-                                                        roles available</span>
+                                                        invoices available</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -185,7 +196,7 @@
                             class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-grey-200">
                             <div>
                                 <p class="text-sm text-gray-600">
-                                    <span class="font-semibold text-gray-800">{{ count($roles) }}</span> results
+                                    <span class="font-semibold text-gray-800">{{ count($invoices) }}</span> results
                                 </p>
                             </div>
                         </div>
@@ -198,7 +209,5 @@
 
     </div>
     <!-- End Table Section -->
-</div>
 
-<livewire:roles-permissions.user-roles>
-    @endsection
+</div>

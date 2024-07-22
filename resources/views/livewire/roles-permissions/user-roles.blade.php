@@ -4,7 +4,7 @@
     <div class="flex flex-col">
         <div class="-m-1.5 overflow-x-auto">
             <div class="p-1.5 min-w-full inline-block align-middle">
-                <div class="bg-white border border-grey-200 rounded-xl shadow-sm overflow-hidden">
+                <div class="bg-white border border-t-4 border-t-blue-600 rounded-xl shadow-sm overflow-hidden">
                     <!-- Header -->
                     <div
                         class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-grey-200">
