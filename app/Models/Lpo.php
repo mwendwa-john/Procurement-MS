@@ -15,16 +15,38 @@ class Lpo extends Model
         'supplier_id',
         'order_number',
         'tax_date',
-        'po_no',
         'payment_terms',
         'delivery_date',
         'status',
+        'subtotal',
+        'vat_total',
+        'total_amount',
         'generated_by',
         'added_to_daily_lpos_by',
         'approved_by',
         'invoice_attached_by',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        // Delete related LpoItems when an Lpo is deleted
+        static::deleting(function ($lpo) {
+            $lpo->lpoItems()->delete();
+        });
+
+        // Restore related LpoItems when an Lpo is restored
+        static::restoring(function ($lpo) {
+            $lpo->lpoItems()->withTrashed()->restore();
+        });
+    }
+
+    public function invoice()
+    {
+        return $this->hasOne(Invoice::class);
+    }
+    
     public function hotel()
     {
         return $this->belongsTo(Hotel::class);

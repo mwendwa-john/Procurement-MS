@@ -6,14 +6,14 @@ use App\Models\Lpo;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ShowLpos extends Component
+class TrashedLpos extends Component
 {
     use WithPagination;
     
     public function render()
     {
-        $lpos = Lpo::latest()->paginate(15);
+        $trashedLpos = Lpo::onlyTrashed()->latest()->paginate(15);
 
-        return view('livewire.lpos.show-lpos', compact('lpos'));
+        return view('livewire.lpos.trashed-lpos', compact('trashedLpos'));
     }
 }

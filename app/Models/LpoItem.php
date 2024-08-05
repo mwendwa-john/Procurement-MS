@@ -12,13 +12,14 @@ class LpoItem extends Model
 
     protected $fillable = [
         'lpo_id', 
-        'item', 
+        'item_name', 
         'description', 
         'quantity', 
         'unit_of_measure', 
         'price', 
         'vat', 
         'amount',
+        'is_saved',
     ];
 
     public function lpo()

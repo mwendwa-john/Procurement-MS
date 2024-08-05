@@ -60,7 +60,7 @@
                             class="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] md:duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 w-full hidden z-10 top-full start-0 min-w-60 bg-white md:shadow-2xl rounded-lg py-2 md:p-4 before:absolute before:-top-5 before:start-0 before:w-full before:h-5">
                             <div class="md:grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 <div class="flex flex-col mx-1 md:mx-0">
-                                    <a class="group flex gap-x-5 hover:bg-gray-100 rounded-lg p-4" href="#">
+                                    <a class="group flex gap-x-5 hover:bg-gray-100 rounded-lg p-4" href="{{ route('lpo.create') }}">
                                         <svg class="flex-shrink-0 size-5 mt-1" viewBox="0 -0.5 20 20" version="1.1"
                                             xmlns="http://www.w3.org/2000/svg"
                                             xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">

@@ -38,7 +38,6 @@
     </div>
     <!--End Create Supplier -->
 
-
     
     <!--Edit Supplier -->
     <div wire:ignore.self id="hs-modal-edit-supplier"
@@ -77,7 +76,7 @@
                                     <label for="supplier_name" class="block text-sm mb-2 text-start">Supplier name *</label>
                                     <div class="relative">
                                         <input wire:model.live="supplier_name" type="text" id="supplier_name" name="supplier_name"
-                                            class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                            class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                                             required aria-describedby="supplier_name">
                     
                                         <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
@@ -100,7 +99,7 @@
                                     <label for="slug" class="block text-sm mb-2 text-start">Slug *</label>
                                     <div class="relative">
                                         <input wire:model.live="slug" type="text" id="slug" name="slug"
-                                            class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                            class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                                             required disabled aria-describedby="slug">
                     
                                         <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
@@ -124,7 +123,7 @@
                                     <label for="email" class="block text-sm mb-2 text-start">Email *</label>
                                     <div class="relative">
                                         <input wire:model.live="email" type="email" id="email" name="email"
-                                            class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                            class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                                             required aria-describedby="email">
                     
                                         <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
@@ -148,7 +147,7 @@
                                     <label for="phone_number" class="block text-sm mb-2 text-start">Phone Number *</label>
                                     <div class="relative">
                                         <input wire:model.live.live="phone_number" type="tel" id="phone_number" name="phone_number"
-                                            class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                            class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                                             required aria-describedby="phone_number">
                     
                                         <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
@@ -170,7 +169,7 @@
                                 <div>
                                     <label for="street" class="block text-sm mb-2 text-start">Street Address *</label>
                                     <input wire:model.live="street" type="text" id="street" name="street"
-                                        class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                        class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                                         required>
                                     @error('street')
                                         <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
@@ -182,7 +181,7 @@
                                 <div>
                                     <label for="city" class="block text-sm mb-2 text-start">City *</label>
                                     <input wire:model.live="city" type="text" id="city" name="city"
-                                        class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                        class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                                         required>
                                     @error('city')
                                         <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
@@ -194,7 +193,7 @@
                                 <div>
                                     <label for="state" class="block text-sm mb-2 text-start">State *</label>
                                     <input wire:model.live="state" type="text" id="state" name="state"
-                                        class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                        class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                                         required>
                                     @error('state')
                                         <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
@@ -206,7 +205,7 @@
                                 <div>
                                     <label for="postal_code" class="block text-sm mb-2 text-start">Postal Code</label>
                                     <input wire:model.live="postal_code" type="text" id="postal_code" name="postal_code"
-                                        class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                                        class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
                                     @error('postal_code')
                                         <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
                                     @enderror
@@ -226,7 +225,7 @@
                     
                                     <button type="submit"
                                         class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-                                        Edit hotel
+                                        Edit Supplier
                                     </button>
                                 </div>
                                 <!-- End Buttons -->
@@ -239,7 +238,6 @@
         </div>
     </div>
     <!--End Edit Supplier -->
-
 
 
     <!--Delete Supplier -->
@@ -430,7 +428,6 @@
         </div>
     </div>
     <!--End Permanently Delete Supplier -->
-
 
     
     <!--Remove Hotel Supplied To -->

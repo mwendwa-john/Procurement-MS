@@ -70,14 +70,6 @@
                             </dd>
                         </dl>
 
-                        <dl class="grid sm:flex gap-x-3 text-sm">
-                            <dt class="min-w-36 max-w-[200px] text-gray-500">
-                                P.O No:
-                            </dt>
-                            <dd class="font-medium text-gray-800">
-                                {{ $lpo->po_no }}
-                            </dd>
-                        </dl>
                     </div>
                     <!-- Divider -->
                     <div class="absolute inset-y-0 right-0 w-px bg-gray-200"></div>
@@ -209,7 +201,7 @@
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    {{ $item->item }}
+                                    {{ $item->item_name }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -243,89 +235,109 @@
             </div>
             <!-- End Table -->
 
-
-            <!-- Footer -->
-            <div class="mt-8 flex flex-col sm:flex-row sm:justify-between space-y-4 sm:space-y-0 sm:space-x-8">
-                <!-- VAT Summary Table -->
-                <div class="w-full sm:max-w-md">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Rate</th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    KES VAT</th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    KES NET</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Non@0.00</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0.00</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1,200</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">TOTALS</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0.00</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1,200</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Existing Content -->
-                <div class="w-full sm:max-w-2xl sm:text-end space-y-2">
-                    <!-- Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-                        <dl class="grid grid-cols-5 gap-x-2 sm:gap-x-3 text-sm">
-                            <dt class="col-span-3 text-gray-500">Subtotal:</dt>
-                            <dd class="col-span-2 font-medium text-gray-800">KES 2,750.00</dd>
-                        </dl>
-
-                        <dl class="grid grid-cols-5 gap-x-2 sm:gap-x-3 text-sm">
-                            <dt class="col-span-3 text-gray-500">VAT Total:</dt>
-                            <dd class="col-span-2 font-medium text-gray-800">KES 2,750.00</dd>
-                        </dl>
-
-                        <dl class="grid grid-cols-5 gap-x-2 sm:gap-x-3 text-sm">
-                            <dt class="col-span-3 text-gray-500">Total:</dt>
-                            <dd class="col-span-2 font-medium text-gray-800">KES 0.00</dd>
-                        </dl>
+            <!-- LPO Footer -->
+            <div>
+                <div
+                    class="mt-8 flex flex-col sm:flex-row sm:justify-between space-y-4 sm:space-y-0 sm:space-x-8">
+                    <!-- VAT Summary Table -->
+                    <div class="w-full sm:max-w-md">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Rate</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        KES VAT</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        KES NET</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td
+                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                        16%</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ number_format($lpo->vat_total, 2) }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ number_format($lpo->subtotal, 2) }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td
+                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                        TOTALS</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ number_format($lpo->vat_total, 2) }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ number_format($lpo->subtotal, 2) }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <!-- End Grid -->
-                </div>
-            </div>
 
+                    <!-- Existing Content -->
+                    <div class="w-full sm:max-w-2xl sm:text-end space-y-2">
+                        <!-- Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+                            <dl class="grid grid-cols-5 gap-x-2 sm:gap-x-3 text-sm">
+                                <dt class="col-span-3 text-gray-500">Subtotal:</dt>
+                                <dd class="col-span-2 font-medium text-gray-800">
+                                    KES {{ number_format($lpo->subtotal, 2) }}
+                                </dd>
+                            </dl>
 
-            <!-- Flex -->
-            <div class="mt-8 flex sm:justify-end">
-                <div class="w-full max-w-2xl sm:text-end space-y-2">
-                    <!-- Grid -->
-                    <div class="grid grid-cols-2 sm:grid-cols-1 gap-3 sm:gap-2">
-                        <dl class="grid sm:grid-cols-5 gap-x-3 text-sm">
-                            <dt class="col-span-3 text-gray-500">Prepared by:</dt>
-                            <dd class="col-span-2 font-medium text-gray-800">user</dd>
-                        </dl>
+                            <dl class="grid grid-cols-5 gap-x-2 sm:gap-x-3 text-sm">
+                                <dt class="col-span-3 text-gray-500">VAT Total:</dt>
+                                <dd class="col-span-2 font-medium text-gray-800">
+                                    KES {{ number_format($lpo->vat_total, 2) }}
+                                </dd>
+                            </dl>
 
-                        <dl class="grid sm:grid-cols-5 gap-x-3 text-sm">
-                            <dt class="col-span-3 text-gray-500">Checked by:</dt>
-                            <dd class="col-span-2 font-medium text-gray-800">user</dd>
-                        </dl>
-
-                        <dl class="grid sm:grid-cols-5 gap-x-3 text-sm">
-                            <dt class="col-span-3 text-gray-500">Authorized by:</dt>
-                            <dd class="col-span-2 font-medium text-gray-800">user</dd>
-                        </dl>
+                            <dl class="grid grid-cols-5 gap-x-2 sm:gap-x-3 text-sm">
+                                <dt class="col-span-3 text-gray-500">Total:</dt>
+                                <dd class="col-span-2 font-medium text-gray-800">
+                                    KES {{ number_format($lpo->total_amount, 2) }}
+                            </dl>
+                        </div>
+                        <!-- End Grid -->
                     </div>
-                    <!-- End Grid -->
                 </div>
+
+                <!-- Flex -->
+                <div class="mt-8 flex sm:justify-end">
+                    <div class="w-full max-w-2xl sm:text-end space-y-2">
+                        <!-- Grid -->
+                        <div class="grid grid-cols-2 sm:grid-cols-1 gap-3 sm:gap-2">
+                            <dl class="grid sm:grid-cols-5 gap-x-3 text-sm">
+                                <dt class="col-span-3 text-gray-500">Prepared by:</dt>
+                                <dd class="col-span-2 font-medium text-gray-800">
+                                    {{ $generatedBy }}
+                                </dd>
+                            </dl>
+
+                            <dl class="grid sm:grid-cols-5 gap-x-3 text-sm">
+                                <dt class="col-span-3 text-gray-500">Checked by:</dt>
+                                <dd class="col-span-2 font-medium text-gray-800">user</dd>
+                            </dl>
+
+                            <dl class="grid sm:grid-cols-5 gap-x-3 text-sm">
+                                <dt class="col-span-3 text-gray-500">Authorized by:</dt>
+                                <dd class="col-span-2 font-medium text-gray-800">user</dd>
+                            </dl>
+                        </div>
+                        <!-- End Grid -->
+                    </div>
+                </div>
+                <!-- End Flex -->
             </div>
-            <!-- End Flex -->
-            <!-- End Footer -->
+            <!-- End LPO Footer -->
         </div>
 
     </div>

@@ -24,6 +24,11 @@ class Invoice extends Model
         'payment_completed_by',
     ];
 
+    public function lpo()
+    {
+        return $this->belongsTo(Lpo::class);
+    }
+
     public function paymentMadeBy() {
         return $this->belongsTo(User::class, 'payment_made_by');
     }

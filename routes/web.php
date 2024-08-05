@@ -25,7 +25,11 @@ use App\Livewire\RolesPermissions\AssignPermissions;
 use App\Livewire\Stations\Location\TrashedLocations;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Livewire\Invoices\ShowInvoices;
+use App\Livewire\Lpos\AddLpoItems;
+use App\Livewire\Lpos\CreateLpo;
+use App\Livewire\Lpos\CreateLpoExample;
 use App\Livewire\Lpos\ShowLpos;
+use App\Livewire\Lpos\TrashedLpos;
 use App\Livewire\Lpos\ViewLpo;
 use App\Livewire\Stations\Hotel\HotelProfile;
 use App\Livewire\Suppliers\SupplierProfile;
@@ -83,8 +87,10 @@ Route::middleware(['auth', 'isActive'])->group(function () {
     Route::get('user/{slug}/edit', EditUserProfile::class)->name('user.profile.edit');
 
     // lpo routes
+    Route::get('lpo/create', CreateLpo::class)->name('lpo.create');
     Route::get('lpos/show', ShowLpos::class)->name('lpos.show');
     Route::get('lpos/{id}/view', ViewLpo::class)->name('lpos.view');
+    Route::get('lpos/trashed', TrashedLpos::class)->name('lpos.trashed');
 
     // Invoice Routes
     Route::get('invoices/show', ShowInvoices::class)->name('invoices.show');

@@ -52,6 +52,7 @@ class RolesPermissionsSeeder extends Seeder
         Permission::create(['name' => 'manage users']);
         
         // lpo Permissions
+        Permission::create(['name' => 'create lpo']);
         Permission::create(['name' => 'manage lpos']);
     }
 }
