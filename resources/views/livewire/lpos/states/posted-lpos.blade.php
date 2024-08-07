@@ -8,10 +8,10 @@
         <div aria-hidden="true" class="flex absolute -top-96 start-1/2 transform -translate-x-1/2">
 
             <div
-                class="bg-gradient-to-br from-blue-400/50 via-sky-300 to-cyan-200 blur-3xl w-[25rem] h-[44rem] rotate-[-60deg] transform -translate-x-[10rem]">
+                class="bg-gradient-to-r from-teal-300/50 via-cyan-200 to-blue-100 blur-3xl w-[25rem] h-[44rem] rotate-[-60deg] transform -translate-x-[10rem]">
             </div>
             <div
-                class="bg-gradient-to-tl from-cyan-100 via-blue-200 to-sky-100 blur-3xl w-[90rem] h-[50rem] rounded-full origin-top-left -rotate-12 -translate-x-[15rem]">
+                class="bg-gradient-to-tl from-blue-50 via-teal-100 to-cyan-50 blur-3xl w-[90rem] h-[50rem] rounded-full origin-top-left -rotate-12 -translate-x-[15rem]">
             </div>
 
         </div>
@@ -31,8 +31,8 @@
 
                     <!-- Title -->
                     <div class="mt-5 max-w-2xl">
-                        <h1 class="block font-semibold text-blue-600 text-xl md:text-3xl lg:text-4xl">
-                            All Local Purchase Orders
+                        <h1 class="block font-semibold text-teal-400 text-xl md:text-3xl lg:text-4xl">
+                            Posted Local Purchase Orders
                         </h1>
                     </div>
                     <!-- End Title -->
@@ -54,15 +54,15 @@
                             <div class="-m-1.5 overflow-x-auto">
                                 <div class="p-1.5 min-w-full inline-block align-middle">
                                     <div
-                                        class="bg-white border border-t-4 border-t-blue-600 rounded-xl shadow-sm overflow-hidden">
+                                        class="bg-white border border-t-4 border-t-teal-400 rounded-xl shadow-sm overflow-hidden">
                                         <!-- Header -->
                                         <div
                                             class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200">
                                             <div>
-                                                <h2 class="text-xl font-semibold text-blue-600">
+                                                <h2 class="text-xl font-semibold text-teal-500">
                                                     LPOs
                                                 </h2>
-                                                <p class="text-sm text-blue-500">
+                                                <p class="text-sm text-teal-400">
                                                     Manage LPOs, edit, and more.
                                                 </p>
                                             </div>
@@ -208,25 +208,14 @@
                                                                 View
                                                             </a>
 
-                                                            @if ($lpo->status === 'generated')
-                                                            @can('post lpo')
+                                                            @can('add to daily lpo')
                                                             <button
                                                                 wire:click="$dispatch('pass-lpo-id', { id: '{{ $lpo->id }}' })"
-                                                                data-hs-overlay="#hs-modal-post-lpo"
-                                                                class="text-teal-400 text-sm hover:underline">
-                                                                Post Lpo
+                                                                data-hs-overlay="#hs-modal-add-to-daily-lpo"
+                                                                class="text-violet-400 text-sm hover:underline">
+                                                                Add to Daily Lpo
                                                             </button>
                                                             @endcan
-
-                                                            @can('edit lpos')
-                                                            <button
-                                                                wire:click="$dispatch('pass-lpo-id', { id: '{{ $lpo->id }}' })"
-                                                                data-hs-overlay="#hs-modal-edit-supplier"
-                                                                class="text-blue-600 text-sm hover:underline">
-                                                                Edit
-                                                            </button>
-                                                            @endcan
-                                                            @endif
 
                                                             @if($lpo->status !== 'invoice_attached')
                                                             @can('delete lpos')

@@ -22,6 +22,7 @@ return new class extends Migration
 
             $table->enum('status', [
                 'generated',
+                'posted',
                 'added_to_daily_lpos',
                 'approved',
                 'invoice_attached',

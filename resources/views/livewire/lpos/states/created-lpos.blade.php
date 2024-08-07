@@ -8,10 +8,10 @@
         <div aria-hidden="true" class="flex absolute -top-96 start-1/2 transform -translate-x-1/2">
 
             <div
-                class="bg-gradient-to-br from-blue-400/50 via-sky-300 to-cyan-200 blur-3xl w-[25rem] h-[44rem] rotate-[-60deg] transform -translate-x-[10rem]">
+                class="bg-gradient-to-r from-cyan-300/50 via-blue-200 to-indigo-100 blur-3xl w-[25rem] h-[44rem] rotate-[-60deg] transform -translate-x-[10rem]">
             </div>
             <div
-                class="bg-gradient-to-tl from-cyan-100 via-blue-200 to-sky-100 blur-3xl w-[90rem] h-[50rem] rounded-full origin-top-left -rotate-12 -translate-x-[15rem]">
+                class="bg-gradient-to-tl from-indigo-50 via-cyan-100 to-blue-50 blur-3xl w-[90rem] h-[50rem] rounded-full origin-top-left -rotate-12 -translate-x-[15rem]">
             </div>
 
         </div>
@@ -31,8 +31,8 @@
 
                     <!-- Title -->
                     <div class="mt-5 max-w-2xl">
-                        <h1 class="block font-semibold text-blue-600 text-xl md:text-3xl lg:text-4xl">
-                            All Local Purchase Orders
+                        <h1 class="block font-semibold text-emerald-600 text-xl md:text-3xl lg:text-4xl">
+                            Created Local Purchase Orders
                         </h1>
                     </div>
                     <!-- End Title -->
@@ -54,15 +54,15 @@
                             <div class="-m-1.5 overflow-x-auto">
                                 <div class="p-1.5 min-w-full inline-block align-middle">
                                     <div
-                                        class="bg-white border border-t-4 border-t-blue-600 rounded-xl shadow-sm overflow-hidden">
+                                        class="bg-white border border-t-4 border-t-emerald-400 rounded-xl shadow-sm overflow-hidden">
                                         <!-- Header -->
                                         <div
                                             class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200">
                                             <div>
-                                                <h2 class="text-xl font-semibold text-blue-600">
+                                                <h2 class="text-xl font-semibold text-emerald-600">
                                                     LPOs
                                                 </h2>
-                                                <p class="text-sm text-blue-500">
+                                                <p class="text-sm text-emerald-500">
                                                     Manage LPOs, edit, and more.
                                                 </p>
                                             </div>

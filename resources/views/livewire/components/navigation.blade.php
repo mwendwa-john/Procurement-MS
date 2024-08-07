@@ -34,6 +34,7 @@
             <div id="navbar-collapse-with-animation"
                 class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow md:block">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-end py-2 md:py-0 md:ps-7">
+                    @auth
                     <a class="py-3 ps-px md:px-3 font-medium text-gray-700" href="{{ route('home') }}"
                         aria-current="page">Home</a>
 
@@ -42,8 +43,6 @@
                         href="{{ route('dashboard.admin') }}">Admin</a>
                     @endcan
 
-                    @auth
-                    {{-- Start: Resources --}}
                     <div
                         class="hs-dropdown [--strategy:static] md:[--strategy:absolute] [--adaptive:none] md:[--trigger:hover] py-3 md:px-3 md:py-4">
                         <button type="button"
@@ -187,14 +186,13 @@
                             </div>
                         </div>
                     </div>
-                    {{-- End: Resources --}}
-                    @endauth
+
 
                     <div
                         class="hs-dropdown [--strategy:static] md:[--strategy:fixed] [--adaptive:none] md:[--trigger:hover] py-3 ps-px md:px-3">
                         <button type="button"
                             class="flex items-center w-full text-gray-700 hover:text-gray-400 font-medium">
-                            Dropdown
+                            Quick Links
                             <svg class="flex-shrink-0 ms-2 size-4 text-gray-500" xmlns="http://www.w3.org/2000/svg"
                                 width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -240,14 +238,17 @@
 
                             <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
                                 href="#">
-                                Downloads
+                                Make Payments
                             </a>
+
                             <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
                                 href="#">
-                                Team Account
+                                Annual Payments
                             </a>
                         </div>
                     </div>
+                    @endauth
+
 
                     @if (Route::has('login'))
                     <div class="md:border-s md:border-gray-300">

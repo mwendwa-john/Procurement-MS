@@ -20,7 +20,7 @@ class LposInvoicesSeeder extends Seeder
             $randomHotel = Hotel::inRandomOrder()->first();
             $randomSupplier = Supplier::inRandomOrder()->first();
 
-            $statuses = ['generated', 'added_to_daily_lpos', 'approved', 'invoice_attached'];
+            $statuses = ['generated', 'posted', 'added_to_daily_lpos', 'approved', 'invoice_attached'];
 
             $lpo = Lpo::create([
                 'hotel_id'                  => $randomHotel->id,

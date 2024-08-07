@@ -25,10 +25,12 @@ use App\Livewire\RolesPermissions\AssignPermissions;
 use App\Livewire\Stations\Location\TrashedLocations;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Livewire\Invoices\ShowInvoices;
-use App\Livewire\Lpos\AddLpoItems;
 use App\Livewire\Lpos\CreateLpo;
-use App\Livewire\Lpos\CreateLpoExample;
 use App\Livewire\Lpos\ShowLpos;
+use App\Livewire\Lpos\States\CreatedLpos as StatesCreatedLpos;
+use App\Livewire\Lpos\States\PostedLpos as StatesPostedLpos;
+use App\Livewire\Lpos\States\DailyLpos as StatesDailyLpos;
+use App\Livewire\Lpos\States\ApprovedLpos as StatesApprovedLpos;
 use App\Livewire\Lpos\TrashedLpos;
 use App\Livewire\Lpos\ViewLpo;
 use App\Livewire\Stations\Hotel\HotelProfile;
@@ -88,6 +90,10 @@ Route::middleware(['auth', 'isActive'])->group(function () {
 
     // lpo routes
     Route::get('lpo/create', CreateLpo::class)->name('lpo.create');
+    Route::get('lpo/created', StatesCreatedLpos::class)->name('lpos.created');
+    Route::get('lpo/posted', StatesPostedLpos::class)->name('lpos.posted');
+    Route::get('lpo/daily', StatesDailyLpos::class)->name('lpos.daily');
+    Route::get('lpo/approved', StatesApprovedLpos::class)->name('lpos.approved');
     Route::get('lpos/show', ShowLpos::class)->name('lpos.show');
     Route::get('lpos/{id}/view', ViewLpo::class)->name('lpos.view');
     Route::get('lpos/trashed', TrashedLpos::class)->name('lpos.trashed');

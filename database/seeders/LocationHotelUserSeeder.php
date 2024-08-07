@@ -216,6 +216,21 @@ class LocationHotelUserSeeder extends Seeder
         ])->assignRole('headquarters');
 
         $this->personTable();
+
+        $this->userId = User::create([
+            'username'          => 'Store Keeper',
+            'first_name'        => 'Superior',
+            'middle_name'       => 'System',
+            'last_name'         => 'store-keeper',
+            'slug'              => 'superior-store-keeper',
+            'location_id'       => $this->limuru->id,
+            'hotel_id'          => $this->ridgeCabinHotel->id,
+            'email'             => 'store-keeper@store-keeper.com',
+            'email_verified_at' => now(),
+            'password' => static::$password ??= Hash::make('password'),
+        ])->assignRole('store-keeper');
+
+        $this->personTable();
     }
 
     public function personTable()

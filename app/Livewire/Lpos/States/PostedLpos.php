@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Lpos;
+namespace App\Livewire\Lpos\States;
 
 use App\Models\Lpo;
 use App\Models\Hotel;
@@ -8,14 +8,14 @@ use Livewire\Component;
 use App\Models\Supplier;
 use Livewire\WithPagination;
 
-class ShowLpos extends Component
+class PostedLpos extends Component
 {
     use WithPagination;
 
-    public $search = ''; 
-    public $supplier_id = null; 
-    public $hotel_id = null; 
-    public $has_invoice = null; // New property for filtering by invoice status
+    public $search = '';
+    public $supplier_id = null;
+    public $hotel_id = null;
+    public $has_invoice = null;
 
     protected $queryString = ['search', 'supplier_id', 'hotel_id', 'has_invoice'];
 
@@ -42,15 +42,16 @@ class ShowLpos extends Component
     public function render()
     {
         $lpos = Lpo::with(['hotel', 'supplier'])
+            ->where('status', 'posted')
             ->when($this->search, function ($query) {
                 $query->where(function ($query) {
                     $query->whereHas('hotel', function ($query) {
                         $query->where('hotel_name', 'like', '%' . $this->search . '%');
                     })
-                    ->orWhereHas('supplier', function ($query) {
-                        $query->where('supplier_name', 'like', '%' . $this->search . '%');
-                    })
-                    ->orWhere('order_number', 'like', '%' . $this->search . '%');
+                        ->orWhereHas('supplier', function ($query) {
+                            $query->where('supplier_name', 'like', '%' . $this->search . '%');
+                        })
+                        ->orWhere('order_number', 'like', '%' . $this->search . '%');
                 });
             })
             ->when($this->supplier_id, function ($query) {
@@ -67,13 +68,15 @@ class ShowLpos extends Component
                 }
             })
             ->latest()
-            ->paginate(15);
-
-        $suppliers = Supplier::all(); 
-        $hotels = Hotel::all(); 
+            ->paginate(10);
 
 
-        return view('livewire.lpos.show-lpos', [
+
+        $suppliers = Supplier::all();
+        $hotels = Hotel::all();
+
+
+        return view('livewire.lpos.states.posted-lpos', [
             'lpos' => $lpos,
             'suppliers' => $suppliers,
             'hotels' => $hotels,

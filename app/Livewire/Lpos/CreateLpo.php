@@ -173,7 +173,7 @@ class CreateLpo extends Component
         }
 
         Alert::toast('Local purchase order created', 'success');
-        return redirect()->route('lpos.show');
+        return redirect()->route('lpos.created');
     }
 
     public function render()

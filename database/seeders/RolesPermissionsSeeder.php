@@ -11,48 +11,101 @@ class RolesPermissionsSeeder extends Seeder
 {
     public $adminRole;
     public $directorRole;
+    public $headquartersRole;
+    public $storeKeeperRole;
     public $AssignRolePermission;
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $this->adminRole = Role::create(['name' => 'admin']);
-        Role::create(['name' => 'director']);
-        Role::create(['name' => 'headquarters']);
-        Role::create(['name' => 'store-keeper']);
+        $this->adminRole            = Role::create(['name' => 'admin']);
+        $this->directorRole         = Role::create(['name' => 'director']);
+        $this->headquartersRole     = Role::create(['name' => 'headquarters']);
+        $this->storeKeeperRole      = Role::create(['name' => 'store-keeper']);
 
         $this->createPermissions();
-
-
-        $directorRole = Role::findByName('director');
-        $directorRole->givePermissionTo($this->AssignRolePermission);
-
-        // sync all permission with the admin role
-        $adminRole = Role::findByName('admin');
-        $allPermissions = Permission::all();
-        $adminRole->syncPermissions($allPermissions);
     }
 
     public function createPermissions()
     {
-        $this->AssignRolePermission = Permission::create(['name' => 'assign permissions']);
-        Permission::create(['name' => 'access admin dashboard']);
-        
-        // roles Permissions
+        $assignRolePermission = Permission::create(['name' => 'assign permissions']);
+        $accessAdminDashboard = Permission::create(['name' => 'access admin dashboard']);
+
+        // roles Permissions (Only Admins)
         Permission::create(['name' => 'assign roles']);
         Permission::create(['name' => 'manage roles']);
 
         // stations Permissions
-        Permission::create(['name' => 'manage locations']);
-        Permission::create(['name' => 'manage hotels']);
-        Permission::create(['name' => 'manage suppliers']);
-        
+        $manageLocations    = Permission::create(['name' => 'manage locations']);
+        $manageHotels       = Permission::create(['name' => 'manage hotels']);
+        $manageSuppliers    = Permission::create(['name' => 'manage suppliers']);
+
         // User Permissions
-        Permission::create(['name' => 'manage users']);
-        
+        $manageUsers       = Permission::create(['name' => 'manage users']);
+
         // lpo Permissions
-        Permission::create(['name' => 'create lpo']);
-        Permission::create(['name' => 'manage lpos']);
+        $createLpo       = Permission::create(['name' => 'create lpo']);
+        $editLpos        = Permission::create(['name' => 'edit lpos']);
+        $deleteLpos      = Permission::create(['name' => 'delete lpos']);
+        // lpo statuses
+        $postLpos         = Permission::create(['name' => 'post lpo']);
+        $addToDailyLpos   = Permission::create(['name' => 'add to daily lpo']);
+        $approveLpos      = Permission::create(['name' => 'approve lpo']);
+
+        // Invoice Permissions
+        $attachInvoice   = Permission::create(['name' => 'attach invoice']);
+
+
+
+
+        //====================== Assign permissions to roles
+
+        // Admin Role
+        $allPermissions = Permission::all();
+        $this->adminRole->syncPermissions($allPermissions);  // sync all permission with the admin role
+
+        // End Admin Role
+
+
+        // Director Role
+        $this->directorRole->permissions()->attach([
+            $assignRolePermission->id,
+            $accessAdminDashboard->id,
+            $manageLocations->id,
+            $manageHotels->id,
+            $manageSuppliers->id,
+            $manageUsers->id,
+
+            // lpos
+            $approveLpos->id,
+        ]);
+        // End Director Role
+
+
+        // Headquarters Role
+        $this->headquartersRole->permissions()->attach([
+            $assignRolePermission->id,
+            $addToDailyLpos->id,
+            
+        ]);
+        // End Headquarters Role
+
+
+        // Store Keeper Role
+        $this->storeKeeperRole->permissions()->attach([
+            // LPOs
+            $createLpo->id,
+            $editLpos->id,
+            $deleteLpos->id,
+            $postLpos->id,
+
+            // Invoices
+            $attachInvoice->id,
+        ]);
+        // End Store Keeper Role
+
+
+
     }
 }

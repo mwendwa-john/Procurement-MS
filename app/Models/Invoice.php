@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Scopes\StoreKeeperScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Invoice extends Model
 {
@@ -23,6 +24,16 @@ class Invoice extends Model
         'payment_made_by',
         'payment_completed_by',
     ];
+
+    // Scope to load specific Hotel Invoices for store keepers
+    protected static function booted()
+    {
+        $userId = auth()->id();
+        $userRole = auth()->user()->role;
+
+        // Apply the scope conditionally based on the user's role
+        static::addGlobalScope(new StoreKeeperScope($userId, $userRole));
+    }
 
     public function lpo()
     {

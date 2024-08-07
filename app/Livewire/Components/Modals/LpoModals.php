@@ -57,9 +57,51 @@ class LpoModals extends Component
         }
     }
 
+    // Changing LPO statuses
+    public function postLpo()
+    {
+        // Find the lpo
+        $lpo = Lpo::findOrFail($this->lpoId);
+
+        if ($lpo) {
+            $lpo->status = 'posted';
+            $lpo->save();
+        }
+
+        Alert::toast('Lpo posted', 'success');
+        return redirect()->route('lpos.posted');
+    }
+
+    public function addToDailyLpo()
+    {
+        // Find the lpo
+        $lpo = Lpo::findOrFail($this->lpoId);
+
+        if ($lpo) {
+            $lpo->status = 'added_to_daily_lpos';
+            $lpo->save();
+        }
+
+        Alert::toast('Lpo added to daily lpos', 'success');
+        return redirect()->route('lpos.daily');
+    }
+
+    public function approveLpo()
+    {
+        // Find the lpo
+        $lpo = Lpo::findOrFail($this->lpoId);
+
+        if ($lpo) {
+            $lpo->status = 'approved';
+            $lpo->save();
+        }
+
+        Alert::toast('Lpo approved', 'success');
+        return redirect()->route('lpos.approved');
+    }
+
     public function render()
     {
         return view('livewire.components.modals.lpo-modals');
     }
-
 }
