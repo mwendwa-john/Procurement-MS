@@ -13,6 +13,8 @@ class Invoice extends Model
 
     protected $fillable = [
         'lpo_id',
+        'hotel_id',
+        'supplier_id',
         'invoice_number',
         'description',
         'quantity',
@@ -21,6 +23,9 @@ class Invoice extends Model
         'vat',
         'amount',
         'status',
+        'subtotal',
+        'vat_total',
+        'total_amount',
         'payment_made_by',
         'payment_completed_by',
     ];
@@ -28,11 +33,29 @@ class Invoice extends Model
     // Scope to load specific Hotel Invoices for store keepers
     protected static function booted()
     {
+        // Get the authenticated user's ID
         $userId = auth()->id();
-        $userRole = auth()->user()->role;
+        $user = auth()->user();
+
+        // Check if the user has any roles assigned
+        if ($user && $user->roles->isNotEmpty()) {
+            $userRole = $user->roles->first()->name;  // Get the user's single role (assuming the user only has one role)
+        } else {
+            $userRole = '';
+        }
 
         // Apply the scope conditionally based on the user's role
         static::addGlobalScope(new StoreKeeperScope($userId, $userRole));
+    }
+
+    public function hotel()
+    {
+        return $this->belongsTo(Hotel::class);
+    }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class);
     }
 
     public function lpo()

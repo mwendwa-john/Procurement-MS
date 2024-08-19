@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Lpo;
 use App\Models\Hotel;
+use App\Models\Invoice;
 use App\Models\LpoItem;
 use App\Models\Supplier;
 use Illuminate\Database\Seeder;
@@ -34,6 +35,7 @@ class LposInvoicesSeeder extends Seeder
                 'vat_total'                 => 3213.79,
                 'total_amount'              => 23300.00,
                 'generated_by'              => 1,
+                'posted_by'                 => null,
                 'added_to_daily_lpos_by'    => null,
                 'approved_by'               => null,
                 'invoice_attached_by'       => null,
@@ -63,6 +65,34 @@ class LposInvoicesSeeder extends Seeder
                     'updated_at'        => now(),
                 ]);
             }
+        }
+
+
+        for ($i = 0; $i < 20; $i++) {
+            $randomLpo          = Lpo::inRandomOrder()->first();
+
+            $statuses = ['unpaid', 'payment_made', 'payment_complete'];
+
+            $Invoice = Invoice::create([
+                'lpo_id'                => $randomLpo->id,
+                'hotel_id'              => $randomLpo->hotel->id,
+                'supplier_id'           => $randomLpo->supplier->id,
+                'invoice_number'        => 'INV00' . $i,
+                'description'           => 'Service charge ' . $i,
+                'quantity'              => rand(1, 20),
+                'unit_of_measure'       => 'hours',
+                'rate'                  => rand(100, 500),
+                'vat'                   => rand(10, 50),
+                'amount'                => rand(1000, 5000),
+                'status'                => $statuses[array_rand($statuses)],
+                'subtotal'              => 20086.21,
+                'vat_total'             => 3213.79,
+                'total_amount'          => 23300.00,
+                'payment_made_by'       => null,
+                'payment_completed_by'  => null,
+                'created_at'            => now(),
+                'updated_at'            => now(),
+            ]);
         }
     }
 }

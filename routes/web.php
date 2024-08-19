@@ -24,6 +24,10 @@ use App\Livewire\Stations\Location\LocationHotels;
 use App\Livewire\RolesPermissions\AssignPermissions;
 use App\Livewire\Stations\Location\TrashedLocations;
 use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Livewire\Invoices\AttachInvoice;
+use App\Livewire\Invoices\PaymentStatus\PaidInvoices;
+use App\Livewire\Invoices\PaymentStatus\PartiallyPaidInvoices;
+use App\Livewire\Invoices\PaymentStatus\UnpaidInvoices;
 use App\Livewire\Invoices\ShowInvoices;
 use App\Livewire\Lpos\CreateLpo;
 use App\Livewire\Lpos\ShowLpos;
@@ -100,6 +104,10 @@ Route::middleware(['auth', 'isActive'])->group(function () {
 
     // Invoice Routes
     Route::get('invoices/show', ShowInvoices::class)->name('invoices.show');
+    Route::get('invoice/{id}/attach', AttachInvoice::class)->name('invoice.attach');
+    Route::get('invoice/unpaid', UnpaidInvoices::class)->name('invoices.unpaid');
+    Route::get('invoice/partially/paid', PartiallyPaidInvoices::class)->name('invoices.partially.paid');
+    Route::get('invoice/paid', PaidInvoices::class)->name('invoices.paid');
 });
 
 

@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->foreignId('lpo_id')->constrained('lpos')->onDelete('cascade');
+            $table->foreignId('hotel_id')->constrained()->onDelete('cascade');
+            $table->foreignId('supplier_id')->constrained()->onDelete('cascade');
             $table->string('invoice_number');
             
             $table->string('description');
@@ -28,6 +30,10 @@ return new class extends Migration
                 'payment_made',
                 'payment_complete'
             ])->default('unpaid');
+            
+            $table->decimal('subtotal', 15, 2)->nullable();
+            $table->decimal('vat_total', 15, 2)->nullable();
+            $table->decimal('total_amount', 15, 2)->nullable();
             
             $table->foreignId('payment_made_by')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('payment_completed_by')->nullable()->constrained('users')->onDelete('set null');

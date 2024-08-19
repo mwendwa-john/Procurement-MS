@@ -14,6 +14,9 @@ class ViewLpo extends Component
 
 
     public $generatedBy;
+    public $postedBy;
+    public $addedToDailyLpoBy;
+    public $approvedBy;
 
     public function mount($id)
     {
@@ -21,14 +24,33 @@ class ViewLpo extends Component
 
         $this->lpoItems = LpoItem::findOrFail($id);
 
-        $generatedByUser = User::findOrFail($this->lpo->generated_by);
+        $this->loadUserNames();
+    }
 
-        $firstName  = $generatedByUser->first_name;
-        $middleName = $generatedByUser->middle_name;
-        $lastName   = $generatedByUser->last_name;
+    public function formatUserName($userId)
+    {
+        $user = User::findOrFail($userId);
+        return trim("{$user->first_name} {$user->middle_name} {$user->last_name}");
+    }
 
-        $this->generatedBy = trim("{$firstName} {$middleName} {$lastName}");
-
+    public function loadUserNames()
+    {
+        if ($this->lpo->generated_by) {
+            $this->generatedBy = $this->formatUserName($this->lpo->generated_by);
+        }
+        
+        if ($this->lpo->posted_by) {
+            $this->postedBy = $this->formatUserName($this->lpo->posted_by);
+        }
+        
+        if ($this->lpo->added_to_daily_lpos_by) {
+            $this->addedToDailyLpoBy = $this->formatUserName($this->lpo->added_to_daily_lpos_by);
+        }
+        
+        if ($this->lpo->approved_by) {
+            $this->approvedBy = $this->formatUserName($this->lpo->approved_by);
+        }
+        
     }
 
     public function render()

@@ -33,6 +33,7 @@ return new class extends Migration
             $table->decimal('total_amount', 15, 2)->nullable();
 
             $table->foreignId('generated_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('posted_by')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('added_to_daily_lpos_by')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('approved_by')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('invoice_attached_by')->nullable()->constrained('users')->onDelete('set null');

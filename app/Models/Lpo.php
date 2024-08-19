@@ -23,6 +23,7 @@ class Lpo extends Model
         'vat_total',
         'total_amount',
         'generated_by',
+        'posted_by',
         'added_to_daily_lpos_by',
         'approved_by',
         'invoice_attached_by',

@@ -1,19 +1,19 @@
 <div class="bg-sky-50">
-    @livewire('components.modals.lpo-modals')
+    {{-- @livewire('components.modals.lpo-modals') --}}
 
 
     <!-- Hero -->
     <div class="relative overflow-hidden">
         <!-- Gradients -->
         <div aria-hidden="true" class="flex absolute -top-96 start-1/2 transform -translate-x-1/2">
-            
+
             <div
-                class="bg-gradient-to-br from-violet-400/50 via-purple-200 to-indigo-200 blur-3xl w-[25rem] h-[44rem] rotate-[-60deg] transform -translate-x-[10rem]">
+                class="bg-gradient-to-br from-blue-400/50 via-sky-300 to-cyan-200 blur-3xl w-[25rem] h-[44rem] rotate-[-60deg] transform -translate-x-[10rem]">
             </div>
             <div
-                class="bg-gradient-to-tl from-indigo-100 via-violet-200 to-purple-100 blur-3xl w-[90rem] h-[50rem] rounded-full origin-top-left -rotate-12 -translate-x-[15rem]">
+                class="bg-gradient-to-tl from-cyan-100 via-blue-200 to-sky-100 blur-3xl w-[90rem] h-[50rem] rounded-full origin-top-left -rotate-12 -translate-x-[15rem]">
             </div>
-            
+
         </div>
         <!-- End Gradients -->
 
@@ -26,20 +26,20 @@
                 <div class="max-w-2xl text-center mx-auto">
                     <a href="#"
                         class="inline-block text-sm font-medium bg-clip-text bg-gradient-to-l from-blue-600 to-violet-500 text-transparent">
-                        Show LPOs
+                        Show paid Invoices
                     </a>
 
                     <!-- Title -->
                     <div class="mt-5 max-w-2xl">
-                        <h1 class="block font-semibold text-violet-400 text-xl md:text-3xl lg:text-4xl">
-                            Approved Local Purchase Orders
+                        <h1 class="block font-semibold text-emerald-600 text-xl md:text-3xl lg:text-4xl">
+                            Fully Paid Invoices
                         </h1>
                     </div>
                     <!-- End Title -->
                 </div>
 
                 <!-- Start Buttons -->
-                @livewire('lpos.lpo-buttons')
+                @livewire('invoices.invoice-buttons')
 
                 <!-- End Buttons -->
 
@@ -54,18 +54,19 @@
                             <div class="-m-1.5 overflow-x-auto">
                                 <div class="p-1.5 min-w-full inline-block align-middle">
                                     <div
-                                        class="bg-white border border-t-4 border-t-violet-400 rounded-xl shadow-sm overflow-hidden">
+                                        class="bg-white border border-t-4 border-t-emerald-400 rounded-xl shadow-sm overflow-hidden">
                                         <!-- Header -->
                                         <div
                                             class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200">
                                             <div>
-                                                <h2 class="text-xl font-semibold text-violet-500">
-                                                    LPOs
+                                                <h2 class="text-xl font-semibold text-emerald-600">
+                                                    Invoices
                                                 </h2>
-                                                <p class="text-sm text-violet-400">
-                                                    Manage LPOs, edit, and more.
+                                                <p class="text-sm text-emerald-500">
+                                                    Link lpos, edit and more.
                                                 </p>
                                             </div>
+
                                             <div class="flex gap-4">
                                                 <!-- Supplier Filter -->
                                                 <select wire:model.live="supplier_id"
@@ -86,14 +87,6 @@
                                                     @endforeach
                                                 </select>
                                                 @endif
-
-                                                <!-- Invoice Filter -->
-                                                <select wire:model.live="has_invoice"
-                                                    class="rounded-md border-gray-300">
-                                                    <option value="">All LPOs</option>
-                                                    <option value="with">With Invoice</option>
-                                                    <option value="without">Without Invoice</option>
-                                                </select>
 
                                                 <!-- Search Input -->
                                                 <input type="text" wire:model.live="search" placeholder="Search..."
@@ -124,10 +117,9 @@
                                                             class="text-xs font-semibold uppercase tracking-wide text-gray-800">Status</span>
                                                     </th>
 
-
                                                     <th scope="col" class="px-6 py-3 text-start">
                                                         <span
-                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800">Order
+                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800">Invoice
                                                             Number</span>
                                                     </th>
 
@@ -139,56 +131,45 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="divide-y divide-gray-200">
-                                                @forelse ($lpos as $lpo)
+                                                @forelse ($invoices as $invoice)
                                                 <tr>
                                                     <td class="ps-6 py-3 text-blue-600">
                                                         <div class="text-sm font-semibold">
-                                                            {{ $loop->index + 1 }}
+                                                            {{ ($invoices->currentPage() - 1) * $invoices->perPage() +
+                                                            $loop->index + 1 }}
                                                         </div>
                                                     </td>
 
                                                     <td class="px-6 py-1.5">
                                                         <div class="text-sm font-semibold text-gray-800">
-                                                            {{ $lpo->hotel->hotel_name }}
+                                                            {{ $invoice->hotel->hotel_name }}
                                                         </div>
                                                     </td>
 
                                                     <td class="px-6 py-3">
                                                         <div class="text-sm">
-                                                            {{ $lpo->supplier->supplier_name }}
+                                                            {{ $invoice->supplier->supplier_name }}
                                                         </div>
                                                     </td>
 
                                                     <td class="px-6 py-3 text-center">
                                                         <div class="text-sm">
-                                                            @if ($lpo->status === 'generated')
+                                                            @if ($invoice->status === 'unpaid')
                                                             <span
-                                                                class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-lime-100 text-lime-800 rounded-full">
-                                                                {{ $lpo->status }}
+                                                                class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-red-100 text-red-800 rounded-full">
+                                                                {{ $invoice->status }}
                                                             </span>
 
-                                                            @elseif ($lpo->status === 'posted')
+                                                            @elseif ($invoice->status === 'payment_made')
                                                             <span
-                                                                class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-purple-100 text-purple-800 rounded-full">
-                                                                {{ $lpo->status }}
+                                                                class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-amber-100 text-amber-800 rounded-full">
+                                                                {{ $invoice->status }}
                                                             </span>
 
-                                                            @elseif ($lpo->status === 'added_to_daily_lpos')
-                                                            <span
-                                                                class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-orange-100 text-orange-800 rounded-full">
-                                                                {{ $lpo->status }}
-                                                            </span>
-
-                                                            @elseif ($lpo->status === 'approved')
-                                                            <span
-                                                                class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
-                                                                {{ $lpo->status }}
-                                                            </span>
-
-                                                            @elseif ($lpo->status === 'invoice_attached')
+                                                            @elseif ($invoice->status === 'payment_complete')
                                                             <span
                                                                 class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-teal-100 text-teal-800 rounded-full">
-                                                                {{ $lpo->status }}
+                                                                {{ $invoice->status }}
                                                             </span>
                                                             @endif
                                                         </div>
@@ -197,48 +178,25 @@
 
                                                     <td class="px-6 py-1.5">
                                                         <div class="text-sm">
-                                                            {{ $lpo->order_number }}
+                                                            {{ $invoice->invoice_number }}
                                                         </div>
                                                     </td>
 
                                                     <td class="px-6 py-1.5">
                                                         <div class="inline-flex gap-2">
-                                                            <a href="{{ route('lpos.view', ['id' => $lpo->id]) }}"
+                                                            <a href="{{ route('lpos.view', ['id' => $invoice->lpo->id]) }}"
                                                                 class="text-orange-400 text-sm hover:underline">
                                                                 View
                                                             </a>
-
-                                                            @can('attach invoice')
-                                                            <a href="{{ route('invoice.attach', ['id' => $lpo->id]) }}"
-                                                                class="text-blue-500 text-sm hover:underline">
-                                                                Attach Invoice
-                                                            </a>
-                                                            {{-- <button
-                                                                wire:click="$dispatch('pass-lpo-id', { id: '{{ $lpo->id }}' })"
-                                                                data-hs-overlay="#hs-modal-post-lpo"
-                                                                class="text-blue-500 text-sm hover:underline">
-                                                                Attach Invoice
-                                                            </button> --}}
-                                                            @endcan
-
-                                                            @if($lpo->status !== 'invoice_attached')
-                                                            @can('delete lpos')
-                                                            <button
-                                                                wire:click="$dispatch('pass-lpo-id', { id: '{{ $lpo->id }}' })"
-                                                                data-hs-overlay="#hs-modal-delete-lpo"
-                                                                class="text-red-400 text-sm hover:underline">
-                                                                Delete
-                                                            </button>
-                                                            @endcan
-                                                            @endif
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 @empty
                                                 <tr>
                                                     <td colspan="5" class="text-center py-3">
-                                                        <span class="text-sm font-semibold text-gray-800">No LPOs
-                                                            available</span>
+                                                        <span class="text-sm font-semibold text-gray-800">
+                                                            No invoices available
+                                                        </span>
                                                     </td>
                                                 </tr>
                                                 @endforelse
@@ -250,11 +208,12 @@
                                         <div class="px-6 py-4 border-t border-gray-200 flex justify-between">
                                             <div>
                                                 <p class="text-sm text-gray-600">
-                                                    <span class="font-semibold text-gray-800">{{ $lpos->total()
-                                                        }}</span> LPOs
+                                                    <span class="font-semibold text-gray-800">
+                                                        {{ $invoices->total() }}
+                                                    </span> Invoices
                                                 </p>
                                             </div>
-                                            {{ $lpos->links('vendor.pagination.custom') }}
+                                            {{ $invoices->links('vendor.pagination.custom') }}
                                         </div>
                                         <!-- End Footer -->
                                     </div>

@@ -124,11 +124,9 @@
                                                             class="text-xs font-semibold uppercase tracking-wide text-gray-800">Status</span>
                                                     </th>
 
-
                                                     <th scope="col" class="px-6 py-3 text-start">
                                                         <span
-                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800">Order
-                                                            Number</span>
+                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800">Order Number</span>
                                                     </th>
 
                                                     <th scope="col" class="px-6 py-3 text-center">
@@ -143,7 +141,7 @@
                                                 <tr>
                                                     <td class="ps-6 py-3 text-blue-600">
                                                         <div class="text-sm font-semibold">
-                                                            {{ $loop->index + 1 }}
+                                                            {{ ($lpos->currentPage() - 1) * $lpos->perPage() + $loop->index + 1 }}
                                                         </div>
                                                     </td>
 

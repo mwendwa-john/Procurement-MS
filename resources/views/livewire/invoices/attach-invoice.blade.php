@@ -25,13 +25,13 @@
                 <div class="max-w-2xl text-center mx-auto">
                     <a href="#"
                         class="inline-block text-sm font-medium bg-clip-text bg-gradient-to-l from-blue-600 to-violet-500 text-transparent">
-                        Create LPO
+                        Attach Invoice
                     </a>
 
                     <!-- Title -->
                     <div class="mt-5 max-w-2xl">
                         <h1 class="block font-semibold text-blue-600 text-xl md:text-3xl lg:text-4xl">
-                            Create Local Purchase Order
+                            Attach Invoice
                         </h1>
                     </div>
                     <!-- End Title -->
@@ -46,128 +46,107 @@
                     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
 
                         <div class="bg-white p-8 border border-t-4 border-t-blue-600 rounded-xl shadow-sm">
-                            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Create Local Purchase Order</h2>
-                            <x-livewire-forms submitAction="createLPO" formId="createLPOForm">
+                            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Attach Invoice</h2>
+                            <x-livewire-forms submitAction="attachInvoice" formId="attachInvoiceForm">
                                 @csrf
-                                <!-- LPO Grid -->
-                                <div class="grid md:grid-cols-2 gap-3 gap-x-6">
+
+                                <!-- Grid -->
+                                <div class="grid md:grid-cols-3 gap-3">
                                     <!-- First Column -->
-                                    <div class="space-y-3">
-                                        <div>
-                                            <label for="order_number" class="block text-sm mb-2 text-start">Order Number
-                                                *</label>
-                                            <input wire:model.live="order_number" type="text" name="order_number"
-                                                id="order_number"
-                                                class="px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                                required>
+                                    <div class="relative">
+                                        <div class="grid space-y-3">
+                                            <dl class="grid sm:flex gap-x-3 text-sm">
+                                                <dt class="min-w-36 max-w-[200px] text-gray-700">
+                                                    Order number:
+                                                </dt>
+                                                <dd class="font-medium text-gray-800 mx-4 px-4 py-2 block w-full rounded-lg text-sm bg-gray-100">
+                                                    {{ $lpo->order_number }}
+                                                </dd>
+                                            </dl>
 
-                                            @error('order_number')
-                                            <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
-                                            @enderror
+                                            <dl class="grid sm:flex gap-x-3 text-sm">
+                                                <dt class="min-w-36 max-w-[200px] text-gray-700">
+                                                    Tax date:
+                                                </dt>
+                                                <dd class="font-medium text-gray-800 mx-4 px-4 py-2 block w-full rounded-lg text-sm bg-gray-100">
+                                                    {{ $lpo->tax_date ? \Carbon\Carbon::parse($lpo->tax_date)->format('F j, Y') : 'No date selected' }}
+                                                </dd>
+                                            </dl>
+
                                         </div>
-
-                                        <div>
-                                            <label for="hotel_id" class="block text-sm mb-2 text-start">Ship to (Hotel)
-                                                *</label>
-                                            <select wire:model.live="selectedHotel" name="hotel_id" id="hotel_id"
-                                                class="px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                                required>
-                                                <option value="">select hotel</option>
-                                                @foreach($hotels as $hotel)
-                                                <option value="{{ $hotel->id }}">{{ $hotel->hotel_name }}</option>
-                                                @endforeach
-                                            </select>
-
-                                            @error('selectedHotels')
-                                            <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-
-                                        {{-- <div>
-                                            <label for="company_vat_no" class="block text-sm mb-2 text-start">Company
-                                                VAT No </label>
-                                            <input wire:model.live="company_vat_no" type="text" name="company_vat_no"
-                                                id="company_vat_no"
-                                                class="px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                                required>
-
-                                            @error('company_vat_no')
-                                            <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
-                                            @enderror
-                                        </div> --}}
-
-                                        <div>
-                                            <label for="supplier_id" class="block text-sm mb-2 text-start">
-                                                Supplier*
-                                            </label>
-                                            <select wire:model.live="selectedSupplier" name="supplier_id"
-                                                id="supplier_id"
-                                                class="px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                                required>
-                                                <option value="">select hotel to load suppliers</option>
-                                                @if ($selectedHotel)
-                                                @foreach($suppliers as $supplier)
-                                                <option value="{{ $supplier->id }}">{{ $supplier->supplier_name }}
-                                                </option>
-                                                @endforeach
-                                                @endif
-                                            </select>
-
-                                            @error('selectedSupplier')
-                                            <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-
+                                        <!-- Divider -->
+                                        <div class="absolute inset-y-0 right-0 w-px bg-gray-200"></div>
                                     </div>
 
                                     <!-- Second Column -->
-                                    <div class="space-y-3">
-                                        <div>
-                                            <label for="tax_date" class="block text-sm mb-2 text-start">Tax Date</label>
-                                            <input wire:model.live="tax_date" type="date" name="tax_date" id="tax_date"
-                                                class="px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                                    <div class="relative">
+                                        <div class="grid space-y-3">
+                                            <dl class="grid sm:flex gap-x-3 text-sm">
+                                                <dt class="min-w-36 max-w-[200px] text-gray-700">
+                                                    Ship to (Hotel):
+                                                </dt>
+                                                <dd class="text-gray-800 mx-4 px-4 py-2 block w-full rounded-lg text-sm bg-gray-100">
+                                                    {{ $lpo->hotel ? $lpo->hotel->hotel_name : 'No hotel selected' }}
+                                                </dd>
+                                            </dl>
 
-                                            @error('tax_date')
-                                            <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
-                                            @enderror
+                                            <dl class="grid sm:flex gap-x-3 text-sm">
+                                                <dt class="min-w-36 max-w-[200px] text-gray-700">
+                                                    Payment Terms:
+                                                </dt>
+                                                <dd class="font-medium text-gray-800 mx-4 px-4 py-2 block w-full rounded-lg text-sm bg-gray-100">
+                                                    {{ $lpo->payment_terms }}
+                                                </dd>
+                                            </dl>
+
+                                            <dl class="grid sm:flex gap-x-3 text-sm">
+                                                <dt class="min-w-36 max-w-[200px] text-gray-700">
+                                                    Delivery Date:
+                                                </dt>
+                                                <dd class="font-medium text-gray-800 mx-4 px-4 py-2 block w-full rounded-lg text-sm bg-gray-100">
+                                                    {{ $lpo->delivery_date ? \Carbon\Carbon::parse($lpo->delivery_date)->format('F j, Y') : 'No date selected' }}
+                                                </dd>
+                                            </dl>
                                         </div>
+                                        <!-- Divider -->
+                                        <div class="absolute inset-y-0 right-0 w-px bg-gray-200"></div>
+                                    </div>
 
-                                        <div>
-                                            <label for="delivery_date" class="block text-sm mb-2 text-start">Delivery
-                                                Date </label>
-                                            <input wire:model.live="delivery_date" type="date" name="delivery_date"
-                                                id="delivery_date"
-                                                class="px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-
-                                            @error('delivery_date')
-                                            <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
-                                            @enderror
+                                    <!-- Third Column -->
+                                    <div>
+                                        <div class="grid space-y-3">
+                                            <dl class="grid sm:flex gap-x-3 text-sm">
+                                                <dt class="min-w-36 max-w-[200px] text-gray-700">
+                                                    Supplier address:
+                                                </dt>
+                                                <dd class="font-medium text-gray-800 mx-4 px-4 py-2 block w-full rounded-lg text-sm bg-gray-100">
+                                                    <span class="italic block font-semibold">{{ $lpo->supplier->supplier_name
+                                                        }}</span>
+                                                    <address class="italic font-normal">
+                                                        {{ $lpo->supplier->address->city }}<br>
+                                                        {{ $lpo->supplier->address->street }},<br>
+                                                        {{ $lpo->supplier->address->postal_code }},<br>
+                                                        {{ $lpo->supplier->address->state }}<br>
+                                                    </address>
+                                                </dd>
+                                            </dl>
                                         </div>
-
-                                        <div>
-                                            <label for="payment_terms" class="block text-sm mb-2 text-start">Payment
-                                                Terms </label>
-                                            <textarea wire:model.live="payment_terms" name="payment_terms"
-                                                id="payment_terms" rows="3"
-                                                class="px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"></textarea>
-
-                                            @error('payment_terms')
-                                            <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-
-
                                     </div>
                                 </div>
-                                <!-- End LPO Grid -->
+                                <!-- End Grid -->
 
-                                <!-- LPO Items Table -->
+                                
+
+                                <!-- Invoice Items Table -->
                                 <div class="mt-6">
-                                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Items</h3>
+                                    <h3 class="text-lg font-semibold text-gray-800 mb-4">LPO Items</h3>
                                     <div class="overflow-x-auto">
                                         <table class="min-w-full divide-y divide-gray-200">
                                             <thead class="bg-gray-50">
                                                 <tr>
+                                                    <th scope="col"
+                                                        class="px-6 py-3 text-left text-xs font-medium text-blue-600 uppercase tracking-wider">
+                                                        #</th>
                                                     <th scope="col"
                                                         class="px-6 py-3 text-left text-xs font-medium text-blue-600 uppercase tracking-wider">
                                                         Item</th>
@@ -197,6 +176,12 @@
                                             <tbody id="items-table-body" class="bg-white divide-y divide-gray-200">
                                                 @foreach ($lpoItems as $index => $lpoItem)
                                                 <tr class="item-row">
+                                                    <td class="ps-6 py-3 text-blue-600">
+                                                        <div class="text-sm font-semibold">
+                                                            {{ $loop->index + 1 }}
+                                                        </div>
+                                                    </td>
+
                                                     <td class="px-3 py-2 whitespace-nowrap">
                                                         @if ($lpoItem['is_saved'])
                                                         <span class="block w-full text-sm">
@@ -346,9 +331,9 @@
                                         </button>
                                     </div>
                                 </div>
-                                <!-- End LPO Items Table -->
+                                <!-- End Invoice Items Table -->
 
-                                <!-- LPO Footer -->
+                                <!-- Invoice Footer -->
                                 <div>
                                     <div
                                         class="mt-8 flex flex-col sm:flex-row sm:justify-between space-y-4 sm:space-y-0 sm:space-x-8">
@@ -461,17 +446,18 @@
                                     </div>
                                     <!-- End Flex -->
                                 </div>
-                                <!-- End LPO Footer -->
+                                <!-- End Invoice Footer -->
 
                                 <div class="mt-8 flex justify-end">
                                     <button type="submit"
                                         class="px-4 py-2 bg-green-600 text-white text-sm font-semibold rounded-lg hover:bg-green-700">
-                                        Create LPO
+                                        Attach Invoice
                                     </button>
                                 </div>
 
 
                             </x-livewire-forms>
+                            
                         </div>
 
                     </div>

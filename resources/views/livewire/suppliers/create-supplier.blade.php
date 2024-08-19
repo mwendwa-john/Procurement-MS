@@ -10,8 +10,8 @@
                         required aria-describedby="supplier_name">
 
                     <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
-                        <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor"
-                            viewBox="0 0 16 16" aria-hidden="true">
+                        <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"
+                            aria-hidden="true">
                             <path
                                 d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                         </svg>
@@ -19,7 +19,7 @@
                 </div>
 
                 @error('supplier_name')
-                    <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
                 @enderror
             </div>
             <!-- End Form Group -->
@@ -33,8 +33,8 @@
                         required disabled aria-describedby="slug">
 
                     <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
-                        <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor"
-                            viewBox="0 0 16 16" aria-hidden="true">
+                        <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"
+                            aria-hidden="true">
                             <path
                                 d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                         </svg>
@@ -42,7 +42,7 @@
                 </div>
 
                 @error('slug')
-                    <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
                 @enderror
             </div>
             <!-- End Form Group -->
@@ -52,23 +52,33 @@
             <div>
                 <label for="supplies_to" class="block text-sm mb-2 text-start">Supplies to *</label>
 
-                <!-- Floating Select -->
+                {{-- <!-- Floating Select -->
                 <div class="relative" wire:ignore>
                     <!-- Select -->
                     <select multiple wire:model.live="selectedHotels"
-                        data-hs-select='{"placeholder": "Select multiple options...", "toggleTag": "<button type=\"button\"></button>", "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative py-3 px-4 pe-9 flex text-nowrap w-full cursor-pointer bg-white border border-blue-200 rounded-lg text-start text-sm focus:border-blue-500 focus:ring-blue-500 before:absolute before:inset-0 before:z-[1]", "dropdownClasses": "mt-2 z-50 w-full max-h-72 p-1 space-y-0.5 bg-white border border-blue-200 rounded-lg overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300", "optionClasses": "py-2 px-4 w-full text-sm text-gray-800 cursor-pointer hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100", "optionTemplate": "<div class=\"flex justify-between items-center w-full\"><span data-title></span><span class=\"hidden hs-selected:block\"><svg class=\"flex-shrink-0 size-3.5 text-blue-600\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg></span></div>", "extraMarkup": "<div class=\"absolute top-1/2 end-3 -translate-y-1/2\"><svg class=\"flex-shrink-0 size-3.5 text-gray-500\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"}'
+                        data-hs-select='{"placeholder": "Select hotel options...", "toggleTag": "<button type=\"button\"></button>", "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative py-3 px-4 pe-9 flex text-nowrap w-full cursor-pointer bg-white border border-blue-200 rounded-lg text-start text-sm focus:border-blue-500 focus:ring-blue-500 before:absolute before:inset-0 before:z-[1]", "dropdownClasses": "mt-2 z-50 w-full max-h-72 p-1 space-y-0.5 bg-white border border-blue-200 rounded-lg overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300", "optionClasses": "py-2 px-4 w-full text-sm text-gray-800 cursor-pointer hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100", "optionTemplate": "<div class=\"flex justify-between items-center w-full\"><span data-title></span><span class=\"hidden hs-selected:block\"><svg class=\"flex-shrink-0 size-3.5 text-blue-600\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg></span></div>", "extraMarkup": "<div class=\"absolute top-1/2 end-3 -translate-y-1/2\"><svg class=\"flex-shrink-0 size-3.5 text-gray-500\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"}'
                         class="hidden">
                         <option value="">select hotels</option>
                         @foreach ($hotels as $hotel)
-                            <option value="{{ $hotel->id }}">{{ $hotel->hotel_name }}</option>
+                        <option value="{{ $hotel->id }}">{{ $hotel->hotel_name }}</option>
                         @endforeach
                     </select>
                     <!-- End Select -->
                 </div>
-                <!-- End Floating Select -->
+                <!-- End Floating Select --> --}}
+
+                <select wire:model.live="selectedHotels"
+                    class="py-3 px-4 pe-9 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                    <option value="">select hotel</option>
+                    @foreach ($hotels as $hotel)
+                    <option value="{{ $hotel->id }}">{{ $hotel->hotel_name }}</option>
+                    @endforeach
+                </select>
+
+
 
                 @error('selectedHotels')
-                    <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
                 @enderror
             </div>
             <!-- End Form Group -->
@@ -83,8 +93,8 @@
                         required aria-describedby="email">
 
                     <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
-                        <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor"
-                            viewBox="0 0 16 16" aria-hidden="true">
+                        <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"
+                            aria-hidden="true">
                             <path
                                 d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                         </svg>
@@ -92,7 +102,7 @@
                 </div>
 
                 @error('email')
-                    <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
                 @enderror
             </div>
             <!-- End Form Group -->
@@ -107,8 +117,8 @@
                         required aria-describedby="phone_number">
 
                     <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
-                        <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor"
-                            viewBox="0 0 16 16" aria-hidden="true">
+                        <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"
+                            aria-hidden="true">
                             <path
                                 d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                         </svg>
@@ -116,7 +126,7 @@
                 </div>
 
                 @error('phone_number')
-                    <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
                 @enderror
             </div>
             <!-- End  Form Group -->
@@ -128,7 +138,7 @@
                     class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                     required>
                 @error('street')
-                    <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
                 @enderror
             </div>
             <!-- End Form Group - Street -->
@@ -140,7 +150,7 @@
                     class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                     required>
                 @error('city')
-                    <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
                 @enderror
             </div>
             <!-- End Form Group - City -->
@@ -152,7 +162,7 @@
                     class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                     required>
                 @error('state')
-                    <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
                 @enderror
             </div>
             <!-- End Form Group - State -->
@@ -163,7 +173,7 @@
                 <input wire:model.live="postal_code" type="text" id="postal_code" name="postal_code"
                     class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
                 @error('postal_code')
-                    <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
                 @enderror
             </div>
             <!-- End Form Group - Postal Code -->
@@ -171,7 +181,7 @@
 
 
 
-            <!-- Buttons - Cancel and Create Hotel -->
+            <!-- Buttons - Cancel and Create Supplier -->
             <div class="col-span-2 mt-6 flex justify-center gap-x-4">
                 <button type="button"
                     class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-red-400 text-white shadow-sm hover:bg-red-300 disabled:opacity-50 disabled:pointer-events-none"
@@ -181,7 +191,7 @@
 
                 <button type="submit"
                     class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-                    Create hotel
+                    Create supplier
                 </button>
             </div>
             <!-- End Buttons -->

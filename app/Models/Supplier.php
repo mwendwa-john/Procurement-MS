@@ -32,4 +32,9 @@ class Supplier extends Model
     {
         return $this->hasMany(Lpo::class);
     }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
 }

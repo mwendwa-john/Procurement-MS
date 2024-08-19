@@ -113,7 +113,7 @@
                                 </div>
 
                                 <div class="flex flex-col mx-1 md:mx-0">
-                                    <a class="group flex gap-x-5 hover:bg-gray-100 rounded-lg p-4" href="#">
+                                    <a class="group flex gap-x-5 hover:bg-gray-100 rounded-lg p-4" href="{{ route('lpos.approved') }}">
 
                                         <svg class="flex-shrink-0 size-5 mt-1" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -239,6 +239,11 @@
                             <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
                                 href="#">
                                 Make Payments
+                            </a>
+
+                            <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
+                                href="#">
+                                Transactions
                             </a>
 
                             <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"

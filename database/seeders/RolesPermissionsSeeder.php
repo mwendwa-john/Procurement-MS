@@ -55,6 +55,9 @@ class RolesPermissionsSeeder extends Seeder
 
         // Invoice Permissions
         $attachInvoice   = Permission::create(['name' => 'attach invoice']);
+        $editInvoice   = Permission::create(['name' => 'edit invoices']);
+        $deleteInvoice   = Permission::create(['name' => 'delete invoices']);
+        $makePaymentsOnInvoice   = Permission::create(['name' => 'make payments on invoice']);
 
 
 
@@ -79,6 +82,11 @@ class RolesPermissionsSeeder extends Seeder
 
             // lpos
             $approveLpos->id,
+
+            // invoices
+            $editInvoice->id,
+            $deleteInvoice->id,
+            $makePaymentsOnInvoice->id,
         ]);
         // End Director Role
 
