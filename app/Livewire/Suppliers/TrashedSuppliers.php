@@ -2,9 +2,10 @@
 
 namespace App\Livewire\Suppliers;
 
-use App\Models\Supplier;
 use Livewire\Component;
+use App\Models\Supplier;
 use Livewire\WithPagination;
+use App\Helpers\GlobalHelpers;
 
 class TrashedSuppliers extends Component
 {
@@ -12,7 +13,9 @@ class TrashedSuppliers extends Component
     
     public function render()
     {
-        $trashedSuppliers = Supplier::onlyTrashed()->paginate(15);
+        $perPage = GlobalHelpers::getPerPage();
+        
+        $trashedSuppliers = Supplier::onlyTrashed()->paginate($perPage ?? 15);
 
         return view('livewire.suppliers.trashed-suppliers', compact('trashedSuppliers'));
     }

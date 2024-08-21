@@ -7,6 +7,7 @@ use App\Models\Hotel;
 use Livewire\Component;
 use App\Models\Supplier;
 use Livewire\WithPagination;
+use App\Helpers\GlobalHelpers;
 
 class ShowLpos extends Component
 {
@@ -41,6 +42,8 @@ class ShowLpos extends Component
 
     public function render()
     {
+        $perPage = GlobalHelpers::getPerPage();
+        
         $lpos = Lpo::with(['hotel', 'supplier'])
             ->when($this->search, function ($query) {
                 $query->where(function ($query) {
@@ -67,7 +70,7 @@ class ShowLpos extends Component
                 }
             })
             ->latest()
-            ->paginate(15);
+            ->paginate($perPage ?? 15);
 
         $suppliers = Supplier::all(); 
         $hotels = Hotel::all(); 

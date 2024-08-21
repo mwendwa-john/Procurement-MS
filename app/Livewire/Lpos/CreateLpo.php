@@ -5,9 +5,10 @@ namespace App\Livewire\Lpos;
 use App\Models\Lpo;
 use App\Models\Hotel;
 use App\Models\LpoItem;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\Attributes\Validate;
+use Spatie\Valuestore\Valuestore;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CreateLpo extends Component
@@ -21,6 +22,7 @@ class CreateLpo extends Component
 
     // LPO Items
     public $lpoItems = [];
+    public $vatRate;
     public $includeVat = false;
     public $editingIndex = null; // Track the index of the item being edited
     public $subtotal = 0, $vat_total = 0, $total_amount = 0;
@@ -31,6 +33,9 @@ class CreateLpo extends Component
 
         // Initialize with one empty item
         $this->lpoItems[] = $this->emptyItem();
+
+        // set vat rate
+        $this->vatRate = Valuestore::make(config_path('system_settings.json'))->get('vat_rate');
     }
 
     protected $rules = [
@@ -127,7 +132,7 @@ class CreateLpo extends Component
         // $this->vat_total = collect($this->lpoItems)->sum('vat');
 
         // Calculate VAT based on the subtotal
-        $vatRate = 0.16;
+        $vatRate = $this->vatRate/100;
         $this->vat_total = $this->includeVat ? ($this->subtotal * $vatRate) : 0;
 
         // Calculate the total amount

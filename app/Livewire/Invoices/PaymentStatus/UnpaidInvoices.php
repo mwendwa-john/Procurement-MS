@@ -8,6 +8,7 @@ use App\Models\Invoice;
 use Livewire\Component;
 use App\Models\Supplier;
 use Livewire\WithPagination;
+use App\Helpers\GlobalHelpers;
 
 class UnpaidInvoices extends Component
 {
@@ -36,6 +37,8 @@ class UnpaidInvoices extends Component
 
     public function render()
     {
+        $perPage = GlobalHelpers::getPerPage();
+        
         $invoices = Invoice::with(['hotel', 'supplier'])
             ->where('status', 'unpaid')
             ->when($this->search, function ($query) {
@@ -59,7 +62,7 @@ class UnpaidInvoices extends Component
                 $query->where('hotel_id', $this->hotel_id);
             })
             ->latest()
-            ->paginate(15);
+            ->paginate($perPage ?? 15);
 
 
         $suppliers = Supplier::all();

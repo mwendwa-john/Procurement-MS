@@ -5,6 +5,7 @@ namespace App\Livewire\Lpos;
 use App\Models\Lpo;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Helpers\GlobalHelpers;
 
 class TrashedLpos extends Component
 {
@@ -12,7 +13,9 @@ class TrashedLpos extends Component
     
     public function render()
     {
-        $trashedLpos = Lpo::onlyTrashed()->latest()->paginate(15);
+        $perPage = GlobalHelpers::getPerPage();
+        
+        $trashedLpos = Lpo::onlyTrashed()->latest()->paginate($perPage ?? 15);
 
         return view('livewire.lpos.trashed-lpos', compact('trashedLpos'));
     }

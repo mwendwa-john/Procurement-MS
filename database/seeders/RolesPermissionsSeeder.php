@@ -44,6 +44,9 @@ class RolesPermissionsSeeder extends Seeder
         // User Permissions
         $manageUsers       = Permission::create(['name' => 'manage users']);
 
+        // products Permissions
+        $manageProducts       = Permission::create(['name' => 'manage products']);
+
         // lpo Permissions
         $createLpo       = Permission::create(['name' => 'create lpo']);
         $editLpos        = Permission::create(['name' => 'edit lpos']);
@@ -79,6 +82,7 @@ class RolesPermissionsSeeder extends Seeder
             $manageHotels->id,
             $manageSuppliers->id,
             $manageUsers->id,
+            $manageProducts->id,
 
             // lpos
             $approveLpos->id,
@@ -93,7 +97,7 @@ class RolesPermissionsSeeder extends Seeder
 
         // Headquarters Role
         $this->headquartersRole->permissions()->attach([
-            $assignRolePermission->id,
+            $manageProducts->id,
             $addToDailyLpos->id,
             
         ]);
@@ -102,6 +106,7 @@ class RolesPermissionsSeeder extends Seeder
 
         // Store Keeper Role
         $this->storeKeeperRole->permissions()->attach([
+            $manageProducts->id,
             // LPOs
             $createLpo->id,
             $editLpos->id,

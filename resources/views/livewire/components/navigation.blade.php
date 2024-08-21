@@ -35,6 +35,7 @@
                 class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow md:block">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-end py-2 md:py-0 md:ps-7">
                     @auth
+
                     <a class="py-3 ps-px md:px-3 font-medium text-gray-700" href="{{ route('home') }}"
                         aria-current="page">Home</a>
 
@@ -187,6 +188,8 @@
                         </div>
                     </div>
 
+                    <a class="py-3 ps-px md:px-3 font-medium text-gray-700" href="{{ route('products.show') }}"
+                        aria-current="page">Products</a>
 
                     <div
                         class="hs-dropdown [--strategy:static] md:[--strategy:fixed] [--adaptive:none] md:[--trigger:hover] py-3 ps-px md:px-3">

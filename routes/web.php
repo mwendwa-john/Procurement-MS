@@ -37,6 +37,9 @@ use App\Livewire\Lpos\States\DailyLpos as StatesDailyLpos;
 use App\Livewire\Lpos\States\ApprovedLpos as StatesApprovedLpos;
 use App\Livewire\Lpos\TrashedLpos;
 use App\Livewire\Lpos\ViewLpo;
+use App\Livewire\Products\ShowProducts;
+use App\Livewire\Products\TrashedProducts;
+use App\Livewire\Settings\SettingsIndex;
 use App\Livewire\Stations\Hotel\HotelProfile;
 use App\Livewire\Suppliers\SupplierProfile;
 
@@ -92,6 +95,10 @@ Route::middleware(['auth', 'isActive'])->group(function () {
     Route::get('user/{slug}/profile', UserProfile::class)->name('user.profile');
     Route::get('user/{slug}/edit', EditUserProfile::class)->name('user.profile.edit');
 
+    // products routes
+    Route::get('/products', ShowProducts::class)->name('products.show');
+    Route::get('/products/trashed', TrashedProducts::class)->name('products.trashed');
+    
     // lpo routes
     Route::get('lpo/create', CreateLpo::class)->name('lpo.create');
     Route::get('lpo/created', StatesCreatedLpos::class)->name('lpos.created');
@@ -108,6 +115,10 @@ Route::middleware(['auth', 'isActive'])->group(function () {
     Route::get('invoice/unpaid', UnpaidInvoices::class)->name('invoices.unpaid');
     Route::get('invoice/partially/paid', PartiallyPaidInvoices::class)->name('invoices.partially.paid');
     Route::get('invoice/paid', PaidInvoices::class)->name('invoices.paid');
+
+
+    // Settings Routes
+    Route::get('/settings', SettingsIndex::class)->name('settings.index');
 });
 
 

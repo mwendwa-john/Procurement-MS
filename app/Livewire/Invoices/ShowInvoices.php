@@ -7,6 +7,7 @@ use App\Models\Invoice;
 use Livewire\Component;
 use App\Models\Supplier;
 use Livewire\WithPagination;
+use App\Helpers\GlobalHelpers;
 
 class ShowInvoices extends Component
 {
@@ -35,6 +36,8 @@ class ShowInvoices extends Component
 
     public function render()
     {
+        $perPage = GlobalHelpers::getPerPage();
+        
         $invoices = Invoice::with(['hotel', 'supplier'])
             ->when($this->search, function ($query) {
                 $query->where(function ($query) {
@@ -57,7 +60,7 @@ class ShowInvoices extends Component
                 $query->where('hotel_id', $this->hotel_id);
             })
             ->latest()
-            ->paginate(15);
+            ->paginate($perPage ?? 15);
 
         // $invoices = Invoice::all();
 

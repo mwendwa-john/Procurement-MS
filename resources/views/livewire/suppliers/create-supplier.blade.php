@@ -1,5 +1,8 @@
 <div>
     <x-livewire-forms submitAction="createSupplier" formId="createSupplierForm">
+
+        @csrf
+        
         <div class="grid grid-cols-2 gap-y-4 gap-x-8">
             <!-- Form Group - Supplier Name -->
             <div>

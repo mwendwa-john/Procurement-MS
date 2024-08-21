@@ -5,6 +5,7 @@ namespace App\Livewire\User;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Helpers\GlobalHelpers;
 
 class ShowUsers extends Component
 {
@@ -12,7 +13,9 @@ class ShowUsers extends Component
 
     public function render()
     {
-        $users = User::paginate(15);
+        $perPage = GlobalHelpers::getPerPage();
+        
+        $users = User::paginate($perPage ?? 15);
 
         return view('livewire.user.show-users', compact('users'));
     }

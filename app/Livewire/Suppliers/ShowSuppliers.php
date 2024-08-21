@@ -2,9 +2,10 @@
 
 namespace App\Livewire\Suppliers;
 
-use App\Models\Supplier;
 use Livewire\Component;
+use App\Models\Supplier;
 use Livewire\WithPagination;
+use App\Helpers\GlobalHelpers;
 
 class ShowSuppliers extends Component
 {
@@ -12,7 +13,9 @@ class ShowSuppliers extends Component
 
     public function render()
     {
-        $suppliers = Supplier::paginate(15);
+        $perPage = GlobalHelpers::getPerPage();
+        
+        $suppliers = Supplier::paginate($perPage ?? 15);
 
         return view('livewire.suppliers.show-suppliers', compact('suppliers'));
     }

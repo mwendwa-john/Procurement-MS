@@ -7,6 +7,7 @@ use App\Models\Hotel;
 use Livewire\Component;
 use App\Models\Supplier;
 use Livewire\WithPagination;
+use App\Helpers\GlobalHelpers;
 
 class CreatedLpos extends Component
 {
@@ -41,6 +42,8 @@ class CreatedLpos extends Component
 
     public function render()
     {
+        $perPage = GlobalHelpers::getPerPage();
+        
         $lpos = Lpo::with(['hotel', 'supplier'])
             ->where('status', 'generated')
             ->when($this->search, function ($query) {
@@ -68,7 +71,7 @@ class CreatedLpos extends Component
                 }
             })
             ->latest()
-            ->paginate(10);
+            ->paginate($perPage ?? 15);
 
 
 
