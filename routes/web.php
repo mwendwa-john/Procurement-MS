@@ -37,6 +37,7 @@ use App\Livewire\Lpos\States\DailyLpos as StatesDailyLpos;
 use App\Livewire\Lpos\States\ApprovedLpos as StatesApprovedLpos;
 use App\Livewire\Lpos\TrashedLpos;
 use App\Livewire\Lpos\ViewLpo;
+use App\Livewire\Payments\ShowPayments;
 use App\Livewire\Products\ShowProducts;
 use App\Livewire\Products\TrashedProducts;
 use App\Livewire\Settings\SettingsIndex;
@@ -115,6 +116,9 @@ Route::middleware(['auth', 'isActive'])->group(function () {
     Route::get('invoice/unpaid', UnpaidInvoices::class)->name('invoices.unpaid');
     Route::get('invoice/partially/paid', PartiallyPaidInvoices::class)->name('invoices.partially.paid');
     Route::get('invoice/paid', PaidInvoices::class)->name('invoices.paid');
+
+    // Payment routes
+    Route::get('/payments/show', ShowPayments::class)->name('payments.show');
 
 
     // Settings Routes

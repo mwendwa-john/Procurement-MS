@@ -5,7 +5,9 @@ namespace App\Livewire\Lpos;
 use App\Models\Lpo;
 use App\Models\Hotel;
 use App\Models\LpoItem;
+use App\Models\Product;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Spatie\Valuestore\Valuestore;
 use Illuminate\Support\Facades\Auth;
@@ -79,27 +81,64 @@ class CreateLpo extends Component
 
     public function addItem()
     {
-        // Check if the last item is not saved
-        if (!$this->lpoItems || end($this->lpoItems)['is_saved'] === false) {
-            // Throw validation error
-            $this->addError('lpoItems', 'Please save the current item before adding a new one.');
-            return;
-        }
-
         // If the last item is saved, add a new item to the list
         $this->lpoItems[] = ['item_name' => '', 'description' => '', 'quantity' => '', 'unit_of_measure' => '', 'price' => '', 'vat' => '', 'amount' => '', 'is_saved' => false];
     }
+
+    #[On('select-product')]
+    public function addProduct($id)
+    {
+        // find Product
+        $product = Product::findOrFail($id);
+
+        // add a new item to the list with the product details
+        $this->lpoItems[] = [
+            'item_name'         => $product->item_name,
+            'description'       => $product->description,
+            'quantity'          => '',
+            'unit_of_measure'   => $product->unit_of_measure,
+            'price'             => $product->price,
+            'vat'               => '',
+            'amount'            => '',
+            'is_saved'          => false
+        ];
+
+        // close modal
+        $this->dispatch('close-product-search-modal');
+    }
+    // #[On('close-product-search-modal')]
+    // public function closeModal()
+    // {
+    //     // dd('Hello, Asia');
+    //     console.log('Hello, world');
+    // }
 
     public function removeItem($index)
     {
         unset($this->lpoItems[$index]);
         $this->lpoItems = array_values($this->lpoItems);
+
         $this->recalculateTotals();
     }
 
     public function saveItem($index)
     {
+        // Validate the item before marking it as saved
+        $validatedItem = $this->validate([
+            "lpoItems.$index.item_name"      => 'required|string',
+            "lpoItems.$index.description"    => 'nullable|string|max:255',
+            "lpoItems.$index.quantity"       => 'required|numeric|min:1',
+            "lpoItems.$index.price"          => 'required|numeric|min:0',
+            "lpoItems.$index.amount"         => 'required|numeric|min:0',
+        ]);
+
+        // Assign the validated data back to the item
+        $this->lpoItems[$index] = array_merge($this->lpoItems[$index], $validatedItem);
+
+        // Mark the item as saved
         $this->lpoItems[$index]['is_saved'] = true;
+
+        // Recalculate totals
         $this->recalculateTotals();
     }
 
@@ -132,7 +171,7 @@ class CreateLpo extends Component
         // $this->vat_total = collect($this->lpoItems)->sum('vat');
 
         // Calculate VAT based on the subtotal
-        $vatRate = $this->vatRate/100;
+        $vatRate = $this->vatRate / 100;
         $this->vat_total = $this->includeVat ? ($this->subtotal * $vatRate) : 0;
 
         // Calculate the total amount

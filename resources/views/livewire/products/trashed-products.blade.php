@@ -174,22 +174,11 @@
                                                     @can('manage products')
                                                     <td class="px-6 py-1.5 text-center">
                                                         <div class="inline-flex gap-2">
-                                                            <a href="#" class="text-orange-400 text-sm hover:underline">
-                                                                View
-                                                            </a>
-
                                                             <button
                                                                 wire:click="$dispatch('pass-product-id', { id: '{{ $product->id }}' })"
-                                                                data-hs-overlay="#hs-modal-edit-product"
+                                                                data-hs-overlay="#hs-modal-restore-product"
                                                                 class="text-blue-600 text-sm hover:underline">
-                                                                Edit
-                                                            </button>
-
-                                                            <button
-                                                                wire:click="$dispatch('pass-product-id', { id: '{{ $product->id }}' })"
-                                                                data-hs-overlay="#hs-modal-delete-product"
-                                                                class="text-red-400 text-sm hover:underline">
-                                                                Delete
+                                                                Restore
                                                             </button>
                                                         </div>
                                                     </td>

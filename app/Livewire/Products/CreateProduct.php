@@ -14,9 +14,6 @@ class CreateProduct extends Component
     public $item_name;
 
     #[Validate()]
-    public $product_slug;
-
-    #[Validate()]
     public $description;
 
     #[Validate()]
@@ -28,16 +25,10 @@ class CreateProduct extends Component
 
     protected $rules = [
         'item_name'         => 'required|string|max:255',
-        'product_slug'      => 'required|string|max:255|unique:products,product_slug',
         'description'       => 'nullable|string|max:1000',
         'unit_of_measure'   => 'required|string|max:100',
         'price'             => 'nullable|numeric|min:0|max:9999999999.99',
     ];
-
-    public function updatedItemName()
-    {
-        $this->product_slug = Str::slug($this->item_name);
-    }
 
     public function createProduct()
     {

@@ -1,5 +1,6 @@
 <div class="bg-sky-50">
     @livewire('components.modals.lpo-modals')
+    @livewire('components.modals.search-product-modal')
 
 
     <!-- Hero -->
@@ -170,28 +171,43 @@
                                                 <tr>
                                                     <th scope="col"
                                                         class="px-6 py-3 text-left text-xs font-medium text-blue-600 uppercase tracking-wider">
-                                                        Item</th>
+                                                        Item
+                                                    </th>
+                                                    
                                                     <th scope="col"
                                                         class="px-6 py-3 text-left text-xs font-medium text-blue-600 uppercase tracking-wider">
-                                                        Description</th>
+                                                        Description
+                                                    </th>
+
                                                     <th scope="col"
                                                         class="px-6 py-3 text-left text-xs font-medium text-blue-600 uppercase tracking-wider">
-                                                        Qty</th>
+                                                        Qty
+                                                    </th>
+
                                                     <th scope="col"
                                                         class="px-6 py-3 text-left text-xs font-medium text-blue-600 uppercase tracking-wider">
-                                                        UM</th>
+                                                        UM
+                                                    </th>
+
                                                     <th scope="col"
                                                         class="px-6 py-3 text-left text-xs font-medium text-blue-600 uppercase tracking-wider">
-                                                        Price</th>
+                                                        Price
+                                                    </th>
+
                                                     <th scope="col"
                                                         class="px-6 py-3 text-left text-xs font-medium text-blue-600 uppercase tracking-wider">
-                                                        VAT</th>
+                                                        VAT
+                                                    </th>
+
                                                     <th scope="col"
                                                         class="px-6 py-3 text-left text-xs font-medium text-blue-600 uppercase tracking-wider">
-                                                        Amount</th>
+                                                        Amount
+                                                    </th>
+
                                                     <th scope="col"
                                                         class="px-6 py-3 text-left text-xs font-medium text-blue-600 uppercase tracking-wider">
-                                                        Action</th>
+                                                        Action
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody id="items-table-body" class="bg-white divide-y divide-gray-200">
@@ -339,11 +355,20 @@
                                         @enderror
 
 
-
                                         <button wire:click.prevent='addItem' type="button" id="add-item"
-                                            class="mt-4 px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700">
+                                            class="mt-4 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-500">
                                             Add Item
                                         </button>
+
+                                        <!-- SearchBox Trigger -->
+                                        <button type="button"
+                                            class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                                            aria-haspopup="dialog" aria-expanded="false"
+                                            aria-controls="hs-search-product-modal"
+                                            data-hs-overlay="#hs-search-product-modal">
+                                            Search Product
+                                        </button>
+
                                     </div>
                                 </div>
                                 <!-- End LPO Items Table -->
@@ -491,5 +516,19 @@
     <!-- ========== END FOOTER ========== -->
 
 
+
+
+    @script
+    <script>
+        $wire.on('close-product-search-modal', () => {
+        console.log('Hello, world');
+        // Handle the closing of the modal logic here
+        const modal = document.getElementById('hs-search-product-modal');
+        if (modal) {
+            window.HSOverlay.close(modal);
+        }
+    });
+    </script>
+    @endscript
 
 </div>

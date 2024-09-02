@@ -19,7 +19,6 @@ class ProductsSeeder extends Seeder
 
             Product::create([
                 'item_name'         => 'Product ' . $i,
-                'product_slug'      => 'product-' . $i,
                 'description'       => 'Description for Product ' . $i,
                 'unit_of_measure'   => $measures[array_rand($measures)],
                 'price'             => 19.99,
