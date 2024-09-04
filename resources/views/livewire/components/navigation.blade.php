@@ -60,7 +60,9 @@
                             class="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] md:duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 w-full hidden z-10 top-full start-0 min-w-60 bg-white md:shadow-2xl rounded-lg py-2 md:p-4 before:absolute before:-top-5 before:start-0 before:w-full before:h-5">
                             <div class="md:grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 <div class="flex flex-col mx-1 md:mx-0">
-                                    <a class="group flex gap-x-5 hover:bg-gray-100 rounded-lg p-4" href="{{ route('lpo.create') }}">
+                                    @can('create lpo')
+                                    <a class="group flex gap-x-5 hover:bg-gray-100 rounded-lg p-4"
+                                        href="{{ route('lpo.create') }}">
                                         <svg class="flex-shrink-0 size-5 mt-1" viewBox="0 -0.5 20 20" version="1.1"
                                             xmlns="http://www.w3.org/2000/svg"
                                             xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
@@ -91,8 +93,10 @@
                                             </p>
                                         </div>
                                     </a>
+                                    @endcan
 
-                                    <a class="group flex gap-x-5 hover:bg-gray-100 rounded-lg p-4" href="{{ route('lpos.show') }}">
+                                    <a class="group flex gap-x-5 hover:bg-gray-100 rounded-lg p-4"
+                                        href="{{ route('lpos.show') }}">
                                         <svg class="flex-shrink-0 size-5 mt-1" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -114,7 +118,9 @@
                                 </div>
 
                                 <div class="flex flex-col mx-1 md:mx-0">
-                                    <a class="group flex gap-x-5 hover:bg-gray-100 rounded-lg p-4" href="{{ route('lpos.approved') }}">
+                                    @can('attach invoice')
+                                    <a class="group flex gap-x-5 hover:bg-gray-100 rounded-lg p-4"
+                                        href="{{ route('lpos.approved') }}">
 
                                         <svg class="flex-shrink-0 size-5 mt-1" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -142,8 +148,10 @@
                                                 financial tracking by linking invoices to LPO seamlessly.</p>
                                         </div>
                                     </a>
+                                    @endcan
 
-                                    <a class="group flex gap-x-5 hover:bg-gray-100 rounded-lg p-4" href="{{ route('invoices.show') }}">
+                                    <a class="group flex gap-x-5 hover:bg-gray-100 rounded-lg p-4"
+                                        href="{{ route('invoices.show') }}">
                                         <svg class="flex-shrink-0 size-5 mt-1" viewBox="0 0 1024 1024" class="icon"
                                             version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -178,7 +186,9 @@
                                             alt="Superior Logo">
                                         <div class="grow">
                                             <p class="text-sm text-gray-800">
-                                                Streamline procurement with Superior Hotels' management system. Efficiently handle LPOs, invoices, approvals, payments, and auditing for superior operational control.
+                                                Streamline procurement with Superior Hotels' management system.
+                                                Efficiently handle LPOs, invoices, approvals, payments, and auditing for
+                                                superior operational control.
                                             </p>
                                         </div>
                                     </a>
@@ -265,8 +275,16 @@
                             <button id="hs-dropdown-with-header" type="button"
                                 class="hs-dropdown-toggle w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none">
 
-                                <img src="{{ Storage::url(Auth::user()->person->profile_photo_path) }}"
+                                <img src="{{ Auth::user()->person->profile_photo_path && Storage::exists(Auth::user()->person->profile_photo_path) 
+                                ? Storage::url(Auth::user()->person->profile_photo_path)
+                                : asset('front-assets/images/superiorLogo.png') }}"
                                     class="inline-block size-[38px] rounded-full ring-2 ring-white" alt="profile" />
+
+
+                                {{-- <img src="{{ Storage::url(Auth::user()->person->profile_photo_path) }}"
+                                    class="inline-block size-[38px] rounded-full ring-2 ring-white" alt="profile" />
+                                --}}
+
                             </button>
 
                             <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 z-10 bg-white shadow-md rounded-lg p-2"
@@ -327,18 +345,6 @@
                                         Profile
                                     </a>
 
-                                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
-                                        href="#">
-                                        <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
-                                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
-                                            <path d="M12 12v9" />
-                                            <path d="m8 17 4 4 4-4" />
-                                        </svg>
-                                        Downloads
-                                    </a>
-
                                     <hr class="border-blue-300">
 
                                     <div class="text-center">
@@ -353,16 +359,29 @@
                         </div>
                         @else
                         <div class="pt-3 md:pt-0 md:ps-6">
-                            <a class="py-2 my-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
-                                href="{{ route('login') }}">
-                                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
-                                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                                    <circle cx="12" cy="7" r="4" />
-                                </svg>
-                                Sign in
-                            </a>
+                            <div class="flex">
+                                <a class="py-2 my-2 px-4 mx-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                                    href="{{ route('register') }}">
+                                    <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                        <circle cx="12" cy="7" r="4" />
+                                    </svg>
+                                    Register
+                                </a>
+
+                                <a class="py-2 my-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                                    href="{{ route('login') }}">
+                                    <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                        <circle cx="12" cy="7" r="4" />
+                                    </svg>
+                                    Sign in
+                                </a>
+                            </div>
                         </div>
                         @endauth
                     </div>

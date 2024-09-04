@@ -2,9 +2,11 @@
 
 namespace App\Livewire\Auth;
 
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\Attributes\Title;
+use Illuminate\Support\Facades\Auth;
 
+#[Title('Log In')]
 class Login extends Component
 {
     /** @var string */

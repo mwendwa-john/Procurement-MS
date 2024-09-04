@@ -246,7 +246,7 @@
                                                         </span>
 
                                                         @else
-                                                        <input wire:model="lpoItems.{{ $index }}.quantity" type="number"
+                                                        <input wire:model.live="lpoItems.{{ $index }}.quantity" type="number"
                                                             name="lpoItem[{{ $index }}][quantity]"
                                                             class="block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                                         @endif
@@ -272,7 +272,7 @@
                                                         </span>
 
                                                         @else
-                                                        <input wire:model="lpoItems.{{ $index }}.price" type="number"
+                                                        <input wire:model.live="lpoItems.{{ $index }}.price" type="number"
                                                             name="lpoItem[{{ $index }}][price]"
                                                             class="block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                                         @endif
@@ -298,7 +298,7 @@
                                                         </span>
 
                                                         @else
-                                                        <input wire:model="lpoItems.{{ $index }}.amount" type="number"
+                                                        <input wire:model.live="lpoItems.{{ $index }}.amount" type="number"
                                                             name="lpoItem[{{ $index }}][amount]"
                                                             class="block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                                         @endif

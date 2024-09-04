@@ -22,236 +22,318 @@
                 <div class="text-center">
                     <p class="text-xs font-semibold text-gray-500 tracking-wide uppercase mb-3">
                         {{ $user->first_name }}
+                        {{ $user->middle_name }}
+                        {{ $user->last_name }}
                     </p>
-                    <h1 class="text-3xl text-gray-800 font-bold sm:text-5xl lg:text-6xl lg:leading-tight">
+                    <h1 class="text-3xl text-indigo-600 font-bold sm:text-5xl lg:text-6xl lg:leading-tight">
                         Edit <span class="text-blue-500">Profile</span>
                     </h1>
                 </div>
                 <!-- End Title -->
 
                 <!-- Card Section -->
-                <div class="max-w-4xl px-4 py-10 sm:px-6 lg:px-8 mx-auto"><!-- Card -->
+                <div class="max-w-4xl px-4 py-10 sm:px-6 lg:px-8 mx-auto">
+                    <!-- Card -->
                     <div class="bg-white rounded-xl shadow p-4 sm:p-7">
                         <div class="mb-8">
-                            <h2 class="text-xl font-bold text-gray-800">
+                            <h2 class="text-xl font-bold text-indigo-600">
                                 Profile
                             </h2>
-                            <p class="text-sm text-gray-600">
+                            <p class="text-sm text-gray-500">
                                 Manage your name, password and account settings.
                             </p>
                         </div>
 
-                        <form>
-                            <!-- Grid -->
-                            <div class="grid sm:grid-cols-12 gap-2 sm:gap-6">
-                                <div class="sm:col-span-3">
-                                    <label class="inline-block text-sm text-gray-800 mt-2.5">
-                                        Profile photo
-                                    </label>
-                                </div>
-                                <!-- End Col -->
+                        <!-- Form -->
+                        <form wire:submit.prevent="editUser">
+                            @csrf
+                            <!-- Form Group - Prifile Image -->
+                            <div>
+                                <div class="flex items-center justify-center">
+                                    <div class="flex flex-wrap items-center gap-3 sm:gap-5">
+                                        <!-- Triggering the file upload when clicking on the icon -->
+                                        <div class="group">
+                                            @if ($edit_profileImage)
+                                            <div class="mt-2 block">
+                                                <label for="upload">
+                                                    <img id="preview" class="h-20 w-20 object-cover rounded-full"
+                                                        src="{{ $edit_profileImage->temporaryUrl() }}" alt="profile" />
+                                                </label>
+                                            </div>
+                                            
+                                            @elseif ($oldProfileImage)
+                                            <div class="mt-2 block">
+                                                <label for="upload">
+                                                    <img id="preview" class="h-20 w-20 object-cover rounded-full"
+                                                        src="{{ Storage::url($oldProfileImage) }}" alt="profile" />
+                                                </label>
+                                            </div>
+                                            @else
+                                            <label for="upload"
+                                                class="flex shrink-0 justify-center items-center w-20 h-20 border-2 border-dotted border-gray-300 text-gray-400 cursor-pointer rounded-full hover:bg-gray-50">
+                                                <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                                    <circle cx="12" cy="12" r="10"></circle>
+                                                    <circle cx="12" cy="10" r="3"></circle>
+                                                    <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662">
+                                                    </path>
+                                                </svg>
+                                            </label>
+                                            @endif
+                                            <input id="upload" wire:model.live="edit_profileImage" type="file" class="hidden"
+                                                accept="image/*" />
 
-                                <div class="sm:col-span-9">
-                                    <div class="flex items-center gap-5">
-                                        <img class="inline-block size-16 rounded-full ring-2 ring-white"
-                                            src="../assets/img/160x160/img1.jpg" alt="Image Description">
-                                        <div class="flex gap-x-2">
-                                            <div>
-                                                <button type="button"
-                                                    class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none">
-                                                    <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg"
-                                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                                        <polyline points="17 8 12 3 7 8" />
-                                                        <line x1="12" x2="12" y1="3"
-                                                            y2="15" />
+                                        </div>
+
+                                        <!-- Upload and Delete buttons -->
+                                        <div class="grow">
+                                            <div class="flex items-center gap-x-2">
+                                                <!-- Triggering the file upload when clicking the upload button -->
+                                                <label for="upload"
+                                                    class=" flex py-2 px-3 text-xs font-medium text-white bg-blue-600 rounded-lg cursor-pointer hover:bg-blue-700">
+                                                    <svg class="w-4 h-4 mr-1" xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                        stroke-width="2">
+                                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4">
+                                                        </path>
+                                                        <polyline points="17 8 12 3 7 8"></polyline>
+                                                        <line x1="12" y1="3" x2="12" y2="15"></line>
                                                     </svg>
                                                     Upload photo
-                                                </button>
+                                                </label>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
-                                <!-- End Col -->
+                                @error('profileImage')
+                                <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <!-- End Form Group -->
 
-                                <div class="sm:col-span-3">
-                                    <label for="af-account-full-name" class="inline-block text-sm text-gray-800 mt-2.5">
-                                        Full name
+
+                            <div class="grid grid-cols-2 gap-y-4 gap-x-8">
+
+                                <!-- Form Group - First Name -->
+                                <div>
+                                    <label for="first_name" class="block text-sm font-medium mb-2 text-start">
+                                        First name
                                     </label>
-                                    <div class="hs-tooltip inline-block">
-                                        <button type="button" class="hs-tooltip-toggle ms-1">
-                                            <svg class="inline-block size-3 text-gray-400"
-                                                xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" viewBox="0 0 16 16">
+                                    <div class="relative">
+                                        <input wire:model.live="first_name" type="text" id="first_name"
+                                            name="first_name"
+                                            class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                            aria-describedby="first_name">
+
+                                        <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
+                                            <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor"
+                                                viewBox="0 0 16 16" aria-hidden="true">
                                                 <path
-                                                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    @error('first_name')
+                                    <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <!-- End Form Group -->
+
+
+                                <!-- Form Group - Middle Name -->
+                                <div>
+                                    <label for="middle_name" class="block text-sm font-medium mb-2 text-start">
+                                        Middle name
+                                    </label>
+                                    <div class="relative">
+                                        <input wire:model.live="middle_name" type="text" id="middle_name"
+                                            name="middle_name"
+                                            class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                            aria-describedby="middle_name">
+
+                                        <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
+                                            <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor"
+                                                viewBox="0 0 16 16" aria-hidden="true">
                                                 <path
-                                                    d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                                             </svg>
-                                        </button>
-                                        <span
-                                            class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible w-40 text-center z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm"
-                                            role="tooltip">
-                                            Displayed on public forums, such as Preline
-                                        </span>
+                                        </div>
                                     </div>
-                                </div>
-                                <!-- End Col -->
 
-                                <div class="sm:col-span-9">
-                                    <div class="sm:flex">
-                                        <input id="af-account-full-name" type="text"
-                                            class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                            placeholder="Maria">
-                                        <input type="text"
-                                            class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                            placeholder="Boone">
-                                    </div>
+                                    @error('middle_name')
+                                    <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                                    @enderror
                                 </div>
-                                <!-- End Col -->
+                                <!-- End Form Group -->
 
-                                <div class="sm:col-span-3">
-                                    <label for="af-account-email" class="inline-block text-sm text-gray-800 mt-2.5">
-                                        Email
+
+                                <!-- Form Group - Last Name -->
+                                <div>
+                                    <label for="last_name" class="block text-sm font-medium mb-2 text-start">
+                                        Last name
                                     </label>
-                                </div>
-                                <!-- End Col -->
+                                    <div class="relative">
+                                        <input wire:model.live="last_name" type="text" id="last_name" name="last_name"
+                                            class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                            aria-describedby="last_name">
 
-                                <div class="sm:col-span-9">
-                                    <input id="af-account-email" type="email"
-                                        class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                        placeholder="maria@site.com">
-                                </div>
-                                <!-- End Col -->
-
-                                <div class="sm:col-span-3">
-                                    <label for="af-account-password" class="inline-block text-sm text-gray-800 mt-2.5">
-                                        Password
-                                    </label>
-                                </div>
-                                <!-- End Col -->
-
-                                <div class="sm:col-span-9">
-                                    <div class="space-y-2">
-                                        <input id="af-account-password" type="text"
-                                            class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                            placeholder="Enter current password">
-                                        <input type="text"
-                                            class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                            placeholder="Enter new password">
-                                    </div>
-                                </div>
-                                <!-- End Col -->
-
-                                <div class="sm:col-span-3">
-                                    <div class="inline-block">
-                                        <label for="af-account-phone" class="inline-block text-sm text-gray-800 mt-2.5">
-                                            Phone
-                                        </label>
-                                        <span class="text-sm text-gray-400">
-                                            (Optional)
-                                        </span>
-                                    </div>
-                                </div>
-                                <!-- End Col -->
-
-                                <div class="sm:col-span-9">
-                                    <div class="sm:flex">
-                                        <input id="af-account-phone" type="text"
-                                            class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                            placeholder="+x(xxx)xxx-xx-xx">
-                                        <select
-                                            class="py-2 px-3 pe-9 block w-full sm:w-auto border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-                                            <option selected>Mobile</option>
-                                            <option>Home</option>
-                                            <option>Work</option>
-                                            <option>Fax</option>
-                                        </select>
-                                    </div>
-
-                                    <p class="mt-3">
-                                        <a class="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline font-medium"
-                                            href="../docs/index.html">
-                                            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg"
-                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <circle cx="12" cy="12" r="10" />
-                                                <path d="M8 12h8" />
-                                                <path d="M12 8v8" />
+                                        <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
+                                            <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor"
+                                                viewBox="0 0 16 16" aria-hidden="true">
+                                                <path
+                                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                                             </svg>
-                                            Add phone
-                                        </a>
-                                    </p>
-                                </div>
-                                <!-- End Col -->
+                                        </div>
+                                    </div>
 
-                                <div class="sm:col-span-3">
-                                    <label for="af-account-gender-checkbox"
-                                        class="inline-block text-sm text-gray-800 mt-2.5">
+                                    @error('last_name')
+                                    <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <!-- End Form Group -->
+
+
+                                <!-- Form Group - Username -->
+                                <div>
+                                    <label for="username" class="block text-sm font-medium mb-2 text-start">
+                                        Username
+                                    </label>
+                                    <div class="relative">
+                                        <input wire:model.live="username" type="text" id="username" name="username"
+                                            class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                            aria-describedby="username">
+
+                                        <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
+                                            <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor"
+                                                viewBox="0 0 16 16" aria-hidden="true">
+                                                <path
+                                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    @error('username')
+                                    <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <!-- End Form Group -->
+
+
+                                <!-- Form Group - Email address -->
+                                <div>
+                                    <label for="email" class="block text-sm font-medium mb-2 text-start">
+                                        Email address
+                                    </label>
+                                    <div class="relative">
+                                        <input wire:model.live="email" type="email" id="email" name="email"
+                                            class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                            aria-describedby="email">
+
+                                        <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
+                                            <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor"
+                                                viewBox="0 0 16 16" aria-hidden="true">
+                                                <path
+                                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    @error('email')
+                                    <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <!-- End Form Group -->
+
+
+                                <!-- Form Group - Phone No -->
+                                <div>
+                                    <label for="phone_no" class="block text-sm font-medium mb-2 text-start">
+                                        Phone No
+                                    </label>
+                                    <div class="relative">
+                                        <input wire:model.live="phone_no" type="tel" id="phone_no" name="phone_no"
+                                            class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                            aria-describedby="phone_no">
+
+                                        <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
+                                            <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor"
+                                                viewBox="0 0 16 16" aria-hidden="true">
+                                                <path
+                                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    @error('phone_no')
+                                    <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <!-- End Form Group -->
+
+
+                                <!-- Form Group - gender -->
+                                <div>
+                                    <label for="gender" class="block text-sm font-medium mb-2 text-start">
                                         Gender
                                     </label>
+                                    <select wire:model.live="gender" id="gender" name="gender"
+                                        class="py-2 px-4 pe-9 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                                        <option value="">select below</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+
+
+                                    @error('gender')
+                                    <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                                    @enderror
                                 </div>
-                                <!-- End Col -->
+                                <!-- End Form Group -->
 
-                                <div class="sm:col-span-9">
-                                    <div class="sm:flex">
-                                        <label for="af-account-gender-checkbox"
-                                            class="flex py-2 px-3 w-full border border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-                                            <input type="radio" name="af-account-gender-checkbox"
-                                                class="shrink-0 mt-0.5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                                id="af-account-gender-checkbox" checked>
-                                            <span class="text-sm text-gray-500 ms-3">Male</span>
-                                        </label>
 
-                                        <label for="af-account-gender-checkbox-female"
-                                            class="flex py-2 px-3 w-full border border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-                                            <input type="radio" name="af-account-gender-checkbox"
-                                                class="shrink-0 mt-0.5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                                id="af-account-gender-checkbox-female">
-                                            <span class="text-sm text-gray-500 ms-3">Female</span>
+                                <!-- Form Group - User Bio -->
+                                <div class="col-span-2">
+                                    <div class="max-w-sm">
+                                        <label for="user_bio" class="block text-sm font-medium mb-2">
+                                            User Bio
                                         </label>
+                                        <textarea wire:model="user_bio" id="user_bio" name="user_bio"
+                                            class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                            rows="3">
+                                        </textarea>
 
-                                        <label for="af-account-gender-checkbox-other"
-                                            class="flex py-2 px-3 w-full border border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-                                            <input type="radio" name="af-account-gender-checkbox"
-                                                class="shrink-0 mt-0.5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                                id="af-account-gender-checkbox-other">
-                                            <span class="text-sm text-gray-500 ms-3">Other</span>
-                                        </label>
                                     </div>
-                                </div>
-                                <!-- End Col -->
 
-                                <div class="sm:col-span-3">
-                                    <label for="af-account-bio" class="inline-block text-sm text-gray-800 mt-2.5">
-                                        BIO
-                                    </label>
+                                    @error('user_bio')
+                                    <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                                    @enderror
                                 </div>
-                                <!-- End Col -->
+                                <!-- End Form Group -->
 
-                                <div class="sm:col-span-9">
-                                    <textarea id="af-account-bio"
-                                        class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                        rows="6" placeholder="Type your message..."></textarea>
-                                </div>
-                                <!-- End Col -->
+
                             </div>
-                            <!-- End Grid -->
 
-                            <div class="mt-5 flex justify-end gap-x-2">
+
+
+                            <!-- Buttons -->
+                            <div class="mt-6 flex justify-center space-x-4">
                                 <button type="button"
-                                    class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none">
+                                    class="py-2 px-4 text-sm font-medium rounded-lg border border-gray-300 bg-red-400 text-white shadow-sm hover:bg-red-500">
                                     Cancel
                                 </button>
-                                <button type="button"
-                                    class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                                    Save changes
+                                <button type="submit"
+                                    class="py-2 px-4 text-sm font-semibold rounded-lg border border-transparent bg-indigo-600 text-white shadow-sm hover:bg-indigo-700">
+                                    Save Changes
                                 </button>
                             </div>
                         </form>
+                        <!-- End Form -->
+
+
+
                     </div>
                     <!-- End Card -->
                 </div>
@@ -297,7 +379,7 @@
     </div>
     <!-- End Hero -->
 
-    
+
     <!-- ========== FOOTER ========== -->
     @livewire('components.footer')
     <!-- ========== END FOOTER ========== -->

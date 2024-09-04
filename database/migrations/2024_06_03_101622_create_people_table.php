@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('people', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('profile_photo_path', 2048)->nullable();
+            $table->string('profile_photo_path', 2048);
             $table->text('user_bio')->nullable();
             $table->string('phone_no');
-            $table->enum('gender', ['male','female']);
+            $table->enum('gender', ['male','female','other']);
             $table->softDeletes();
             $table->timestamps();
         });

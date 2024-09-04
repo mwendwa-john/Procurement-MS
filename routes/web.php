@@ -43,6 +43,7 @@ use App\Livewire\Products\TrashedProducts;
 use App\Livewire\Settings\SettingsIndex;
 use App\Livewire\Stations\Hotel\HotelProfile;
 use App\Livewire\Suppliers\SupplierProfile;
+use App\Livewire\User\ChangePassword;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +96,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'isActive'])->group(function () {
     Route::get('user/{slug}/profile', UserProfile::class)->name('user.profile');
     Route::get('user/{slug}/edit', EditUserProfile::class)->name('user.profile.edit');
+    Route::get('password/{slug}/change', ChangePassword::class)->name('password.change');
 
     // products routes
     Route::get('/products', ShowProducts::class)->name('products.show');

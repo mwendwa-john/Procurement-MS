@@ -240,7 +240,7 @@ class LocationHotelUserSeeder extends Seeder
             'profile_photo_path' => fake()->unique()->uuid . '.jpg',
             'user_bio'          => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, eligendi dolorum sequi illum qui unde aspernatur non deserunt',
             'phone_no'          => fake()->phoneNumber,
-            'gender'            => fake()->randomElement(['Male', 'Female']),
+            'gender'            => fake()->randomElement(['Male', 'Female', 'Other']),
         ]);
     }
 }
