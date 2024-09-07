@@ -12,8 +12,10 @@ use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
+use Livewire\Attributes\Title;
 use RealRashid\SweetAlert\Facades\Alert;
 
+#[Title('Edit User Profile')]
 class EditUserProfile extends Component
 {
     use WithFileUploads;

@@ -9,7 +9,9 @@ use Livewire\Component;
 use App\Models\Supplier;
 use Livewire\WithPagination;
 use App\Helpers\GlobalHelpers;
+use Livewire\Attributes\Title;
 
+#[Title('Unpaid Invoices')]
 class UnpaidInvoices extends Component
 {
     use WithPagination;

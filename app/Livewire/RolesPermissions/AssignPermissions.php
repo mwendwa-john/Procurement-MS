@@ -2,11 +2,13 @@
 
 namespace App\Livewire\RolesPermissions;
 
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
+#[Title('Assign Permissions')]
 class AssignPermissions extends Component
 {
     public $roleName;

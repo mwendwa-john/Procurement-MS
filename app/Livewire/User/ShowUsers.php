@@ -6,7 +6,9 @@ use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Helpers\GlobalHelpers;
+use Livewire\Attributes\Title;
 
+#[Title('Users')]
 class ShowUsers extends Component
 {
     use WithPagination;

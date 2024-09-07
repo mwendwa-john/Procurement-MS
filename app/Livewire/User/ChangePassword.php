@@ -7,8 +7,10 @@ use Livewire\Component;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Livewire\Attributes\Title;
 use RealRashid\SweetAlert\Facades\Alert;
 
+#[Title('Change Password')]
 class ChangePassword extends Component
 {
     public $user;

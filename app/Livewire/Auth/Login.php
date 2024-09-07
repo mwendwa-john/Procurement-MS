@@ -33,6 +33,16 @@ class Login extends Component
             return;
         }
 
+        // check if user is active
+        if (!Auth::user()->is_active) {
+            session()->flash('info', 'This user account has not been activated.');
+        }
+
+        // check if user has been assigned to a hotel
+        if (!Auth::user()->hotel) {
+            session()->flash('hotel', 'This user has not been assigned to a Hotel.');
+        }
+
         return redirect()->intended(route('home'));
     }
 

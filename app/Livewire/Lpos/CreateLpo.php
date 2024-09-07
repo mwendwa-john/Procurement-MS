@@ -13,8 +13,10 @@ use Spatie\Valuestore\Valuestore;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Title;
 use RealRashid\SweetAlert\Facades\Alert;
 
+#[Title('Create Lpo')]
 class CreateLpo extends Component
 {
     public $hotels;

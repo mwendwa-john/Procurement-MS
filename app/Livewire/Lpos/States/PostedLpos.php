@@ -8,7 +8,9 @@ use Livewire\Component;
 use App\Models\Supplier;
 use Livewire\WithPagination;
 use App\Helpers\GlobalHelpers;
+use Livewire\Attributes\Title;
 
+#[Title('Posted Lpos')]
 class PostedLpos extends Component
 {
     use WithPagination;

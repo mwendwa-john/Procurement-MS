@@ -2,11 +2,13 @@
 
 namespace Database\Seeders;
 
-use App\Models\Address;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Hotel;
 use App\Models\Person;
+use App\Models\Address;
 use App\Models\Location;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -168,9 +170,18 @@ class LocationHotelUserSeeder extends Seeder
         ]);
     }
     
+    protected function generateRandomDate(Carbon $startDate, Carbon $endDate)
+    {
+        $randomTimestamp = mt_rand($startDate->timestamp, $endDate->timestamp);
+        return Carbon::createFromTimestamp($randomTimestamp);
+    }
 
     public function createUsers()
     {
+        $startDate = Carbon::now()->subYear(); // One year ago from today
+        $endDate = Carbon::now(); // Current date
+
+        
         // ========================     Users   ===================================
         $this->userId = User::create([
             'username'          => 'Super-Admin',
@@ -182,7 +193,11 @@ class LocationHotelUserSeeder extends Seeder
             'hotel_id'          => $this->SuperiorHotel->id,
             'email'             => 'superadmin@superadmin.com',
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password'          => static::$password ??= Hash::make('password'),
+            'is_active'         => true,
+            'remember_token'    => Str::random(10),
+            'created_at'        => $this->generateRandomDate($startDate, $endDate),
+            'updated_at'        => now(),
         ])->assignRole('admin');
 
         $this->personTable();
@@ -197,7 +212,10 @@ class LocationHotelUserSeeder extends Seeder
             'hotel_id'          => $this->SuperiorHotel->id,
             'email'             => 'director@director.com',
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password'          => static::$password ??= Hash::make('password'),
+            'remember_token'    => Str::random(10),
+            'created_at'        => $this->generateRandomDate($startDate, $endDate),
+            'updated_at'        => now(),
         ])->assignRole('director');
 
         $this->personTable();
@@ -212,7 +230,10 @@ class LocationHotelUserSeeder extends Seeder
             'hotel_id'          => $this->SuperiorHotel->id,
             'email'             => 'headquarters@headquarters.com',
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password'          => static::$password ??= Hash::make('password'),
+            'remember_token'    => Str::random(10),
+            'created_at'        => $this->generateRandomDate($startDate, $endDate),
+            'updated_at'        => now(),
         ])->assignRole('headquarters');
 
         $this->personTable();
@@ -227,7 +248,10 @@ class LocationHotelUserSeeder extends Seeder
             'hotel_id'          => $this->ridgeCabinHotel->id,
             'email'             => 'store-keeper@store-keeper.com',
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password'          => static::$password ??= Hash::make('password'),
+            'remember_token'    => Str::random(10),
+            'created_at'        => now(),
+            'updated_at'        => now(),
         ])->assignRole('store-keeper');
 
         $this->personTable();

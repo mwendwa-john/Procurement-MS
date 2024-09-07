@@ -8,7 +8,9 @@ use Livewire\Component;
 use App\Models\Supplier;
 use Livewire\WithPagination;
 use App\Helpers\GlobalHelpers;
+use Livewire\Attributes\Title;
 
+#[Title('Paid Invoices')]
 class PaidInvoices extends Component
 {
     use WithPagination;

@@ -2,8 +2,10 @@
 
 namespace App\Livewire\Layouts;
 
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title('Dashboard')]
 class AdminDashboard extends Component
 {
     public $activeLink = 'dashboard';

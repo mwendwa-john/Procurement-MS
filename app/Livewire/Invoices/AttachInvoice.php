@@ -3,9 +3,11 @@
 namespace App\Livewire\Invoices;
 
 use App\Models\Lpo;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use RealRashid\SweetAlert\Facades\Alert;
 
+#[Title('Attach Invoice')]
 class AttachInvoice extends Component
 {
     public $lpo;

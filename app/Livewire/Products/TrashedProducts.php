@@ -5,8 +5,10 @@ namespace App\Livewire\Products;
 use App\Models\Product;
 use Livewire\Component;
 use App\Helpers\GlobalHelpers;
+use Livewire\Attributes\Title;
 use Livewire\WithPagination;
 
+#[Title('Trashed Products')]
 class TrashedProducts extends Component
 {
     use WithPagination;

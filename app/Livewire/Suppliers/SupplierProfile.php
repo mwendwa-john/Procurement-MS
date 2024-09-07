@@ -5,9 +5,11 @@ namespace App\Livewire\Suppliers;
 use App\Models\Hotel;
 use Livewire\Component;
 use App\Models\Supplier;
+use Livewire\Attributes\Title;
 use Livewire\WithPagination;
 use RealRashid\SweetAlert\Facades\Alert;
 
+#[Title('Supplier Profile')]
 class SupplierProfile extends Component
 {
     use WithPagination;

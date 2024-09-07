@@ -5,13 +5,14 @@ namespace App\Livewire\Lpos;
 use App\Models\Lpo;
 use App\Models\LpoItem;
 use App\Models\User;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title('View Lpo')]
 class ViewLpo extends Component
 {
     public $lpo;
     public $lpoItems;
-
 
     public $generatedBy;
     public $postedBy;

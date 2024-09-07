@@ -44,6 +44,8 @@ use App\Livewire\Settings\SettingsIndex;
 use App\Livewire\Stations\Hotel\HotelProfile;
 use App\Livewire\Suppliers\SupplierProfile;
 use App\Livewire\User\ChangePassword;
+use App\Livewire\User\InactiveUsers;
+use App\Livewire\User\NewUsers;
 
 /*
 |--------------------------------------------------------------------------
@@ -151,8 +153,10 @@ Route::middleware(['auth', 'isActive', 'role:admin|director'])->group(function (
     Route::get('trashed/roles', TrashedRoles::class)->name('roles.trashed');
     Route::get('permissions/assign/{roleId}', AssignPermissions::class)->name('permissions.assign');
 
-    // users
+    // user Roles
     Route::get('users', ShowUsers::class)->name('users.show');
+    Route::get('users/new', NewUsers::class)->name('users.new');
+    Route::get('users/inactive', InactiveUsers::class)->name('users.inactive');
 });
 // End Admin
 

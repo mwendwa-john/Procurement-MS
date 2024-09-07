@@ -6,7 +6,9 @@ use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Helpers\GlobalHelpers;
+use Livewire\Attributes\Title;
 
+#[Title('Show Products')]
 class ShowProducts extends Component
 {
     use WithPagination;

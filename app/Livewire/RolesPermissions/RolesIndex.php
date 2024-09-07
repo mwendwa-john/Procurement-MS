@@ -2,9 +2,11 @@
 
 namespace App\Livewire\RolesPermissions;
 
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 
+#[Title('Roles Index')]
 class RolesIndex extends Component
 {
     public function render()

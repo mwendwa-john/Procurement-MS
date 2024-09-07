@@ -6,7 +6,9 @@ use Livewire\Component;
 use App\Models\Supplier;
 use Livewire\WithPagination;
 use App\Helpers\GlobalHelpers;
+use Livewire\Attributes\Title;
 
+#[Title('Trashed Suppliers')]
 class TrashedSuppliers extends Component
 {
     use WithPagination;

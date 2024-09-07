@@ -6,7 +6,9 @@ use App\Models\Lpo;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Helpers\GlobalHelpers;
+use Livewire\Attributes\Title;
 
+#[Title('Trashed Lpos')]
 class TrashedLpos extends Component
 {
     use WithPagination;

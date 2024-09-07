@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 use Symfony\Component\HttpFoundation\Response;
 
 class EnsureUserIsActive
@@ -19,7 +20,7 @@ class EnsureUserIsActive
         if (Auth::check() && !Auth::user()->is_active) {
             Auth::logout();
 
-            Alert::warning('Sorry, you cannot access the dashboard', 'You are no longer an employee of Superior hotel. Your account has been deactivated!');
+            Alert::warning('Sorry, you cannot access this page', 'Your account is not active!');
             return redirect('/');
         }
         

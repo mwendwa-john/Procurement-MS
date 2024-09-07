@@ -7,8 +7,10 @@ use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Title;
 use RealRashid\SweetAlert\Facades\Alert;
 
+#[Title('Hotel Profile')]
 class HotelProfile extends Component
 {
 

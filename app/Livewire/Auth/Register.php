@@ -72,7 +72,8 @@ class Register extends Component
         'last_name'             => 'required|string|max:255',
         'slug'                  => 'required|string|max:255|unique:users,slug',
         'email'                 => 'required|string|email|max:255|unique:users,email',
-        'password'              => 'required|min:8|same:passwordConfirmation',
+        'password'              => 'required|min:8',
+        'passwordConfirmation'  => 'required|min:8|same:password',
 
         // Person Records
         'profileImage'          => 'required|mimes:jpeg,png,gif,jpg',
@@ -123,6 +124,16 @@ class Register extends Component
             // Commit the database transaction
             DB::commit();
 
+            // check if user is active
+            if (!$user->is_active) {
+                session()->flash('info', 'This user account has not been activated.');
+            }
+
+            // check if user has been assigned to a hotel
+            if (!$user->hotel) {
+                session()->flash('hotel', 'This user has not been assigned to a Hotel.');
+            }
+
             Alert::toast('User registered', 'success');
             Auth::attempt(['email' => $validatedData['email'], 'password' => $validatedData['password']], true);
 
@@ -143,7 +154,7 @@ class Register extends Component
 
     private function uploadProfileImage($image)
     {
-        $profileImageName = date('Ymd') . '-' . Str::slug($this->last_name) . '-' . $this->first_name . '-' . 'profile-image'. $image->getClientOriginalExtension();
+        $profileImageName = date('Ymd') . '-' . Str::slug($this->last_name) . '-' . $this->first_name . '-' . 'profile-image' . $image->getClientOriginalExtension();
 
         $imagePath = $image->storeAs('public/images/profile-images', $profileImageName);
 

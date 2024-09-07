@@ -6,7 +6,9 @@ use Livewire\Component;
 use App\Models\Supplier;
 use Livewire\WithPagination;
 use App\Helpers\GlobalHelpers;
+use Livewire\Attributes\Title;
 
+#[Title('Suppliers')]
 class ShowSuppliers extends Component
 {
     use WithPagination;
