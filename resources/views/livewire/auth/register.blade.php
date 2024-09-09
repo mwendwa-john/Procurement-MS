@@ -312,32 +312,12 @@
 
                                             <!-- Form Group - User Bio -->
                                             <div class="col-span-2">
-                                                {{-- <label for="user_bio" class="block text-sm mb-2 text-start">
-                                                    User Bio
-                                                </label>
-                                                <div class="relative">
-                                                    <input wire:model.live="user_bio" type="tel" id="user_bio"
-                                                        name="user_bio"
-                                                        class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                                        aria-describedby="user_bio">
-
-                                                    <div
-                                                        class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
-                                                        <svg class="size-5 text-red-500" width="16" height="16"
-                                                            fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
-                                                            <path
-                                                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                                                        </svg>
-                                                    </div>
-                                                </div> --}}
-
-
                                                 <div class="max-w-sm">
                                                     <label for="hs-autoheight-textarea"
                                                         class="block text-sm font-medium mb-2">
                                                         User Bio
                                                     </label>
-                                                    <textarea wire:model.live="user_bio" id="hs-autoheight-textarea"
+                                                    <textarea wire:model="user_bio" id="hs-autoheight-textarea"
                                                         class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                                                         rows="3" placeholder="A little something about you...">
                                                     </textarea>
@@ -357,7 +337,7 @@
                                                     Password
                                                 </label>
                                                 <div class="relative">
-                                                    <input wire:model.live="password" type="password" id="password"
+                                                    <input wire:model.lazy="password" type="password" id="password"
                                                         name="password"
                                                         class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                                                         aria-describedby="password-error">

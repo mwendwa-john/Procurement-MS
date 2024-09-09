@@ -1,6 +1,7 @@
 @extends('livewire.layouts.admin-dashboard')
 
 @section('admin-content')
+@livewire('components.modals.user-modals')
 <div>
     <!-- Header -->
     @livewire('components.admin-header', [
@@ -112,6 +113,14 @@
                                     <th scope="col" class="px-6 py-3 text-start">
                                         <div class="flex items-center gap-x-2">
                                             <span class="text-sm font-semibold uppercase tracking-wide text-blue-600">
+                                                Location
+                                            </span>
+                                        </div>
+                                    </th>
+
+                                    <th scope="col" class="px-6 py-3 text-start">
+                                        <div class="flex items-center gap-x-2">
+                                            <span class="text-sm font-semibold uppercase tracking-wide text-blue-600">
                                                 Position
                                             </span>
                                         </div>
@@ -145,15 +154,14 @@
                             </thead>
 
                             <tbody class="divide-y divide-gray-200">
-                                @php
-                                $i = ($users->currentPage() - 1) * $users->perPage();
-                                @endphp
+
                                 @forelse ($users as $user)
                                 <tr>
-                                    <td class="size-px whitespace-nowrap">
+                                    <td class="size-px mx-3 whitespace-nowrap">
                                         <div class="ps-6 py-3 text-blue-600">
                                             <div class="block text-sm font-semibold">
-                                                {{ ++$i }}
+                                                {{ ($users->currentPage() - 1) * $users->perPage() +
+                                                $loop->index + 1 }}
                                             </div>
                                         </div>
                                     </td>
@@ -175,11 +183,18 @@
                                     </td>
 
                                     <td class="h-px w-72 whitespace-nowrap">
+                                        <div class="px-6 py-3 text-sm text-gray-700">
+                                            {{ $user->location->location_name }}
+                                        </div>
+                                    </td>
+
+                                    <td class="h-px w-72 whitespace-nowrap">
                                         <div class="px-6 py-3">
                                             <span class="block text-sm font-semibold text-gray-800">{{
                                                 $user->roles->pluck('name')->implode(', ') }}</span>
-                                            <span class="block text-sm text-gray-500">{{ $user->hotel->hotel_name
-                                                }}</span>
+                                            <span class="block text-sm text-gray-500">
+                                                {{ $user->hotel->hotel_name }}
+                                            </span>
                                         </div>
                                     </td>
 
@@ -204,20 +219,18 @@
 
                                     <td class="size-px whitespace-nowrap">
                                         <div class="px-6 py-1.5">
-                                            <a class="inline-flex items-center gap-x-1 text-sm text-orange-400 decoration-2 hover:underline font-medium"
-                                                href="#">
+                                            <a class="inline-flex items-center gap-x-1 text-sm text-blue-400 decoration-2 hover:underline font-medium"
+                                                href="{{ route('user.profile', ['slug' => $user->slug]) }}">
                                                 View
                                             </a>
 
-                                            <a class="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline font-medium"
-                                                href="#">
-                                                Edit
-                                            </a>
-
-                                            <a class="inline-flex items-center gap-x-1 text-sm text-red-400 decoration-2 hover:underline font-medium"
-                                                href="#">
-                                                Delete
-                                            </a>
+                                            <button type="button"
+                                                class="inline-flex items-center gap-x-1 text-sm text-red-400 decoration-2 hover:underline font-medium"
+                                                aria-haspopup="dialog" aria-expanded="false"
+                                                aria-controls="deactivate-account-modal"
+                                                data-hs-overlay="#deactivate-account-modal">
+                                                Deactivate
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -227,9 +240,9 @@
                                         <div class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3">
                                             <div class="flex justify-center items-center gap-x-3">
                                                 <div class="grow">
-                                                    <span class="block text-sm font-semibold text-gray-800">No
-                                                        users
-                                                        registered in the system</span>
+                                                    <span class="block text-sm font-semibold text-gray-800">
+                                                        No users registered in the system
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>

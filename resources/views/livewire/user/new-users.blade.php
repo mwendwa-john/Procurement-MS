@@ -151,7 +151,7 @@
                                 @forelse ($usersLastMonth as $user)
                                 <tr>
                                     <td class="size-px whitespace-nowrap">
-                                        <div class="ps-6 py-3 text-blue-600">
+                                        <div class="ps-6 py-3 mx-3 text-blue-600">
                                             <div class="block text-sm font-semibold">
                                                 {{ ($usersLastMonth->currentPage() - 1) * $usersLastMonth->perPage() + $loop->index + 1 }}
                                             </div>
@@ -246,7 +246,7 @@
                             class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t divide-gray-200">
                             <div>
                                 <p class="text-sm text-gray-600">
-                                    <span class="font-semibold text-gray-800">{{ count($usersLastMonth) }}</span> usersLastMonth
+                                    <span class="font-semibold text-gray-800">{{ count($usersLastMonth) }}</span> New Users In the Last Month
                                 </p>
                             </div>
 

@@ -21,6 +21,17 @@
                 <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
 
 
+                    <!-- Verify Email Banner -->
+                    @if (session('verify-email'))
+                    <div id="verify-email-alert" class="max-w-[55rem] m-3 px-4 sm:px-6 lg:px-8 mx-auto">
+                        <div class="flex justify-center">
+                            <p class="bg-blue-400 text-white py-2 px-4 rounded-full text-center">
+                                {{ session('verify-email') }}
+                            </p>
+                        </div>
+                    </div>
+                    @endif
+
                     <!-- Info Banner -->
                     @if (session('info'))
                     <div id="info-alert" class="max-w-[55rem] m-3 px-4 sm:px-6 lg:px-8 mx-auto">
@@ -408,14 +419,19 @@
 
 
     <script>
-        // Automatically hide the message after 5 and 7 seconds
+        // Automatically hide the message after 5, 6 and 7 seconds
+        setTimeout(function() {
+                document.getElementById('verify-email-alert').style.display = 'none';
+            }, 4000);
+
+
         setTimeout(function() {
                 document.getElementById('info-alert').style.display = 'none';
-            }, 5000);
+            }, 6000);
 
 
         setTimeout(function() {
                 document.getElementById('hotel-alert').style.display = 'none';
-            }, 7000);
+            }, 8000);
     </script>
 </div>

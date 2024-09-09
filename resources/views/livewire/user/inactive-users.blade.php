@@ -148,9 +148,10 @@
                                 @forelse ($inactiveUsers as $user)
                                 <tr>
                                     <td class="size-px whitespace-nowrap">
-                                        <div class="ps-6 py-3 text-blue-600">
+                                        <div class="ps-6 py-3 mx-3 text-blue-600">
                                             <div class="block text-sm font-semibold">
-                                                {{ ($inactiveUsers->currentPage() - 1) * $inactiveUsers->perPage() + $loop->index + 1 }}
+                                                {{ ($inactiveUsers->currentPage() - 1) * $inactiveUsers->perPage() +
+                                                $loop->index + 1 }}
                                             </div>
                                         </div>
                                     </td>
@@ -175,8 +176,9 @@
                                         <div class="px-6 py-3">
                                             <span class="block text-sm font-semibold text-gray-800">{{
                                                 $user->roles->pluck('name')->implode(', ') }}</span>
-                                            <span class="block text-sm text-gray-500">{{ $user->hotel->hotel_name
-                                                }}</span>
+                                            <span class="block text-sm text-gray-500">
+                                                {{ $user->hotel->hotel_name ?? 'N/A' }}
+                                            </span>
                                         </div>
                                     </td>
 
@@ -243,7 +245,8 @@
                             class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t divide-gray-200">
                             <div>
                                 <p class="text-sm text-gray-600">
-                                    <span class="font-semibold text-gray-800">{{ count($inactiveUsers) }}</span> inactiveUsers
+                                    <span class="font-semibold text-gray-800">{{ count($inactiveUsers) }}</span>
+                                    inactiveUsers
                                 </p>
                             </div>
 

@@ -95,7 +95,7 @@ Route::middleware('auth')->group(function () {
 
 
 // ==================================================================================================================
-Route::middleware(['auth', 'isActive'])->group(function () {
+Route::middleware(['auth', 'isActive', 'verified'])->group(function () {
     Route::get('user/{slug}/profile', UserProfile::class)->name('user.profile');
     Route::get('user/{slug}/edit', EditUserProfile::class)->name('user.profile.edit');
     Route::get('password/{slug}/change', ChangePassword::class)->name('password.change');
@@ -131,7 +131,7 @@ Route::middleware(['auth', 'isActive'])->group(function () {
 
 
 // Admin
-Route::middleware(['auth', 'isActive', 'role:admin|director'])->group(function () {
+Route::middleware(['auth', 'isActive', 'verified', 'role:admin|director'])->group(function () {
     Route::get('dashboard/admin', AdminDashboard::class)->name('dashboard.admin');
 
     // stations routes
@@ -161,7 +161,7 @@ Route::middleware(['auth', 'isActive', 'role:admin|director'])->group(function (
 // End Admin
 
 // Director
-Route::middleware(['auth', 'isActive', 'role:director'])->group(function () {
+Route::middleware(['auth', 'isActive', 'verified', 'role:director'])->group(function () {
 
 });
 // End Director
