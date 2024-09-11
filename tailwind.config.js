@@ -27,6 +27,7 @@ module.exports = {
     ],
     plugins: [
         require('preline/plugin'),
+        require('tailwind-scrollbar')({ nocompatible: true }),
         require('@tailwindcss/forms'),
         require('@tailwindcss/typography'),
     ],

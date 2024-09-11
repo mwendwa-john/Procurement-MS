@@ -1,4 +1,4 @@
-@extends('livewire.layouts.admin-dashboard')
+@extends('livewire.layouts.admin-sidebar')
 
 @section('admin-content')
 @livewire('components.modals.user-modals')
@@ -6,87 +6,52 @@
     <!-- Header -->
     @livewire('components.admin-header', [
     'svgIcon' => '
-    <svg class="flex-shrink-0 size-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg class="flex-shrink-0 size-4" fill="#F87171" viewBox="-6.7 0 122.88 122.88" version="1.1" id="Layer_1"
+        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        style="enable-background:new 0 0 109.48 122.88" xml:space="preserve">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
         <g id="SVGRepo_iconCarrier">
-            <path
-                d="M18 7.16C17.94 7.15 17.87 7.15 17.81 7.16C16.43 7.11 15.33 5.98 15.33 4.58C15.33 3.15 16.48 2 17.91 2C19.34 2 20.49 3.16 20.49 4.58C20.48 5.98 19.38 7.11 18 7.16Z"
-                stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path
-                d="M16.9699 14.44C18.3399 14.67 19.8499 14.43 20.9099 13.72C22.3199 12.78 22.3199 11.24 20.9099 10.3C19.8399 9.59004 18.3099 9.35003 16.9399 9.59003"
-                stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path
-                d="M5.96998 7.16C6.02998 7.15 6.09998 7.15 6.15998 7.16C7.53998 7.11 8.63998 5.98 8.63998 4.58C8.63998 3.15 7.48998 2 6.05998 2C4.62998 2 3.47998 3.16 3.47998 4.58C3.48998 5.98 4.58998 7.11 5.96998 7.16Z"
-                stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path
-                d="M6.99994 14.44C5.62994 14.67 4.11994 14.43 3.05994 13.72C1.64994 12.78 1.64994 11.24 3.05994 10.3C4.12994 9.59004 5.65994 9.35003 7.02994 9.59003"
-                stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path
-                d="M12 14.63C11.94 14.62 11.87 14.62 11.81 14.63C10.43 14.58 9.32996 13.45 9.32996 12.05C9.32996 10.62 10.48 9.46997 11.91 9.46997C13.34 9.46997 14.49 10.63 14.49 12.05C14.48 13.45 13.38 14.59 12 14.63Z"
-                stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path
-                d="M9.08997 17.78C7.67997 18.72 7.67997 20.26 9.08997 21.2C10.69 22.27 13.31 22.27 14.91 21.2C16.32 20.26 16.32 18.72 14.91 17.78C13.32 16.72 10.69 16.72 9.08997 17.78Z"
-                stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            <style type="text/css">
+                .st0 {
+                    fill-rule: evenodd;
+                    clip-rule: evenodd;
+                }
+            </style>
+            <g>
+                <path class="st0"
+                    d="M2.35,9.63h38.3V3.76C40.64,1.69,42.33,0,44.4,0h21.14c2.07,0,3.76,1.69,3.76,3.76v5.87h37.83 c1.29,0,2.35,1.06,2.35,2.35V23.5H0V11.98C0,10.69,1.05,9.63,2.35,9.63L2.35,9.63z M8.69,29.61h92.92c1.94,0,3.7,1.6,3.52,3.52 l-7.86,86.23c-0.18,1.93-1.59,3.52-3.52,3.52l-77.3,0c-1.93,0-3.35-1.59-3.52-3.52L5.17,33.13C4.99,31.2,6.75,29.61,8.69,29.61 L8.69,29.61L8.69,29.61z M33.93,95.11l-6.16-10.59c-1.11-1.92-1.53-3.42-0.6-5.64l3.62-6.09l-3.63-1.95l12.17-0.05l6.07,10.61 l-3.75-2.15l-6.08,10.78c-0.58,1.02-1.06,1.8-1.35,2.96C34.05,93.7,33.96,94.41,33.93,95.11L33.93,95.11z M36.38,62.36l5.86-10.2 c1.65-2.05,3.7-2.79,5.65-2.24c1.68,0.48,2.15,1.23,3.04,2.6c1.07,1.63,2,3.37,2.98,5.08l-6.55,11.26L36.38,62.36L36.38,62.36z M49.71,48.43l12.26-0.04c2.22-0.01,3.73,0.39,5.18,2.3l3.46,6.18l3.51-2.17l-6.04,10.56l-12.23-0.05l3.74-2.17l-6.3-10.66 c-0.6-1.01-1.03-1.81-1.89-2.65C50.88,49.23,50.31,48.81,49.71,48.43L49.71,48.43z M76.4,67.42l5.9,10.17 c0.95,2.45,0.57,4.6-0.89,6.01c-1.25,1.22-2.14,1.24-3.77,1.34c-1.95,0.11-3.92,0.05-5.89,0.04l-6.47-11.3L76.4,67.42L76.4,67.42z M81.8,85.93l-6.09,10.64c-1.1,1.92-2.2,3.03-4.58,3.34l-7.08-0.09l0.12,4.12l-6.13-10.52l6.15-10.56l0.01,4.32l12.38-0.12 c1.17-0.01,2.09,0.01,3.24-0.31C80.52,86.54,81.17,86.26,81.8,85.93L81.8,85.93z M52.67,99.7l-11.76,0.02 c-2.6-0.4-4.27-1.81-4.77-3.77c-0.43-1.69-0.01-2.48,0.73-3.94c0.88-1.74,1.92-3.42,2.91-5.12l13.02,0.05L52.67,99.7L52.67,99.7z">
+                </path>
+            </g>
         </g>
     </svg>
     ',
-    'pageTitle' => 'New Users',
+    'pageTitle' => 'Trashed Users',
     ])
     <!-- End: Header -->
 
-    <!-- Buttons -->
-    <div class="flex flex-col md:flex-row justify-between items-center mt-4 space-y-2">
-        <div class="flex items-center space-x-4">
-            <a href="{{ route('users.show') }}">
-                <button type="button"
-                    class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-200 text-blue-800 hover:bg-blue-300 focus:outline-none focus:bg-blue-200 disabled:opacity-50 disabled:pointer-events-none">
-                    Users
-                </button>
-            </a>
 
-            <a href="{{ route('users.inactive') }}">
-                <button type="button"
-                    class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-200 text-blue-800 hover:bg-blue-300 focus:outline-none focus:bg-blue-200 disabled:opacity-50 disabled:pointer-events-none">
-                    Inactive Users
-                </button>
-            </a>
-        </div>
+    <div class="flex justify-end items-center mt-4">
+        <a href="{{ route('users.show') }}">
+            <button
+                class="inline-flex items-center gap-x-2 bg-blue-600 text-white font-bold py-2 px-4 mx-3 rounded-lg hover:bg-blue-500 transition duration-300">
 
-        <div class="flex items-center space-x-4 mt-4 md:mt-0">
-            <a href="{{ route('users.trashed') }}">
-                <button
-                    class="inline-flex items-center gap-x-2 bg-red-400 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-300 transition duration-300">
-                    <svg class="flex-shrink-0 w-6 h-6" fill="#ffffff" viewBox="0 0 32 32" version="1.1"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                        <g id="SVGRepo_iconCarrier">
-                            <title>recycle</title>
-                            <path
-                                d="M15.966 1.232c-0.97 0.021-1.901 0.261-2.807 0.655l1.404 2.62c0.463-0.165 0.937-0.277 1.404-0.281 1.599 0 3.292 0.853 4.585 3.088l5.333 9.264 1.778-2.901-4.491-7.86c-1.714-2.964-4.434-4.608-7.205-4.585 0 0 0 0 0 0zM7.171 8.811l-4.117 7.205c-1.569 2.715-1.68 5.792-0.374 8.234 0.541 1.012 1.362 1.842 2.339 2.526l1.497-2.526c-0.502-0.397-0.929-0.867-1.216-1.403-0.781-1.46-0.831-3.41 0.281-5.334l5.053-8.702h-3.462zM27.194 21.536c-0.098 0.48-0.239 0.896-0.468 1.311-0.801 1.448-2.372 2.526-4.866 2.526h-10.199l1.778 2.994h8.421c3.402 0 6.146-1.601 7.486-4.023 0.472-0.855 0.732-1.824 0.842-2.807l-2.994 0zM11.272 12.6l-6.728-3.879 6.728-3.879-0 7.759zM22.219 15.005l6.728 3.879 0-7.759-6.729 3.879zM8.193 26.81l6.728-3.879 0 7.759-6.729-3.879z">
-                            </path>
-                    </svg>
-                    Trashed Users
-                </button>
-            </a>
-
-            <button type="button"
-                class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-add-user-modal"
-                data-hs-overlay="#hs-add-user-modal">
-                <svg class="flex-shrink-0 w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M5 12h14" />
-                    <path d="M12 5v14" />
+                <svg class="flex-shrink-0 size-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    stroke="">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path d="M4 12L10 6M4 12L10 18M4 12H14.5M20 12H17.5" stroke="#ffffff" stroke-width="1.5"
+                            stroke-linecap="round" stroke-linejoin="round"></path>
+                    </g>
                 </svg>
-                Add User
+                Back
             </button>
-        </div>
+        </a>
     </div>
-    <!-- End: Buttons -->
 
+
+    
 
     <!-- Table Section -->
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
@@ -100,7 +65,7 @@
                             class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200]">
                             <div>
                                 <p class="text-sm text-blue-500">
-                                    New users
+                                    Trashed users
                                 </p>
                             </div>
                         </div>
@@ -170,12 +135,13 @@
                             </thead>
 
                             <tbody class="divide-y divide-gray-200">
-                                @forelse ($usersLastMonth as $user)
+
+                                @forelse ($trashedUsers as $user)
                                 <tr>
-                                    <td class="size-px whitespace-nowrap">
+                                    <td class="size-px mx-3 whitespace-nowrap">
                                         <div class="ps-6 py-3 mx-3 text-blue-600">
                                             <div class="block text-sm font-semibold">
-                                                {{ ($usersLastMonth->currentPage() - 1) * $usersLastMonth->perPage() +
+                                                {{ ($trashedUsers->currentPage() - 1) * $trashedUsers->perPage() +
                                                 $loop->index + 1 }}
                                             </div>
                                         </div>
@@ -234,50 +200,15 @@
 
                                     <td class="size-px whitespace-nowrap">
                                         <div class="px-6 py-1.5">
-                                            <a class="inline-flex items-center gap-x-1 text-sm text-orange-400 decoration-2 hover:underline font-medium"
-                                                href="{{ route('user.profile', ['slug' => $user->slug]) }}">
-                                                View
-                                            </a>
 
                                             @can('manage users')
-                                            @if (is_null($user->hotel))
-                                            <button type="button"
-                                                wire:click="$dispatch('assign-hotel', { slug: '{{ $user->slug }}' })"
-                                                class="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline font-medium"
-                                                aria-haspopup="dialog" aria-expanded="false"
-                                                aria-controls="hs-assign-hotel-modal"
-                                                data-hs-overlay="#hs-assign-hotel-modal">
-                                                Assign Hotel
-                                            </button>
-                                            @endif
-
-                                            @if ($user->is_active == false)
                                             <button type="button"
                                                 wire:click="$dispatch('pass-user-slug', { slug: '{{ $user->slug }}' })"
-                                                class="inline-flex items-center gap-x-1 text-sm text-teal-500 decoration-2 hover:underline font-medium"
+                                                class="inline-flex items-center gap-x-1 text-sm text-blue-500 decoration-2 hover:underline font-medium"
                                                 aria-haspopup="dialog" aria-expanded="false"
-                                                aria-controls="hs-activate-account-modal"
-                                                data-hs-overlay="#hs-activate-account-modal">
-                                                Activate
-                                            </button>
-                                            @elseif ($user->is_active == true)
-                                            <button type="button"
-                                                wire:click="$dispatch('pass-user-slug', { slug: '{{ $user->slug }}' })"
-                                                class="inline-flex items-center gap-x-1 text-sm text-yellow-500 decoration-2 hover:underline font-medium"
-                                                aria-haspopup="dialog" aria-expanded="false"
-                                                aria-controls="deactivate-account-modal"
-                                                data-hs-overlay="#deactivate-account-modal">
-                                                Deactivate
-                                            </button>
-                                            @endif
-
-                                            <button type="button"
-                                                wire:click="$dispatch('pass-user-slug', { slug: '{{ $user->slug }}' })"
-                                                class="inline-flex items-center gap-x-1 text-sm text-red-400 decoration-2 hover:underline font-medium"
-                                                aria-haspopup="dialog" aria-expanded="false"
-                                                aria-controls="hs-delete-account-modal"
-                                                data-hs-overlay="#hs-delete-account-modal">
-                                                Delete
+                                                aria-controls="hs-restore-user-modal"
+                                                data-hs-overlay="#hs-restore-user-modal">
+                                                Restore
                                             </button>
                                             @endcan
                                         </div>
@@ -285,12 +216,12 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="6" class="text-center">
+                                    <td colspan="7" class="text-center">
                                         <div class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3">
                                             <div class="flex justify-center items-center gap-x-3">
                                                 <div class="grow">
                                                     <span class="block text-sm font-semibold text-gray-800">
-                                                        No inactive users registered in the system
+                                                        No trashed users in the system
                                                     </span>
                                                 </div>
                                             </div>
@@ -308,12 +239,11 @@
                             class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t divide-gray-200">
                             <div>
                                 <p class="text-sm text-gray-600">
-                                    <span class="font-semibold text-gray-800">{{ count($usersLastMonth) }}</span> New
-                                    Users In the Last Month
+                                    <span class="font-semibold text-gray-800">{{ count($trashedUsers) }}</span> users
                                 </p>
                             </div>
 
-                            {{ $usersLastMonth->links('vendor.pagination.custom') }}
+                            {{ $trashedUsers->links('vendor.pagination.custom') }}
 
                         </div>
                         <!-- End Footer -->
@@ -324,5 +254,6 @@
         <!-- End Card -->
     </div>
     <!-- End Table Section -->
+
 </div>
 @endsection

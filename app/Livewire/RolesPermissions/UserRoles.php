@@ -25,7 +25,7 @@ class UserRoles extends Component
         // $queryData = User::all();
         // $users = $queryData->paginate(2);
 
-        $users = User::when($this->selectedRole, function($query) {
+        $users = User::withInactive()->when($this->selectedRole, function($query) {
             $query->whereHas('roles', function($query) {
                 $query->where('name', $this->selectedRole);
             });
@@ -41,7 +41,7 @@ class UserRoles extends Component
 
     public function reassignRole($userId, $roleName)
     {
-        $user = User::find($userId);
+        $user = User::withInactive()->find($userId);
 
         if ($user) {
             $role = Role::where('name', $roleName)->first();
@@ -59,7 +59,7 @@ class UserRoles extends Component
 
     public function removeRoles($userId)
     {
-        $user = User::find($userId);
+        $user = User::withInactive()->find($userId);
         if ($user) {
             $user->syncRoles([]); // Remove all roles
             Alert::toast('All roles removed successfully.', 'success');

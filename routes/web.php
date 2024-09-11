@@ -46,6 +46,7 @@ use App\Livewire\Suppliers\SupplierProfile;
 use App\Livewire\User\ChangePassword;
 use App\Livewire\User\InactiveUsers;
 use App\Livewire\User\NewUsers;
+use App\Livewire\User\TrashedUsers;
 
 /*
 |--------------------------------------------------------------------------
@@ -157,6 +158,7 @@ Route::middleware(['auth', 'isActive', 'verified', 'role:admin|director'])->grou
     Route::get('users', ShowUsers::class)->name('users.show');
     Route::get('users/new', NewUsers::class)->name('users.new');
     Route::get('users/inactive', InactiveUsers::class)->name('users.inactive');
+    Route::get('users/trashed', TrashedUsers::class)->name('users.trashed');
 });
 // End Admin
 

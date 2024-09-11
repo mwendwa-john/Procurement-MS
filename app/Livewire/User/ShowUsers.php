@@ -4,9 +4,12 @@ namespace App\Livewire\User;
 
 use App\Models\User;
 use Livewire\Component;
+use App\Models\Location;
 use Livewire\WithPagination;
 use App\Helpers\GlobalHelpers;
+use App\Models\Hotel;
 use Livewire\Attributes\Title;
+use Spatie\Permission\Models\Role;
 
 #[Title('Users')]
 class ShowUsers extends Component
@@ -41,6 +44,11 @@ class ShowUsers extends Component
         // $roles = Role::all();
 
 
-        return view('livewire.user.show-users', compact('users'));
+        return view('livewire.user.show-users', [
+            'users'     => $users,
+            'locations' => Location::all(),
+            'hotels'    => Hotel::all(),
+            'roles'     => Role::all(),
+        ]);
     }
 }

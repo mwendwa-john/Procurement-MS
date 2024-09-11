@@ -1,6 +1,7 @@
 @extends('livewire.layouts.admin-dashboard')
 
 @section('admin-content')
+@livewire('components.modals.user-modals')
 <div>
     <!-- Header -->
     @livewire('components.admin-header', [
@@ -34,31 +35,47 @@
     ])
     <!-- End: Header -->
 
-    <div class="flex justify-end items-center mt-4">
-        @can('manage locations')
-        <a href="{{ route('locations.trashed') }}">
-            <button
-                class="inline-flex items-center gap-x-2 bg-red-400 text-white font-bold py-2 px-4 mx-3 rounded-lg hover:bg-red-300 transition duration-300">
-                <svg class="flex-shrink-0 size-4" fill="#ffffff" viewBox="0 0 32 32" version="1.1"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <title>recycle</title>
-                        <path
-                            d="M15.966 1.232c-0.97 0.021-1.901 0.261-2.807 0.655l1.404 2.62c0.463-0.165 0.937-0.277 1.404-0.281 1.599 0 3.292 0.853 4.585 3.088l5.333 9.264 1.778-2.901-4.491-7.86c-1.714-2.964-4.434-4.608-7.205-4.585 0 0 0 0 0 0zM7.171 8.811l-4.117 7.205c-1.569 2.715-1.68 5.792-0.374 8.234 0.541 1.012 1.362 1.842 2.339 2.526l1.497-2.526c-0.502-0.397-0.929-0.867-1.216-1.403-0.781-1.46-0.831-3.41 0.281-5.334l5.053-8.702h-3.462zM27.194 21.536c-0.098 0.48-0.239 0.896-0.468 1.311-0.801 1.448-2.372 2.526-4.866 2.526h-10.199l1.778 2.994h8.421c3.402 0 6.146-1.601 7.486-4.023 0.472-0.855 0.732-1.824 0.842-2.807l-2.994 0zM11.272 12.6l-6.728-3.879 6.728-3.879-0 7.759zM22.219 15.005l6.728 3.879 0-7.759-6.729 3.879zM8.193 26.81l6.728-3.879 0 7.759-6.729-3.879z">
-                        </path>
-                    </g>
-                </svg>
-                Trashed Users
-            </button>
-        </a>
+    <!-- Buttons -->
+    <div class="flex flex-col md:flex-row justify-between items-center mt-4 space-y-2">
+        <div class="flex items-center space-x-4">
+            <a href="{{ route('users.new') }}">
+                <button type="button"
+                    class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-200 text-blue-800 hover:bg-blue-300 focus:outline-none focus:bg-blue-200 disabled:opacity-50 disabled:pointer-events-none">
+                    New Users
+                </button>
+            </a>
 
-        <div class="text-center">
+            <a href="{{ route('users.show') }}">
+                <button type="button"
+                    class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-200 text-blue-800 hover:bg-blue-300 focus:outline-none focus:bg-blue-200 disabled:opacity-50 disabled:pointer-events-none">
+                    Users
+                </button>
+            </a>
+        </div>
+
+        <div class="flex items-center space-x-4 mt-4 md:mt-0">
+            <a href="{{ route('users.trashed') }}">
+                <button
+                    class="inline-flex items-center gap-x-2 bg-red-400 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-300 transition duration-300">
+                    <svg class="flex-shrink-0 w-6 h-6" fill="#ffffff" viewBox="0 0 32 32" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <title>recycle</title>
+                            <path
+                                d="M15.966 1.232c-0.97 0.021-1.901 0.261-2.807 0.655l1.404 2.62c0.463-0.165 0.937-0.277 1.404-0.281 1.599 0 3.292 0.853 4.585 3.088l5.333 9.264 1.778-2.901-4.491-7.86c-1.714-2.964-4.434-4.608-7.205-4.585 0 0 0 0 0 0zM7.171 8.811l-4.117 7.205c-1.569 2.715-1.68 5.792-0.374 8.234 0.541 1.012 1.362 1.842 2.339 2.526l1.497-2.526c-0.502-0.397-0.929-0.867-1.216-1.403-0.781-1.46-0.831-3.41 0.281-5.334l5.053-8.702h-3.462zM27.194 21.536c-0.098 0.48-0.239 0.896-0.468 1.311-0.801 1.448-2.372 2.526-4.866 2.526h-10.199l1.778 2.994h8.421c3.402 0 6.146-1.601 7.486-4.023 0.472-0.855 0.732-1.824 0.842-2.807l-2.994 0zM11.272 12.6l-6.728-3.879 6.728-3.879-0 7.759zM22.219 15.005l6.728 3.879 0-7.759-6.729 3.879zM8.193 26.81l6.728-3.879 0 7.759-6.729-3.879z">
+                            </path>
+                    </svg>
+                    Trashed Users
+                </button>
+            </a>
+
             <button type="button"
                 class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                data-hs-overlay="#hs-modal-add-user">
-                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-add-user-modal"
+                data-hs-overlay="#hs-add-user-modal">
+                <svg class="flex-shrink-0 w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round">
                     <path d="M5 12h14" />
@@ -67,9 +84,9 @@
                 Add User
             </button>
         </div>
-        @endcan
-
     </div>
+    <!-- End: Buttons -->
+
 
     <!-- Table Section -->
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
@@ -83,7 +100,7 @@
                             class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200]">
                             <div>
                                 <p class="text-sm text-blue-500">
-                                    Add users, edit and more.
+                                    Inactive Users
                                 </p>
                             </div>
                         </div>
@@ -105,6 +122,14 @@
                                         <div class="flex items-center gap-x-2">
                                             <span class="text-sm font-semibold uppercase tracking-wide text-blue-600">
                                                 Name
+                                            </span>
+                                        </div>
+                                    </th>
+
+                                    <th scope="col" class="px-6 py-3 text-start">
+                                        <div class="flex items-center gap-x-2">
+                                            <span class="text-sm font-semibold uppercase tracking-wide text-blue-600">
+                                                Location
                                             </span>
                                         </div>
                                     </th>
@@ -173,6 +198,12 @@
                                     </td>
 
                                     <td class="h-px w-72 whitespace-nowrap">
+                                        <div class="px-6 py-3 font-semibold text-sm text-gray-700">
+                                            {{ $user->location->location_name ?? 'N/A' }}
+                                        </div>
+                                    </td>
+
+                                    <td class="h-px w-72 whitespace-nowrap">
                                         <div class="px-6 py-3">
                                             <span class="block text-sm font-semibold text-gray-800">{{
                                                 $user->roles->pluck('name')->implode(', ') }}</span>
@@ -204,19 +235,42 @@
                                     <td class="size-px whitespace-nowrap">
                                         <div class="px-6 py-1.5">
                                             <a class="inline-flex items-center gap-x-1 text-sm text-orange-400 decoration-2 hover:underline font-medium"
-                                                href="#">
+                                                href="{{ route('user.profile', ['slug' => $user->slug]) }}">
                                                 View
                                             </a>
 
-                                            <a class="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline font-medium"
-                                                href="#">
-                                                Edit
-                                            </a>
+                                            @can('manage users')
+                                            @if (is_null($user->hotel))
+                                            <button type="button"
+                                                wire:click="$dispatch('assign-hotel', { slug: '{{ $user->slug }}' })"
+                                                class="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline font-medium"
+                                                aria-haspopup="dialog" aria-expanded="false"
+                                                aria-controls="hs-assign-hotel-modal"
+                                                data-hs-overlay="#hs-assign-hotel-modal">
+                                                Assign Hotel
+                                            </button>
+                                            @endif
 
-                                            <a class="inline-flex items-center gap-x-1 text-sm text-red-400 decoration-2 hover:underline font-medium"
-                                                href="#">
+                                            @if ($user->is_active == false)
+                                            <button type="button"
+                                                wire:click="$dispatch('pass-user-slug', { slug: '{{ $user->slug }}' })"
+                                                class="inline-flex items-center gap-x-1 text-sm text-teal-500 decoration-2 hover:underline font-medium"
+                                                aria-haspopup="dialog" aria-expanded="false"
+                                                aria-controls="hs-activate-account-modal"
+                                                data-hs-overlay="#hs-activate-account-modal">
+                                                Activate
+                                            </button>
+                                            @endif
+
+                                            <button type="button"
+                                                wire:click="$dispatch('pass-user-slug', { slug: '{{ $user->slug }}' })"
+                                                class="inline-flex items-center gap-x-1 text-sm text-red-400 decoration-2 hover:underline font-medium"
+                                                aria-haspopup="dialog" aria-expanded="false"
+                                                aria-controls="hs-delete-account-modal"
+                                                data-hs-overlay="#hs-delete-account-modal">
                                                 Delete
-                                            </a>
+                                            </button>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>
