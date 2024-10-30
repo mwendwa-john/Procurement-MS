@@ -8,10 +8,10 @@
         <div aria-hidden="true" class="flex absolute -top-96 start-1/2 transform -translate-x-1/2">
             
             <div
-                class="bg-gradient-to-br from-violet-400/50 via-purple-200 to-indigo-200 blur-3xl w-[25rem] h-[44rem] rotate-[-60deg] transform -translate-x-[10rem]">
+                class="bg-gradient-to-br from-cyan-400/50 via-purple-200 to-indigo-200 blur-3xl w-[25rem] h-[44rem] rotate-[-60deg] transform -translate-x-[10rem]">
             </div>
             <div
-                class="bg-gradient-to-tl from-indigo-100 via-violet-200 to-purple-100 blur-3xl w-[90rem] h-[50rem] rounded-full origin-top-left -rotate-12 -translate-x-[15rem]">
+                class="bg-gradient-to-tl from-indigo-100 via-cyan-200 to-purple-100 blur-3xl w-[90rem] h-[50rem] rounded-full origin-top-left -rotate-12 -translate-x-[15rem]">
             </div>
             
         </div>
@@ -26,13 +26,13 @@
                 <div class="max-w-2xl text-center mx-auto">
                     <a href="#"
                         class="inline-block text-sm font-medium bg-clip-text bg-gradient-to-l from-blue-600 to-violet-500 text-transparent">
-                        Show LPOs
+                        Show LPOs with invoice
                     </a>
 
                     <!-- Title -->
                     <div class="mt-5 max-w-2xl">
-                        <h1 class="block font-semibold text-violet-400 text-xl md:text-3xl lg:text-4xl">
-                            Approved Local Purchase Orders
+                        <h1 class="block font-semibold text-cyan-400 text-xl md:text-3xl lg:text-4xl">
+                            Local Purchase Orders with attached invoice
                         </h1>
                     </div>
                     <!-- End Title -->
@@ -54,22 +54,22 @@
                             <div class="-m-1.5 overflow-x-auto">
                                 <div class="p-1.5 min-w-full inline-block align-middle">
                                     <div
-                                        class="bg-white border border-t-4 border-t-violet-400 rounded-xl shadow-sm overflow-hidden">
+                                        class="bg-white border border-t-4 border-t-cyan-400 rounded-xl shadow-sm overflow-hidden">
                                         <!-- Header -->
                                         <div
                                             class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200">
                                             <div>
-                                                <h2 class="text-xl font-semibold text-violet-500">
+                                                <h2 class="text-xl font-semibold text-cyan-500">
                                                     LPOs
                                                 </h2>
-                                                <p class="text-sm text-violet-400">
+                                                <p class="text-sm text-cyan-400">
                                                     Manage LPOs, edit, and more.
                                                 </p>
                                             </div>
                                             <div class="flex gap-4">
                                                 <!-- Supplier Filter -->
                                                 <select wire:model.live="supplier_id"
-                                                    class="py-2 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500">
+                                                    class="rounded-md border-gray-300">
                                                     <option value="">All Suppliers</option>
                                                     @foreach($suppliers as $supplier)
                                                     <option value="{{ $supplier->id }}">{{ $supplier->supplier_name }}
@@ -79,7 +79,7 @@
 
                                                 @if(!auth()->user()->hasRole('store-keeper'))
                                                 <!-- Hotel Filter -->
-                                                <select wire:model.live="hotel_id" class="py-2 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <select wire:model.live="hotel_id" class="rounded-md border-gray-300">
                                                     <option value="">All Hotels</option>
                                                     @foreach($hotels as $hotel)
                                                     <option value="{{ $hotel->id }}">{{ $hotel->hotel_name }}</option>
@@ -89,7 +89,7 @@
 
                                                 <!-- Invoice Filter -->
                                                 <select wire:model.live="has_invoice"
-                                                    class="py-2 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500">
+                                                    class="rounded-md border-gray-300">
                                                     <option value="">All LPOs</option>
                                                     <option value="with">With Invoice</option>
                                                     <option value="without">Without Invoice</option>
@@ -97,7 +97,7 @@
 
                                                 <!-- Search Input -->
                                                 <input type="text" wire:model.live="search" placeholder="Search..."
-                                                    class="py-2 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500" />
+                                                    class="rounded-md border-gray-300" />
                                             </div>
                                         </div>
                                         <!-- End Header -->
@@ -262,8 +262,6 @@
                             </div>
                         </div>
                         <!-- End Card -->
-
-
 
 
                     </div>

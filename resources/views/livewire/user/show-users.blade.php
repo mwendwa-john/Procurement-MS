@@ -74,8 +74,8 @@
 
             <button type="button"
                 class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-add-user-modal"
-                data-hs-overlay="#hs-add-user-modal">
+                aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-send-user-email-modal"
+                data-hs-overlay="#hs-send-user-email-modal">
                 <svg class="flex-shrink-0 w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round">
@@ -102,6 +102,7 @@
                             <div>
                                 <p class="text-sm text-blue-500">
                                     Add users, edit and more.
+                                    {{-- Selected Hotel: {{ $selectedHotel }} --}}
                                 </p>
                             </div>
                             {{-- <div class="flex gap-4">
@@ -137,18 +138,18 @@
                             </div> --}}
                             
                             <!-- Filter Section -->
-                            <div class="mb-4 flex items-center gap-4">
+                            <div class="flex items-center gap-4">
                                 <!-- Search Filter -->
                                 <div>
                                     <input wire:model.debounce.300ms="search" type="text"
                                         placeholder="Search by Name or Email"
-                                        class="form-input block w-full border-gray-300 rounded-md shadow-sm">
+                                        class="form-input block w-full border-blue-200 py-2 rounded-md shadow-sm">
                                 </div>
 
                                 <!-- Location Filter -->
                                 <div>
-                                    <select wire:model="selectedLocation"
-                                        class="form-select block w-full border-gray-300 rounded-md shadow-sm">
+                                    <select wire:model.live="selectedLocation"
+                                        class="form-select block w-full border-blue-200 py-2 rounded-md shadow-sm">
                                         <option value="">All Locations</option>
                                         @foreach ($locations as $location)
                                         <option value="{{ $location->id }}">{{ $location->location_name }}</option>
@@ -158,8 +159,8 @@
 
                                 <!-- Hotel Filter -->
                                 <div>
-                                    <select wire:model="selectedHotel"
-                                        class="form-select block w-full border-gray-300 rounded-md shadow-sm">
+                                    <select wire:model.live="selectedHotel"
+                                        class="form-select block w-full border-blue-200 py-2 rounded-md shadow-sm">
                                         <option value="">All Hotels</option>
                                         @foreach ($hotels as $hotel)
                                         <option value="{{ $hotel->id }}">{{ $hotel->hotel_name }}</option>
@@ -169,8 +170,8 @@
 
                                 <!-- Role Filter -->
                                 <div>
-                                    <select wire:model="selectedRole"
-                                        class="form-select block w-full border-gray-300 rounded-md shadow-sm">
+                                    <select wire:model.live="selectedRole"
+                                        class="form-select block w-full border-blue-200 py-2 rounded-md shadow-sm">
                                         <option value="">All Roles</option>
                                         @foreach ($roles as $role)
                                         <option value="{{ $role->name }}">{{ $role->name }}</option>

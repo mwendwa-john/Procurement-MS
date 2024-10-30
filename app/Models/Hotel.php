@@ -15,6 +15,7 @@ class Hotel extends Model
         'parent_id',
         'hotel_image_path',
         'hotel_name',
+        'hotel_abbreviation',
         'hotel_kra_pin',
         'location_id',
     ];

@@ -69,7 +69,7 @@
                                             <div class="flex gap-4">
                                                 <!-- Supplier Filter -->
                                                 <select wire:model.live="supplier_id"
-                                                    class="rounded-md border-gray-300">
+                                                    class="py-2 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500">
                                                     <option value="">All Suppliers</option>
                                                     @foreach($suppliers as $supplier)
                                                     <option value="{{ $supplier->id }}">{{ $supplier->supplier_name }}
@@ -79,7 +79,7 @@
 
                                                 @if(!auth()->user()->hasRole('store-keeper'))
                                                 <!-- Hotel Filter -->
-                                                <select wire:model.live="hotel_id" class="rounded-md border-gray-300">
+                                                <select wire:model.live="hotel_id" class="py-2 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500">
                                                     <option value="">All Hotels</option>
                                                     @foreach($hotels as $hotel)
                                                     <option value="{{ $hotel->id }}">{{ $hotel->hotel_name }}</option>
@@ -89,7 +89,7 @@
 
                                                 <!-- Invoice Filter -->
                                                 <select wire:model.live="has_invoice"
-                                                    class="rounded-md border-gray-300">
+                                                    class="py-2 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500">
                                                     <option value="">All LPOs</option>
                                                     <option value="with">With Invoice</option>
                                                     <option value="without">Without Invoice</option>
@@ -97,7 +97,7 @@
 
                                                 <!-- Search Input -->
                                                 <input type="text" wire:model.live="search" placeholder="Search..."
-                                                    class="rounded-md border-gray-300" />
+                                                    class="py-2 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500" />
                                             </div>
                                         </div>
                                         <!-- End Header -->
@@ -195,13 +195,13 @@
 
                                                     <td class="px-6 py-1.5">
                                                         <div class="text-sm">
-                                                            {{ $lpo->order_number }}
+                                                            {{ $lpo->lpo_order_number }}
                                                         </div>
                                                     </td>
 
                                                     <td class="px-6 py-1.5">
                                                         <div class="inline-flex gap-2">
-                                                            <a href="{{ route('lpos.view', ['id' => $lpo->id]) }}"
+                                                            <a href="{{ route('lpo.view', ['id' => $lpo->id]) }}"
                                                                 class="text-orange-400 text-sm hover:underline">
                                                                 View
                                                             </a>

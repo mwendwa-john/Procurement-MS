@@ -84,6 +84,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
+    public function getFullNameAttribute()
+    {
+        return trim("{$this->first_name} {$this->middle_name} {$this->last_name}");
+    }
+    
     // relationship with person
     public function person()
     {

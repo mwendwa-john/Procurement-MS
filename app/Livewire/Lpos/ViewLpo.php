@@ -18,10 +18,11 @@ class ViewLpo extends Component
     public $postedBy;
     public $addedToDailyLpoBy;
     public $approvedBy;
+    public $invoiceAttachedBy;
 
     public function mount($id)
     {
-        $this->lpo = Lpo::with(['lpoItems', 'supplier', 'hotel'])->findOrFail($id);
+        $this->lpo = Lpo::with(['lpoItems', 'supplier', 'hotel', 'invoices.invoiceAttachedBy'])->findOrFail($id);
 
         $this->lpoItems = LpoItem::findOrFail($id);
 
@@ -50,6 +51,10 @@ class ViewLpo extends Component
         
         if ($this->lpo->approved_by) {
             $this->approvedBy = $this->formatUserName($this->lpo->approved_by);
+        }
+        
+        if ($this->lpo->invoice_attached_by) {
+            $this->invoiceAttachedBy = $this->formatUserName($this->lpo->approved_by);
         }
         
     }

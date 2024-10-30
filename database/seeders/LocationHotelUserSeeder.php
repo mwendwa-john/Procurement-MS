@@ -85,6 +85,7 @@ class LocationHotelUserSeeder extends Seeder
         $this->SuperiorHotel = Hotel::create([
             'address_id'    => $superiorAddress->id,
             'hotel_name'    => 'Superior Hotels',
+            'hotel_abbreviation'    => 'SH',
             'hotel_kra_pin' => 123456789,
             'location_id'   => $this->superior->id,
         ]);
@@ -101,6 +102,7 @@ class LocationHotelUserSeeder extends Seeder
             'parent_id'     => $this->SuperiorHotel->id,
             'address_id'    => $ridgeCabinAddress->id,
             'hotel_name'    => 'Ridge Cabin',
+            'hotel_abbreviation'    => 'RC',
             'hotel_kra_pin' => 123456789,
             'location_id'   => $this->limuru->id,
         ]);
@@ -117,6 +119,7 @@ class LocationHotelUserSeeder extends Seeder
             'parent_id'     => $this->SuperiorHotel->id,
             'address_id'    => $westwoodAddress->id,
             'hotel_name'    => 'West Wood Hotel',
+            'hotel_abbreviation'    => 'WW',
             'hotel_kra_pin' => 123456789,
             'location_id'   => $this->nairobi->id,
         ]);
@@ -133,6 +136,7 @@ class LocationHotelUserSeeder extends Seeder
             'parent_id'     => $this->SuperiorHotel->id,
             'address_id'    => $hadassahAddress->id,
             'hotel_name'    => 'Hadassah Hotel',
+            'hotel_abbreviation'    => 'HH',
             'hotel_kra_pin' => 123456789,
             'location_id'   => $this->nairobi->id,
         ]);
@@ -149,6 +153,7 @@ class LocationHotelUserSeeder extends Seeder
             'parent_id'     => $this->SuperiorHotel->id,
             'address_id'    => $sweetLakeAddress->id,
             'hotel_name'    => 'Sweet Lake Resort',
+            'hotel_abbreviation'    => 'SLR',
             'hotel_kra_pin' => 123456789,
             'location_id'   => $this->naivasha->id,
         ]);
@@ -165,6 +170,7 @@ class LocationHotelUserSeeder extends Seeder
             'parent_id'     => $this->SuperiorHotel->id,
             'address_id'    => $lnrAddress->id,
             'hotel_name'    => 'Lake Naivasha Resort',
+            'hotel_abbreviation'    => 'LNR',
             'hotel_kra_pin' => 123456789,
             'location_id'   => $this->naivasha->id,
         ]);
@@ -192,7 +198,7 @@ class LocationHotelUserSeeder extends Seeder
             'location_id'       => $this->superior->id,
             'hotel_id'          => $this->SuperiorHotel->id,
             'email'             => 'superadmin@superadmin.com',
-            // 'email_verified_at' => now(),
+            'email_verified_at' => now(),
             'password'          => static::$password ??= Hash::make('password'),
             'is_active'         => true,
             'remember_token'    => Str::random(10),

@@ -47,6 +47,9 @@ class HotelModals extends Component
     public $hotel_name;
 
     #[Validate()]
+    public $hotel_abbreviation;
+
+    #[Validate()]
     public $hotel_kra_pin;
 
     #[Validate()]
@@ -63,17 +66,19 @@ class HotelModals extends Component
 
     protected $rules = [
         // Address
-        'street'        => 'required|string|max:255',
-        'city'          => 'required|string|max:255',
-        'state'         => 'required|string|max:255',
-        'postal_code'   => 'nullable|string|max:20',
-        // Hotels     
-        'parent_id'        => 'nullable|exists:hotels,id',
-        'hotel_image_path' => 'nullable|image|max:4096',
-        'hotel_name'       => 'required|string|max:255',
-        'hotel_kra_pin'    => 'required|string|max:255',
-        'location_id'      => 'required|exists:locations,id',
+        'street'             => 'required|string|max:255',
+        'city'               => 'required|string|max:255',
+        'state'              => 'required|string|max:255',
+        'postal_code'        => 'nullable|string|max:20',
+        // Hotels
+        'parent_id'          => 'nullable|integer',
+        'hotel_image_path'   => 'nullable|image|max:4096',
+        'hotel_name'         => 'required|min:3|unique:hotels,hotel_name,{{ $hotel->id }}',
+        'hotel_abbreviation' => 'required|unique:hotels,hotel_abbreviation,{{ $hotel->id }}',
+        'hotel_kra_pin'      => 'required|string|unique:hotels,hotel_kra_pin,{{ $hotel->id }}',
+        'location_id'        => 'required|exists:locations,id',
     ];
+    
 
     #[On('edit-hotel')]
     public function findEditHotel($id)
@@ -102,6 +107,7 @@ class HotelModals extends Component
         $this->fill($this->hotelToEdit->only(
             'parent_id',
             'hotel_name',
+            'hotel_abbreviation',
             'hotel_kra_pin',
         ));
 
@@ -141,6 +147,7 @@ class HotelModals extends Component
                 'parent_id'        => $validatedData['parent_id'],
                 'hotel_image_path' => $hotelImagePath,
                 'hotel_name'       => $validatedData['hotel_name'],
+                'hotel_abbreviation'=> $validatedData['hotel_abbreviation'],
                 'hotel_kra_pin'    => $validatedData['hotel_kra_pin'],
                 'location_id'      => $validatedData['location_id'],
             ]);

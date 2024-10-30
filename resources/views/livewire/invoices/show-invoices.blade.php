@@ -1,6 +1,5 @@
 <div class="bg-sky-50">
-    {{-- @livewire('components.modals.lpo-modals') --}}
-
+    @livewire('components.modals.invoice-modals')
 
     <!-- Hero -->
     <div class="relative overflow-hidden">
@@ -22,7 +21,7 @@
         <!-- ========== END HEADER ========== -->
 
         <div class="relative z-10">
-            <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-2 lg:py-16">
+            <div class="max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-8 py-2 lg:py-16">
                 <div class="max-w-2xl text-center mx-auto">
                     <a href="#"
                         class="inline-block text-sm font-medium bg-clip-text bg-gradient-to-l from-blue-600 to-violet-500 text-transparent">
@@ -70,7 +69,7 @@
                                             <div class="flex gap-4">
                                                 <!-- Supplier Filter -->
                                                 <select wire:model.live="supplier_id"
-                                                    class="rounded-md border-gray-300">
+                                                    class="py-2 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500">
                                                     <option value="">All Suppliers</option>
                                                     @foreach($suppliers as $supplier)
                                                     <option value="{{ $supplier->id }}">{{ $supplier->supplier_name }}
@@ -80,7 +79,7 @@
 
                                                 @if(!auth()->user()->hasRole('store-keeper'))
                                                 <!-- Hotel Filter -->
-                                                <select wire:model.live="hotel_id" class="rounded-md border-gray-300">
+                                                <select wire:model.live="hotel_id" class="py-2 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500">
                                                     <option value="">All Hotels</option>
                                                     @foreach($hotels as $hotel)
                                                     <option value="{{ $hotel->id }}">{{ $hotel->hotel_name }}</option>
@@ -90,7 +89,7 @@
 
                                                 <!-- Search Input -->
                                                 <input type="text" wire:model.live="search" placeholder="Search..."
-                                                    class="rounded-md border-gray-300" />
+                                                    class="py-2 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500" />
                                             </div>
                                         </div>
                                         <!-- End Header -->
@@ -119,12 +118,22 @@
 
                                                     <th scope="col" class="px-6 py-3 text-start">
                                                         <span
-                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800">Invoice Number</span>
+                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                                                            Lpo Number
+                                                        </span>
                                                     </th>
 
                                                     <th scope="col" class="px-6 py-3 text-start">
                                                         <span
-                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800">Total Amount</span>
+                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                                                            Invoice Number
+                                                        </span>
+                                                    </th>
+
+                                                    <th scope="col" class="px-6 py-3 text-start">
+                                                        <span
+                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800">Total
+                                                            Amount</span>
                                                     </th>
 
                                                     <th scope="col" class="px-6 py-3 text-center">
@@ -182,6 +191,12 @@
 
                                                     <td class="px-6 py-1.5">
                                                         <div class="text-sm">
+                                                            {{ $invoice->lpo->lpo_order_number }}
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="px-6 py-1.5">
+                                                        <div class="text-sm">
                                                             {{ $invoice->invoice_number }}
                                                         </div>
                                                     </td>
@@ -194,7 +209,7 @@
 
                                                     <td class="px-6 py-1.5">
                                                         <div class="inline-flex gap-2">
-                                                            <a href="{{ route('lpos.view', ['id' => $invoice->lpo->id]) }}"
+                                                            <a href="{{ route('invoice.view', ['invoiceNumber' => $invoice->invoice_number]) }}"
                                                                 class="text-orange-400 text-sm hover:underline">
                                                                 View
                                                             </a>

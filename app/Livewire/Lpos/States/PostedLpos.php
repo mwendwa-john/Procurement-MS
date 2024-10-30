@@ -56,7 +56,7 @@ class PostedLpos extends Component
                         ->orWhereHas('supplier', function ($query) {
                             $query->where('supplier_name', 'like', '%' . $this->search . '%');
                         })
-                        ->orWhere('order_number', 'like', '%' . $this->search . '%');
+                        ->orWhere('lpo_order_number', 'like', '%' . $this->search . '%');
                 });
             })
             ->when($this->supplier_id, function ($query) {

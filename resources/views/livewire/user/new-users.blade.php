@@ -73,8 +73,8 @@
 
             <button type="button"
                 class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-add-user-modal"
-                data-hs-overlay="#hs-add-user-modal">
+                aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-send-user-email-modal"
+                data-hs-overlay="#hs-send-user-email-modal">
                 <svg class="flex-shrink-0 w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round">

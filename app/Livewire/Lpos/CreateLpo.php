@@ -7,13 +7,14 @@ use App\Models\Hotel;
 use App\Models\LpoItem;
 use App\Models\Product;
 use Livewire\Component;
+use Illuminate\Support\Str;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Spatie\Valuestore\Valuestore;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Title;
 use RealRashid\SweetAlert\Facades\Alert;
 
 #[Title('Create Lpo')]
@@ -24,7 +25,7 @@ class CreateLpo extends Component
 
     // LPO
     #[Validate()]
-    public $selectedHotel, $selectedSupplier, $order_number, $tax_date, $payment_terms, $delivery_date;
+    public $selectedHotel, $selectedSupplier, $lpo_order_number, $tax_date, $payment_terms, $delivery_date;
 
     // LPO Items
     public $lpoItems = [];
@@ -39,15 +40,16 @@ class CreateLpo extends Component
         // set vat rate
         $this->vatRate = Valuestore::make(config_path('system_settings.json'))->get('vat_rate');
 
+
         // Initialize with one empty item
-        $this->lpoItems[] = ['item_name' => '', 'description' => '', 'quantity' => '', 'unit_of_measure' => '', 'price' => '', 'vat' => $this->vatRate, 'amount' => '', 'is_saved' => false];
+        $this->lpoItems[] = ['item_name' => '', 'description' => '', 'expected_quantity' => '', 'unit_of_measure' => '', 'price' => '', 'vat' => $this->vatRate, 'amount' => '', 'is_saved' => false];
     }
 
     protected $rules = [
         // LPO
         'selectedHotel'             => 'required|exists:hotels,id',
         'selectedSupplier'          => 'required|exists:suppliers,id',
-        'order_number'              => 'required|string|unique:lpos,order_number',
+        'lpo_order_number'          => 'required|string|unique:lpos,lpo_order_number',
         'tax_date'                  => 'nullable|date',
         'payment_terms'             => 'nullable|string|max:255',
         'delivery_date'             => 'nullable|date',
@@ -56,38 +58,65 @@ class CreateLpo extends Component
         // 'lpoItems'                  => 'required|array|min:1',
         // 'lpoItems.*.item_name'      => 'required|string',
         // 'lpoItems.*.description'    => 'nullable|string|max:255',
-        // 'lpoItems.*.quantity'       => 'required|numeric|min:1',
+        // 'lpoItems.*.expected_quantity' => 'required|numeric|min:1',
         // 'lpoItems.*.price'          => 'required|numeric|min:0',
         // 'lpoItems.*.amount'         => 'required|numeric|min:0',
     ];
+
+    public function generateLpoOrderNo($hotelId, $hotelAbbr)
+    {
+        // Find the last LPO for the given hotel
+        $lastLpo = Lpo::where('hotel_id', $hotelId)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        // If no LPOs exist, start from 1
+        $orderCount = $lastLpo
+            ? (int) substr($lastLpo->lpo_order_number, strrpos($lastLpo->lpo_order_number, '-') + 1) + 1
+            : 1;
+
+        // Format with leading zeros if needed (e.g., for a 2-digit format)
+        $formattedOrderCount = str_pad($orderCount, 2, '0', STR_PAD_LEFT);
+
+        // Construct the formatted LPO order number
+        $formattedString = "{$hotelAbbr}-{$formattedOrderCount}";
+
+
+        // Generate the lpo_order_number
+        $this->lpo_order_number = $formattedString;
+    }
+
 
     public function updatedSelectedHotel($hotelId)
     {
         $hotel = Hotel::find($hotelId);
 
         $this->suppliers = $hotel->suppliers;
+
+        // Autogenerate the lpo_order_number
+        $this->generateLpoOrderNo($hotelId, $hotel->hotel_abbreviation);
     }
 
-    // Calculate the total amount when price or quantity is set
+    // Calculate the total amount when price or expected_quantity is set
     public function updated($field)
     {
         // Extract index and property name from the updated field
-        if (preg_match('/lpoItems\.(\d+)\.(price|quantity)/', $field, $matches)) {
+        if (preg_match('/lpoItems\.(\d+)\.(price|expected_quantity)/', $field, $matches)) {
             $index = $matches[1];
 
-            // Cast price and quantity to float to ensure numeric calculation
+            // Cast price and expected_quantity to float to ensure numeric calculation
             $price = (float) $this->lpoItems[$index]['price'];
-            $quantity = (float) $this->lpoItems[$index]['quantity'];
+            $quantity = (float) $this->lpoItems[$index]['expected_quantity'];
 
-            // Recalculate amount
-            $this->lpoItems[$index]['amount'] = $price * $quantity;
+            // Recalculate amount and format it to two decimal places
+            $this->lpoItems[$index]['amount'] = number_format($price * $quantity, 2, '.', '');
         }
     }
 
     public function addItem()
     {
         // add a new item to the list
-        $this->lpoItems[] = ['item_name' => '', 'description' => '', 'quantity' => '', 'unit_of_measure' => '', 'price' => '', 'vat' => $this->vatRate, 'amount' => '', 'is_saved' => false];
+        $this->lpoItems[] = ['item_name' => '', 'description' => '', 'expected_quantity' => '', 'unit_of_measure' => '', 'price' => '', 'vat' => $this->vatRate, 'amount' => '', 'is_saved' => false];
     }
 
     #[On('select-product')]
@@ -100,7 +129,7 @@ class CreateLpo extends Component
         $this->lpoItems[] = [
             'item_name'         => $product->item_name,
             'description'       => $product->description,
-            'quantity'          => '',
+            'expected_quantity' => '',
             'unit_of_measure'   => $product->unit_of_measure,
             'price'             => $product->price,
             'vat'               => $this->vatRate,
@@ -124,11 +153,11 @@ class CreateLpo extends Component
     {
         // Validate the item before marking it as saved
         $validatedItem = $this->validate([
-            "lpoItems.$index.item_name"      => 'required|string',
-            "lpoItems.$index.description"    => 'nullable|string|max:255',
-            "lpoItems.$index.quantity"       => 'required|numeric|min:1',
-            "lpoItems.$index.price"          => 'required|numeric|min:0',
-            "lpoItems.$index.amount"         => 'required|numeric|min:0',
+            "lpoItems.$index.item_name"             => 'required|string',
+            "lpoItems.$index.description"           => 'nullable|string|max:255',
+            "lpoItems.$index.expected_quantity"     => 'required|numeric|min:1',
+            "lpoItems.$index.price"                 => 'required|numeric|min:0',
+            "lpoItems.$index.amount"                => 'required|numeric|min:0',
         ]);
 
         // Assign the validated data back to the item
@@ -159,11 +188,6 @@ class CreateLpo extends Component
         $this->recalculateTotals();
     }
 
-    public function cancelEdit()
-    {
-        $this->editingIndex = null; // Clear editing state
-    }
-
     public function recalculateTotals()
     {
         $this->subtotal = collect($this->lpoItems)->sum('amount');
@@ -191,16 +215,17 @@ class CreateLpo extends Component
 
         try {
             $lpo = Lpo::create([
-                'hotel_id'        => $validatedData['selectedHotel'],
-                'supplier_id'     => $validatedData['selectedSupplier'],
-                'order_number'    => $validatedData['order_number'],
-                'tax_date'        => $validatedData['tax_date'],
-                'payment_terms'   => $validatedData['payment_terms'],
-                'delivery_date'   => $validatedData['delivery_date'],
-                'subtotal'        => $this->subtotal,
-                'vat_total'       => $this->vat_total,
-                'total_amount'    => $this->total_amount,
-                'generated_by'    => Auth::user()->id,
+                'hotel_id'            => $validatedData['selectedHotel'],
+                'supplier_id'         => $validatedData['selectedSupplier'],
+                'lpo_order_number'    => $validatedData['lpo_order_number'],
+                'tax_date'            => $validatedData['tax_date'],
+                'payment_terms'       => $validatedData['payment_terms'],
+                'delivery_date'       => $validatedData['delivery_date'],
+                'subtotal'            => $this->subtotal,
+                'include_vat'         => $this->includeVat,
+                'vat_total'           => $this->vat_total,
+                'total_amount'        => $this->total_amount,
+                'generated_by'        => Auth::user()->id,
             ]);
 
             // Filter and save only the items that have been marked as "saved"
@@ -208,16 +233,18 @@ class CreateLpo extends Component
                 return $item['is_saved'];
             });
 
-            LpoItem::insert($savedItems->map(function ($item, $key) use ($lpo) {
+            LpoItem::insert($savedItems->map(function ($item, $key) use ($lpo, &$lastNumber) {
                 return [
-                    'lpo_id'            => $lpo->id,
-                    'item_name'         => $item['item_name'],
-                    'description'       => $item['description'],
-                    'quantity'          => $item['quantity'],
-                    'unit_of_measure'   => $item['unit_of_measure'],
-                    'price'             => $item['price'],
-                    'vat'               => $item['vat'],
-                    'amount'            => $item['amount'],
+                    'lpo_item_number'       => 'LPO-ITEM-' . Str::uuid(), //Universally Unique Identifier
+                    'lpo_order_number'      => $lpo->lpo_order_number,
+                    'item_name'             => $item['item_name'],
+                    'description'           => $item['description'],
+                    'expected_quantity'     => $item['expected_quantity'],
+                    'pending_quantity'      => $item['expected_quantity'],
+                    'unit_of_measure'       => $item['unit_of_measure'],
+                    'price'                 => $item['price'],
+                    'vat'                   => $item['vat'],
+                    'amount'                => $item['amount'],
                 ];
             })->toArray());
 

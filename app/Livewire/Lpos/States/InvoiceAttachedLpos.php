@@ -1,26 +1,24 @@
 <?php
 
-namespace App\Livewire\Invoices\PaymentStatus;
+namespace App\Livewire\Lpos\States;
 
 use App\Models\Lpo;
 use App\Models\Hotel;
-use App\Models\Invoice;
 use Livewire\Component;
 use App\Models\Supplier;
 use Livewire\WithPagination;
 use App\Helpers\GlobalHelpers;
-use Livewire\Attributes\Title;
 
-#[Title('Unpaid Invoices')]
-class UnpaidInvoices extends Component
+class InvoiceAttachedLpos extends Component
 {
     use WithPagination;
 
     public $search = '';
     public $supplier_id = null;
     public $hotel_id = null;
+    public $has_invoice = null;
 
-    protected $queryString = ['search', 'supplier_id', 'hotel_id'];
+    protected $queryString = ['search', 'supplier_id', 'hotel_id', 'has_invoice'];
 
     public function updatingSearch()
     {
@@ -37,12 +35,17 @@ class UnpaidInvoices extends Component
         $this->resetPage();
     }
 
+    public function updatingHasInvoice()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         $perPage = GlobalHelpers::getPerPage();
         
-        $invoices = Invoice::with(['hotel', 'supplier'])
-            ->where('status', 'unpaid')
+        $lpos = Lpo::with(['hotel', 'supplier'])
+            ->where('status', 'invoice_attached')
             ->when($this->search, function ($query) {
                 $query->where(function ($query) {
                     $query->whereHas('hotel', function ($query) {
@@ -51,10 +54,7 @@ class UnpaidInvoices extends Component
                         ->orWhereHas('supplier', function ($query) {
                             $query->where('supplier_name', 'like', '%' . $this->search . '%');
                         })
-                        ->orWhereHas('lpo', function ($query) {
-                            $query->where('lpo_order_number', 'like', '%' . $this->search . '%');
-                        })
-                        ->orWhere('invoice_number', 'like', '%' . $this->search . '%');
+                        ->orWhere('lpo_order_number', 'like', '%' . $this->search . '%');
                 });
             })
             ->when($this->supplier_id, function ($query) {
@@ -63,16 +63,24 @@ class UnpaidInvoices extends Component
             ->when($this->hotel_id, function ($query) {
                 $query->where('hotel_id', $this->hotel_id);
             })
+            ->when($this->has_invoice, function ($query) {
+                if ($this->has_invoice === 'with') {
+                    $query->whereNotNull('invoice_attached_by');
+                } elseif ($this->has_invoice === 'without') {
+                    $query->whereNull('invoice_attached_by');
+                }
+            })
             ->latest()
             ->paginate($perPage ?? 15);
+
 
 
         $suppliers = Supplier::all();
         $hotels = Hotel::all();
 
 
-        return view('livewire.invoices.payment-status.unpaid-invoices', [
-            'invoices' => $invoices,
+        return view('livewire.lpos.states.invoice-attached-lpos', [
+            'lpos' => $lpos,
             'suppliers' => $suppliers,
             'hotels' => $hotels,
         ]);

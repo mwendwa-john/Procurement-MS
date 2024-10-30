@@ -56,7 +56,7 @@
                 <label for="hotel_name" class="block text-sm mb-2 text-start">Hotel name *</label>
                 <div class="relative">
                     <input wire:model.live="hotel_name" type="text" id="hotel_name" name="hotel_name"
-                        class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                        class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                         required aria-describedby="hotel_name">
 
                     <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
@@ -74,12 +74,35 @@
             </div>
             <!-- End  Form Group -->
 
+            <!--  Form Group - Hotel Abbreviation -->
+            <div>
+                <label for="hotel_abbreviation" class="block text-sm mb-2 text-start">Hotel abbreviation *</label>
+                <div class="relative">
+                    <input wire:model.live="hotel_abbreviation" type="text" id="hotel_abbreviation" name="hotel_abbreviation"
+                        class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                        required aria-describedby="hotel_abbreviation">
+
+                    <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
+                        <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor"
+                            viewBox="0 0 16 16" aria-hidden="true">
+                            <path
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                        </svg>
+                    </div>
+                </div>
+
+                @error('hotel_abbreviation')
+                    <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                @enderror
+            </div>
+            <!-- End  Form Group -->
+
             <!--  Form Group - KRA Pin -->
             <div>
                 <label for="hotel_kra_pin" class="block text-sm mb-2 text-start">Hotel KRA PIN *</label>
                 <div class="relative">
                     <input wire:model.live="hotel_kra_pin" type="text" id="hotel_kra_pin" name="hotel_kra_pin"
-                        class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                        class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                         required aria-describedby="hotel_kra_pin">
 
                     <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
@@ -122,7 +145,7 @@
             <div>
                 <label for="street" class="block text-sm mb-2 text-start">Street *</label>
                 <input wire:model.live="street" type="text" id="street" name="street"
-                    class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                    class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                     required>
                 @error('street')
                     <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
@@ -134,7 +157,7 @@
             <div>
                 <label for="city" class="block text-sm mb-2 text-start">City *</label>
                 <input wire:model.live="city" type="text" id="city" name="city"
-                    class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                    class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                     required>
                 @error('city')
                     <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
@@ -146,7 +169,7 @@
             <div>
                 <label for="state" class="block text-sm mb-2 text-start">State *</label>
                 <input wire:model.live="state" type="text" id="state" name="state"
-                    class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                    class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                     required>
                 @error('state')
                     <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
@@ -158,7 +181,7 @@
             <div>
                 <label for="postal_code" class="block text-sm mb-2 text-start">Postal Code</label>
                 <input wire:model.live="postal_code" type="text" id="postal_code" name="postal_code"
-                    class="py-3 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                    class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
                 @error('postal_code')
                     <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
                 @enderror

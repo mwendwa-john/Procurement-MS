@@ -41,6 +41,9 @@ class CreateHotels extends Component
     public $hotel_name;
 
     #[Validate()]
+    public $hotel_abbreviation;
+
+    #[Validate()]
     public $hotel_kra_pin;
 
     #[Validate()]
@@ -67,6 +70,7 @@ class CreateHotels extends Component
         'parent_id'         => 'nullable|integer',
         'hotel_image_path'  => 'nullable|image|max:4096',
         'hotel_name'        => 'required|unique:hotels,hotel_name|min:3',
+        'hotel_abbreviation'=> 'required|unique:hotels,hotel_abbreviation',
         'hotel_kra_pin'     => 'required|string|unique:hotels,hotel_kra_pin',
         'location_id'       => 'required|exists:locations,id',
     ];
@@ -102,6 +106,7 @@ class CreateHotels extends Component
                 'parent_id'         => $validatedData['parent_id'],
                 'hotel_image_path'  => $hotelImagePath,
                 'hotel_name'        => $validatedData['hotel_name'],
+                'hotel_abbreviation'=> $validatedData['hotel_abbreviation'],
                 'hotel_kra_pin'     => $validatedData['hotel_kra_pin'],
                 'location_id'       => $validatedData['location_id'],
             ]);

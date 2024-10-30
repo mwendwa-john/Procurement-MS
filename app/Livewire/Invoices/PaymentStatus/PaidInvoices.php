@@ -51,7 +51,7 @@ class PaidInvoices extends Component
                             $query->where('supplier_name', 'like', '%' . $this->search . '%');
                         })
                         ->orWhereHas('lpo', function ($query) {
-                            $query->where('order_number', 'like', '%' . $this->search . '%');
+                            $query->where('lpo_order_number', 'like', '%' . $this->search . '%');
                         })
                         ->orWhere('invoice_number', 'like', '%' . $this->search . '%');
                 });

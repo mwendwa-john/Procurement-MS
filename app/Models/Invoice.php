@@ -12,22 +12,18 @@ class Invoice extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'lpo_id',
+        'invoice_number',
+        'lpo_order_number',
         'hotel_id',
         'supplier_id',
-        'invoice_number',
-        'description',
-        'quantity',
-        'unit_of_measure',
-        'rate',
-        'vat',
-        'amount',
+        'parent_invoice_id',
+        'delivery_date',
+        'comments',
         'status',
         'subtotal',
         'vat_total',
         'total_amount',
-        'payment_made_by',
-        'payment_completed_by',
+        'invoice_attached_by',
     ];
 
     // Scope to load specific Hotel Invoices for store keepers
@@ -48,6 +44,29 @@ class Invoice extends Model
         static::addGlobalScope(new StoreKeeperScope($userId, $userRole));
     }
 
+    public function lpo()
+    {
+        return $this->belongsTo(Lpo::class, 'lpo_order_number', 'lpo_order_number');
+    }
+
+    // Recursive relationship for parent invoice
+    public function parentInvoice()
+    {
+        return $this->belongsTo(Invoice::class, 'parent_invoice_id');
+    }
+
+    // Recursive relationship for child invoices
+    public function childInvoices()
+    {
+        return $this->hasMany(Invoice::class, 'parent_invoice_id');
+    }
+
+    
+    public function invoiceAttachedBy()
+    {
+        return $this->belongsTo(User::class, 'invoice_attached_by');
+    }
+
     public function hotel()
     {
         return $this->belongsTo(Hotel::class);
@@ -58,16 +77,17 @@ class Invoice extends Model
         return $this->belongsTo(Supplier::class);
     }
 
-    public function lpo()
+
+    // Many-to-many relationship with LpoItem
+    // public function lpoItems()
+    // {
+    //     return $this->belongsToMany(LpoItem::class, 'invoice_lpo_items', 'invoice_number', 'lpo_item_number')
+    //         ->withPivot('delivered_quantity', 'pending_quantity')
+    //         ->withTimestamps();
+    // }
+
+    public function invoiceItems()
     {
-        return $this->belongsTo(Lpo::class);
-    }
-
-    public function paymentMadeBy() {
-        return $this->belongsTo(User::class, 'payment_made_by');
-    }
-
-    public function paymentCompletedBy() {
-        return $this->belongsTo(User::class, 'payment_completed_by');
+        return $this->hasMany(InvoiceItem::class, 'invoice_number', 'invoice_number');
     }
 }

@@ -13,31 +13,37 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lpo_id')->constrained('lpos')->onDelete('cascade');
+            $table->string('invoice_number')->unique();
+            $table->string('lpo_order_number'); // Relating to lpos table
+
+            // Foreign key constraint on lpo_order_number
+            $table->foreign('lpo_order_number')
+                ->references('lpo_order_number')
+                ->on('lpos')
+                ->onDelete('cascade');
+
             $table->foreignId('hotel_id')->constrained()->onDelete('cascade');
             $table->foreignId('supplier_id')->constrained()->onDelete('cascade');
-            $table->string('invoice_number');
-            
-            $table->string('description');
-            $table->integer('quantity');
-            $table->string('unit_of_measure');
-            $table->decimal('rate', 10, 2);
-            $table->decimal('vat', 10, 2);
-            $table->decimal('amount', 10, 2);
 
+            // Add the recursive relationship (parent invoice)
+            $table->foreignId('parent_invoice_id')->nullable()->constrained('invoices')->onDelete('cascade');
+
+            $table->date('delivery_date');
+            $table->string('comments')->nullable();
             $table->enum('status', [
                 'unpaid',
                 'payment_made',
                 'payment_complete'
             ])->default('unpaid');
-            
+
             $table->decimal('subtotal', 15, 2)->nullable();
             $table->decimal('vat_total', 15, 2)->nullable();
             $table->decimal('total_amount', 15, 2)->nullable();
             
-            $table->foreignId('payment_made_by')->nullable()->constrained('users')->onDelete('set null');
-            $table->foreignId('payment_completed_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('invoice_attached_by')->nullable()->constrained('users')->onDelete('set null');
 
+
+            $table->boolean('is_final')->default(false); // Indicates if this invoice completes delivery
             $table->softDeletes();
             $table->timestamps();
         });

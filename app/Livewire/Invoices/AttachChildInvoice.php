@@ -2,21 +2,17 @@
 
 namespace App\Livewire\Invoices;
 
-use App\Models\Lpo;
 use App\Models\Invoice;
 use App\Models\LpoItem;
 use Livewire\Component;
 use App\Models\InvoiceItem;
-use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
-#[Title('Attach Invoice')]
-class AttachInvoice extends Component
+class AttachChildInvoice extends Component
 {
+    public $parentInvoice;
     public $lpo;
     public $lpoItems;
 
@@ -28,7 +24,9 @@ class AttachInvoice extends Component
 
     public $includeVat;
     public $vatRate;
-    public $subtotal = 0, $vat_total = 0, $total_amount = 0;
+    public $vat_total;
+    public $subtotal;
+    public $total_amount;
 
 
     protected $rules = [
@@ -36,61 +34,43 @@ class AttachInvoice extends Component
         'delivery_date'  => 'required|date',
     ];
 
-
-    public function mount($lpoOrderNumber)
+    public function mount($parentInvoiceNumber)
     {
-        // dd($lpoOrderNumber);
-        // $this->lpo = Lpo::with(['generatedBy', 'postedBy', 'addedToDailyLposBy', 'approvedBy'])->findOrFail($id);
+        // Find the target invoice by invoice_number
+        $this->parentInvoice = Invoice::where('invoice_number', $parentInvoiceNumber)->firstOrFail();
 
-        $this->lpo = Lpo::with(['generatedBy', 'postedBy', 'addedToDailyLposBy', 'approvedBy'])
-            ->where('lpo_order_number', $lpoOrderNumber)
-            ->firstOrFail();
+        // fetch lpo and lpoItems
+        $this->lpo = $this->parentInvoice->lpo;
+
+        $this->lpoItems = $this->lpo->lpoItems->where('is_delivered', false)->toArray();
 
         $this->includeVat = $this->lpo->include_vat;
-
-        // Check if the LPO has any invoices
-        $existingInvoice = $this->lpo->invoices()->first();
-
-        if (!$existingInvoice) {
-            $this->loadLpoItems();
-        } else {
-            // Redirect page where the recursive (child) invoice can be added
-            return redirect()->route('invoice.child.attach', ['parentInvoiceNumber' => $existingInvoice->invoice_number]);
-        }
     }
 
-
-    public function loadLpoItems()
-    {
-        if ($this->lpo) {
-            $this->lpoItems = $this->lpo->lpoItems->toArray();
-        }
-    }
 
     // Calculate the pending_quantity when delivered_quantity is set
     public function updated($field)
     {
         // Extract index and property name from the updated field
-        if (preg_match('/lpoItems\.(\d+)\.(delivered_quantity|expected_quantity)/', $field, $matches)) {
+        if (preg_match('/lpoItems\.(\d+)\.(new_delivered_quantity|pending_quantity)/', $field, $matches)) {
             $index = $matches[1];
 
-            // Cast delivered_quantity and expected_quantity to integers to ensure numeric calculation
-            $deliveredQuantity = (int) $this->lpoItems[$index]['delivered_quantity'];
-            $expectedQuantity = (int) $this->lpoItems[$index]['expected_quantity'];
+            // Cast new_delivered_quantity and pending_quantity to integers to ensure numeric calculation
+            $newDeliveredQty = (int) $this->lpoItems[$index]['new_delivered_quantity'];
+            $oldPendingQty = (int) $this->lpoItems[$index]['pending_quantity'];
             $price = (float) $this->lpoItems[$index]['price'];
 
-            // Check if delivered_quantity exceeds expected_quantity
-            if ($deliveredQuantity > $expectedQuantity) {
-                // Set an error message or throw an exception
-                $this->addError("lpoItems.$index.delivered_quantity", 'Delivered quantity cannot exceed expected quantity.');
+            // Check if the new_delivered_quantity exceeds the old pending_quantity
+            if ($newDeliveredQty > $oldPendingQty) {
+                $this->addError("lpoItems.$index.new_delivered_quantity", 'Delivered quantity cannot exceed previous pending quantity.');
                 // return; // Stop further execution
             }
 
-            // Recalculate pending_quantity as an integer
-            $this->lpoItems[$index]['pending_quantity'] = $expectedQuantity - $deliveredQuantity;
+            // Recalculate new_pending_quantity as an integer
+            $this->lpoItems[$index]['new_pending_quantity'] = $oldPendingQty - $newDeliveredQty;
 
             // Recalculate amount and format it to two decimal places
-            $this->lpoItems[$index]['amount'] = number_format($price * $deliveredQuantity, 2, '.', '');
+            $this->lpoItems[$index]['amount'] = number_format($price * $newDeliveredQty, 2, '.', '');
 
             // Gate vat rate from the lpo items
             $this->vatRate = $this->lpoItems[$index]['vat'];
@@ -101,27 +81,28 @@ class AttachInvoice extends Component
         $this->recalculateTotals();
     }
 
+    
     public function saveItem($index)
     {
-        $expectedQuantity = (int) $this->lpoItems[$index]['expected_quantity'];
-        $deliveredQuantity = (int) $this->lpoItems[$index]['delivered_quantity'];
-        $pendingQuantity = (int) $this->lpoItems[$index]['pending_quantity'];
+        $oldPendingQty = (int) $this->lpoItems[$index]['pending_quantity'];
+        $newDeliveredQty = (int) $this->lpoItems[$index]['new_delivered_quantity'];
+        $newPendingQty = (int) $this->lpoItems[$index]['new_pending_quantity'];
 
         // Ensure delivered quantity does not exceed expected quantity
-        if ($deliveredQuantity > $expectedQuantity) {
+        if ($newDeliveredQty > $oldPendingQty) {
             // Optionally, you can throw an error or set a message
             // return 'Delivered quantity cannot exceed expected quantity';
-            $deliveredQuantity = $expectedQuantity; // Adjust delivered quantity to expected
+            $newDeliveredQty = $oldPendingQty; // Adjust delivered quantity to expected
         }
 
         // Update delivery and pending status
-        if ($deliveredQuantity === 0) {
+        if ($newDeliveredQty === 0) {
             $this->lpoItems[$index]['is_delivered'] = false;
             $this->lpoItems[$index]['is_pending'] = false; // Reset pending status
-        } elseif ($deliveredQuantity < $expectedQuantity) {
+        } elseif ($newDeliveredQty < $oldPendingQty) {
             $this->lpoItems[$index]['is_delivered'] = false;
             $this->lpoItems[$index]['is_pending'] = true;
-        } elseif ($expectedQuantity === $pendingQuantity) {
+        } elseif ($oldPendingQty === $newPendingQty) {
             $this->lpoItems[$index]['is_delivered'] = false;
         } else {
             $this->lpoItems[$index]['is_delivered'] = true;
@@ -129,10 +110,10 @@ class AttachInvoice extends Component
         }
 
         // Update delivered quantity in the item after checks
-        $this->lpoItems[$index]['delivered_quantity'] = $deliveredQuantity;
+        $this->lpoItems[$index]['new_delivered_quantity'] = $newDeliveredQty;
 
         // Update pending quantity based on the new delivered quantity
-        $this->lpoItems[$index]['pending_quantity'] = $expectedQuantity - $deliveredQuantity;
+        $this->lpoItems[$index]['new_pending_quantity'] = $oldPendingQty - $newDeliveredQty;
     }
 
 
@@ -157,7 +138,7 @@ class AttachInvoice extends Component
     }
 
 
-    public function attachInvoice()
+    public function attachChildInvoice()
     {
         $validatedData = $this->validate();
 
@@ -175,23 +156,27 @@ class AttachInvoice extends Component
             'subtotal'          => $this->subtotal,
             'vat_total'         => $this->vat_total,
             'total_amount'      => $this->total_amount,
-            'invoice_attached_by' => Auth::user()->id,
+            // 'invoice_attached_by' => Auth::user()->id,
         ]);
 
         $invoice->lpo->update([
             'status'        => 'invoice_attached',
         ]);
-        
+
+        // Filter and save only the items that have been marked as "delivered" or "pending"
+        $itemsToSave = collect($this->lpoItems)->filter(function ($item) {
+            return $item['is_delivered'] || $item['is_pending'];
+        });
 
         // Loop through the saved items and update each one
-        foreach ($this->lpoItems as $item) {
+        foreach ($itemsToSave as $item) {
             // Find the existing LPO item by its unique identifier (assumed as lpo_item_number)
             $lpoItem = LpoItem::where('lpo_item_number', $item['lpo_item_number'])->first(); // Using lpo_item_number instead of ID
 
             if ($lpoItem) {
                 // Update the attributes you want to change
-                $lpoItem->delivered_quantity   = $item['delivered_quantity'] ?? 0;
-                $lpoItem->pending_quantity     = $item['pending_quantity'] ?? 0;
+                $lpoItem->delivered_quantity   = $item['new_delivered_quantity'];
+                $lpoItem->pending_quantity     = $item['new_pending_quantity'];
                 $lpoItem->price                = $item['price'];
                 $lpoItem->vat                  = $item['vat'];
                 $lpoItem->is_delivered         = $item['is_delivered'];
@@ -199,17 +184,14 @@ class AttachInvoice extends Component
                 // Save the updated item back to the database
                 $lpoItem->save();
 
-                // Filter and save only the items that have been marked as "delivered" or "pending"
-                if ($item['is_delivered'] || $item['is_pending']) {
-                    // Create a new invoice item with the invoice number and LPO item number
-                    InvoiceItem::create([
-                        'invoice_number'        => $invoice->invoice_number,
-                        'lpo_item_number'       => $lpoItem->lpo_item_number,
-                        'quantity_delivered'    => $item['delivered_quantity'] ?? 0,
-                        'quantity_pending'      => $item['pending_quantity'] ?? 0,
-                        'invoice_amount'        => $item['amount'],
-                    ]);
-                }
+                // Create a new invoice item with the invoice number and LPO item number
+                InvoiceItem::create([
+                    'invoice_number'        => $invoice->invoice_number,
+                    'lpo_item_number'       => $lpoItem->lpo_item_number,
+                    'quantity_delivered'    => $item['new_delivered_quantity'],
+                    'quantity_pending'      => $item['new_pending_quantity'],
+                    'invoice_amount'        => $item['amount'],
+                ]);
             }
         }
 
@@ -234,9 +216,12 @@ class AttachInvoice extends Component
     }
 
 
-
     public function render()
     {
-        return view('livewire.invoices.attach-invoice');
+        // Fetch all invoices that belong to the same LPO,
+        $relatedInvoices = $this->parentInvoice->lpo->invoices()
+            ->get();
+
+        return view('livewire.invoices.attach-child-invoice', compact('relatedInvoices'));
     }
 }

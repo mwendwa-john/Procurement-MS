@@ -1,18 +1,17 @@
 <div>
 
     <!--  Add User -->
-    <div wire:ignore.self id="hs-add-user-modal"
+    <div wire:ignore.self id="hs-send-user-email-modal"
         class="hs-overlay hs-overlay-open:opacity-100 hs-overlay-open:duration-500 hidden size-full fixed top-0 start-0 z-[80] opacity-0 overflow-x-hidden transition-all overflow-y-auto pointer-events-none"
-        role="dialog" tabindex="-1" aria-labelledby="hs-add-user-modal-label">
+        role="dialog" tabindex="-1" aria-labelledby="hs-send-user-email-modal-label">
         <div class="sm:max-w-lg sm:w-full m-3 sm:mx-auto">
+
             <div class="flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto">
-                <div class="flex justify-between items-center py-3 px-4 border-b">
-                    <h3 id="hs-add-user-modal-label" class="font-bold text-gray-800">
-                        Modal title
-                    </h3>
+                
+                <div class="flex justify-end items-center py-3 px-4">
                     <button type="button"
                         class="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none"
-                        aria-label="Close" data-hs-overlay="#hs-add-user-modal">
+                        aria-label="Close" data-hs-overlay="#hs-send-user-email-modal">
                         <span class="sr-only">Close</span>
                         <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -22,23 +21,67 @@
                         </svg>
                     </button>
                 </div>
-                <div class="p-4 overflow-y-auto">
-                    <p class="mt-1 text-gray-800">
-                        This is a wider card with supporting text below as a natural lead-in to additional content.
+
+                <div class="p-4 sm:p-10 text-center overflow-y-auto">
+                    <h3 class="mb-2 text-2xl font-bold text-gray-800">
+                        Add User
+                    </h3>
+                    <p class="text-gray-500">
+                        Send a welcome email to the email:
                     </p>
-                </div>
-                <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t">
-                    <button type="button"
-                        class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
-                        data-hs-overlay="#hs-add-user-modal">
-                        Close
-                    </button>
-                    <button type="button"
-                        class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                        Save changes
-                    </button>
+
+                    <div class="mt-5">
+                        <x-livewire-forms submitAction="sendWelcomeMail" formId="sendWelcomeMailForm">
+                            @csrf
+
+                            <!-- Form Group - User Email -->
+                            <div>
+                                <label for="email" class="block font-medium text-sm mb-2 text-start">
+                                    User Email
+                                </label>
+                                <div class="relative">
+                                    <input wire:model.live="email" type="email" id="email" name="email"
+                                        class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                        required aria-describedby="email">
+                
+                                    <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
+                                        <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"
+                                            aria-hidden="true">
+                                            <path
+                                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                
+                                @error('email')
+                                <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <!-- End Form Group -->
+
+
+
+                            <!-- Buttons - Cancel and Create Product -->
+                            <div class="col-span-2 mt-6 flex justify-center gap-x-4">
+                                <button type="button"
+                                    class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-red-400 text-white shadow-sm hover:bg-red-300 disabled:opacity-50 disabled:pointer-events-none"
+                                    data-hs-overlay="#hs-send-user-email-modal">
+                                    Cancel
+                                </button>
+                
+                                <button type="submit"
+                                    class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                                    Send welcome mail
+                                </button>
+                            </div>
+                            <!-- End Buttons -->
+                    
+                        </x-livewire-forms>
+
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
     <!--  End: Add User -->
@@ -171,7 +214,7 @@
 
                 <div class="flex justify-end items-center gap-x-2 py-3 px-4 bg-gray-50 border-t">
                     <button type="button"
-                        class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-yellow-100 text-gray-800 shadow-sm hover:bg-yellow-400 disabled:opacity-50 disabled:pointer-events-none"
+                        class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-yellow-300 text-gray-800 shadow-sm hover:bg-yellow-400 disabled:opacity-50 disabled:pointer-events-none"
                         data-hs-overlay="#hs-activate-account-modal">
                         Cancel
                     </button>
@@ -228,8 +271,9 @@
                                 Deactivate Account
                             </h3>
                             <p class="text-gray-500 flex flex-col items-center">
-                                <span class="text-center font-semibold text-gray-700">Temporarily deactivate this
-                                    account.</span>
+                                <span class="text-center font-semibold text-gray-700">
+                                    Temporarily deactivate this account.
+                                </span>
                                 This action is reversible, and one can activate the account later.
                             </p>
                         </div>
@@ -239,7 +283,7 @@
 
                 <div class="flex justify-end items-center gap-x-2 py-3 px-4 bg-gray-50 border-t">
                     <button type="button"
-                        class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-yellow-100 text-gray-800 shadow-sm hover:bg-yellow-400 disabled:opacity-50 disabled:pointer-events-none"
+                        class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-yellow-300 text-gray-800 shadow-sm hover:bg-yellow-400 disabled:opacity-50 disabled:pointer-events-none"
                         data-hs-overlay="#deactivate-account-modal">
                         Cancel
                     </button>
@@ -308,7 +352,7 @@
 
                 <div class="flex justify-end items-center gap-x-2 py-3 px-4 bg-gray-50 border-t">
                     <button type="button"
-                        class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-yellow-100 text-gray-800 shadow-sm hover:bg-yellow-400 disabled:opacity-50 disabled:pointer-events-none"
+                        class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-yellow-300 text-gray-800 shadow-sm hover:bg-yellow-400 disabled:opacity-50 disabled:pointer-events-none"
                         data-hs-overlay="#hs-delete-account-modal">
                         Cancel
                     </button>
@@ -376,7 +420,7 @@
 
                 <div class="flex justify-end items-center gap-x-2 py-3 px-4 bg-gray-50 border-t">
                     <button type="button"
-                        class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-yellow-100 text-gray-800 shadow-sm hover:bg-yellow-400 disabled:opacity-50 disabled:pointer-events-none"
+                        class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-yellow-300 text-gray-800 shadow-sm hover:bg-yellow-400 disabled:opacity-50 disabled:pointer-events-none"
                         data-hs-overlay="#hs-restore-user-modal">
                         Cancel
                     </button>

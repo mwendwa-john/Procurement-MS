@@ -58,8 +58,12 @@
                         {{ $hotel->email }}
                     </span>
                     <h3 class="text-xl font-semibold text-gray-800">
-                        {{ $hotel->hotel_name }}
+                        {{ $hotel->hotel_name }} 
                     </h3>
+                    <h2 class="text-base font-medium text-gray-800">
+                        Abbreviation: <span>{{ $hotel->hotel_abbreviation }} </span>
+                    </h2>
+                    
                 </div>
 
                 <div class="mt-auto flex justify-between gap-x-2 py-3 px-4 pb-5">

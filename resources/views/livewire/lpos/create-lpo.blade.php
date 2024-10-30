@@ -55,14 +55,14 @@
                                     <!-- First Column -->
                                     <div class="space-y-3">
                                         <div>
-                                            <label for="order_number" class="block text-sm mb-2 text-start">Order Number
+                                            <label for="lpo_order_number" class="block text-sm mb-2 text-start">Order Number
                                                 *</label>
-                                            <input wire:model.live="order_number" type="text" name="order_number"
-                                                id="order_number"
-                                                class="px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                            <input wire:model.live="lpo_order_number" type="text" name="lpo_order_number"
+                                                id="lpo_order_number" disabled
+                                                class="text-gray-800 px-4 py-2 block w-full rounded-lg text-sm border-blue-200 bg-gray-100"
                                                 required>
 
-                                            @error('order_number')
+                                            @error('lpo_order_number')
                                             <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
                                             @enderror
                                         </div>
@@ -84,18 +84,6 @@
                                             @enderror
                                         </div>
 
-                                        {{-- <div>
-                                            <label for="company_vat_no" class="block text-sm mb-2 text-start">Company
-                                                VAT No </label>
-                                            <input wire:model.live="company_vat_no" type="text" name="company_vat_no"
-                                                id="company_vat_no"
-                                                class="px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                                required>
-
-                                            @error('company_vat_no')
-                                            <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
-                                            @enderror
-                                        </div> --}}
 
                                         <div>
                                             <label for="supplier_id" class="block text-sm mb-2 text-start">
@@ -242,12 +230,12 @@
                                                     <td class="px-3 py-2 whitespace-nowrap">
                                                         @if ($lpoItem['is_saved'])
                                                         <span class="block w-full text-sm">
-                                                            {{ $lpoItem['quantity'] }}
+                                                            {{ $lpoItem['expected_quantity'] }}
                                                         </span>
 
                                                         @else
-                                                        <input wire:model.live="lpoItems.{{ $index }}.quantity" type="number"
-                                                            name="lpoItem[{{ $index }}][quantity]"
+                                                        <input wire:model.live.debounce.500ms="lpoItems.{{ $index }}.expected_quantity" type="number"
+                                                            name="lpoItem[{{ $index }}][expected_quantity]"
                                                             class="block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                                         @endif
                                                     </td>
@@ -272,7 +260,7 @@
                                                         </span>
 
                                                         @else
-                                                        <input wire:model.live="lpoItems.{{ $index }}.price" type="number"
+                                                        <input wire:model.live.debounce.500ms="lpoItems.{{ $index }}.price" type="number"
                                                             name="lpoItem[{{ $index }}][price]"
                                                             class="block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                                         @endif
@@ -286,8 +274,8 @@
 
                                                         @else
                                                         <input wire:model="lpoItems.{{ $index }}.vat" type="number"
-                                                            name="lpoItem[{{ $index }}][vat]"
-                                                            class="block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                                            name="lpoItem[{{ $index }}][vat]" disabled
+                                                            class="text-gray-800 px-4 py-2 block w-full rounded-md text-sm bg-gray-100 border border-transparent">
                                                         @endif
                                                     </td>
 
@@ -311,11 +299,6 @@
                                                             type="button"
                                                             class="px-2 py-1 text-xs font-medium text-teal-400 hover:underline">
                                                             Update
-                                                        </button>
-
-                                                        <button wire:click.prevent="cancelEdit" type="button"
-                                                            class="px-2 py-1 text-xs font-medium text-gray-600 hover:underline">
-                                                            Cancel
                                                         </button>
                                                         @elseif ($lpoItem['is_saved'])
                                                         <!-- When saved but not editing -->

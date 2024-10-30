@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('hotel_id')->constrained()->onDelete('cascade');
             $table->foreignId('supplier_id')->constrained()->onDelete('cascade');
-            $table->string('order_number')->unique();
+            $table->string('lpo_order_number')->unique();  // Unique order number for each LPO
             $table->date('tax_date')->nullable();
             $table->string('payment_terms')->nullable();
             $table->date('delivery_date')->nullable();
@@ -29,6 +29,7 @@ return new class extends Migration
             ])->default('generated');
 
             $table->decimal('subtotal', 15, 2)->nullable();
+            $table->boolean('include_vat')->default(false);
             $table->decimal('vat_total', 15, 2)->nullable();
             $table->decimal('total_amount', 15, 2)->nullable();
 
@@ -36,7 +37,6 @@ return new class extends Migration
             $table->foreignId('posted_by')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('added_to_daily_lpos_by')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('approved_by')->nullable()->constrained('users')->onDelete('set null');
-            $table->foreignId('invoice_attached_by')->nullable()->constrained('users')->onDelete('set null');
 
             $table->softDeletes();
             $table->timestamps();

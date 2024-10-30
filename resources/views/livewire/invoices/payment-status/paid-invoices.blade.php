@@ -184,7 +184,7 @@
 
                                                     <td class="px-6 py-1.5">
                                                         <div class="inline-flex gap-2">
-                                                            <a href="{{ route('lpos.view', ['id' => $invoice->lpo->id]) }}"
+                                                            <a href="{{ route('lpo.view', ['id' => $invoice->lpo->id]) }}"
                                                                 class="text-orange-400 text-sm hover:underline">
                                                                 View
                                                             </a>

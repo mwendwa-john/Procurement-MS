@@ -188,7 +188,7 @@
                                                     <td class="size-px whitespace-nowrap">
                                                         <div class="px-6 py-1.5">
                                                             <div class="flex text-sm items-center gap-x-3">
-                                                                {{ $lpo->order_number }}
+                                                                {{ $lpo->lpo_order_number }}
                                                             </div>
                                                         </div>
                                                     </td>

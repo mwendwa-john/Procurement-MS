@@ -14,12 +14,13 @@ class Lpo extends Model
     protected $fillable = [
         'hotel_id',
         'supplier_id',
-        'order_number',
+        'lpo_order_number',
         'tax_date',
         'payment_terms',
         'delivery_date',
         'status',
         'subtotal',
+        'include_vat',
         'vat_total',
         'total_amount',
         'generated_by',
@@ -61,10 +62,16 @@ class Lpo extends Model
         // Apply the scope conditionally based on the user's role
         static::addGlobalScope(new StoreKeeperScope($userId, $userRole));
     }
+    
 
-    public function invoice()
+    public function lpoItems()
     {
-        return $this->hasOne(Invoice::class);
+        return $this->hasMany(LpoItem::class, 'lpo_order_number', 'lpo_order_number');
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class, 'lpo_order_number', 'lpo_order_number');
     }
 
     public function hotel()
@@ -77,9 +84,15 @@ class Lpo extends Model
         return $this->belongsTo(Supplier::class);
     }
 
+    
     public function generatedBy()
     {
         return $this->belongsTo(User::class, 'generated_by');
+    }
+
+    public function postedBy()
+    {
+        return $this->belongsTo(User::class, 'posted_by');
     }
 
     public function addedToDailyLposBy()
@@ -92,13 +105,5 @@ class Lpo extends Model
         return $this->belongsTo(User::class, 'approved_by');
     }
 
-    public function invoiceAttachedBy()
-    {
-        return $this->belongsTo(User::class, 'invoice_attached_by');
-    }
 
-    public function lpoItems()
-    {
-        return $this->hasMany(LpoItem::class);
-    }
 }
