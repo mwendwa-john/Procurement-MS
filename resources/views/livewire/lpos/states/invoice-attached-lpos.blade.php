@@ -6,14 +6,14 @@
     <div class="relative overflow-hidden">
         <!-- Gradients -->
         <div aria-hidden="true" class="flex absolute -top-96 start-1/2 transform -translate-x-1/2">
-            
+
             <div
                 class="bg-gradient-to-br from-cyan-400/50 via-purple-200 to-indigo-200 blur-3xl w-[25rem] h-[44rem] rotate-[-60deg] transform -translate-x-[10rem]">
             </div>
             <div
                 class="bg-gradient-to-tl from-indigo-100 via-cyan-200 to-purple-100 blur-3xl w-[90rem] h-[50rem] rounded-full origin-top-left -rotate-12 -translate-x-[15rem]">
             </div>
-            
+
         </div>
         <!-- End Gradients -->
 
@@ -48,7 +48,6 @@
                 <main id="content">
                     <!-- Table Section -->
                     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-
                         <!-- Card -->
                         <div class="flex flex-col">
                             <div class="-m-1.5 overflow-x-auto">
@@ -69,7 +68,7 @@
                                             <div class="flex gap-4">
                                                 <!-- Supplier Filter -->
                                                 <select wire:model.live="supplier_id"
-                                                    class="rounded-md border-gray-300">
+                                                    class="py-2 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500">
                                                     <option value="">All Suppliers</option>
                                                     @foreach($suppliers as $supplier)
                                                     <option value="{{ $supplier->id }}">{{ $supplier->supplier_name }}
@@ -79,7 +78,8 @@
 
                                                 @if(!auth()->user()->hasRole('store-keeper'))
                                                 <!-- Hotel Filter -->
-                                                <select wire:model.live="hotel_id" class="rounded-md border-gray-300">
+                                                <select wire:model.live="hotel_id"
+                                                    class="py-2 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500">
                                                     <option value="">All Hotels</option>
                                                     @foreach($hotels as $hotel)
                                                     <option value="{{ $hotel->id }}">{{ $hotel->hotel_name }}</option>
@@ -88,16 +88,16 @@
                                                 @endif
 
                                                 <!-- Invoice Filter -->
-                                                <select wire:model.live="has_invoice"
-                                                    class="rounded-md border-gray-300">
-                                                    <option value="">All LPOs</option>
-                                                    <option value="with">With Invoice</option>
-                                                    <option value="without">Without Invoice</option>
+                                                <select wire:model.live="status"
+                                                    class="py-2 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500">
+                                                    <option value="">Status</option>
+                                                    <option value="partially_delivered">Partially delivered</option>
+                                                    <option value="delivered">Fully delivered</option>
                                                 </select>
 
                                                 <!-- Search Input -->
                                                 <input type="text" wire:model.live="search" placeholder="Search..."
-                                                    class="rounded-md border-gray-300" />
+                                                    class="py-2 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500" />
                                             </div>
                                         </div>
                                         <!-- End Header -->
@@ -121,7 +121,7 @@
 
                                                     <th scope="col" class="px-6 py-3 text-center">
                                                         <span
-                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800">Status</span>
+                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800">Stage</span>
                                                     </th>
 
 
@@ -161,34 +161,34 @@
 
                                                     <td class="px-6 py-3 text-center">
                                                         <div class="text-sm">
-                                                            @if ($lpo->status === 'generated')
+                                                            @if ($lpo->stage === 'created')
                                                             <span
                                                                 class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-lime-100 text-lime-800 rounded-full">
-                                                                {{ $lpo->status }}
+                                                                {{ $lpo->stage }}
                                                             </span>
 
-                                                            @elseif ($lpo->status === 'posted')
+                                                            @elseif ($lpo->stage === 'posted')
                                                             <span
                                                                 class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-purple-100 text-purple-800 rounded-full">
-                                                                {{ $lpo->status }}
+                                                                {{ $lpo->stage }}
                                                             </span>
 
-                                                            @elseif ($lpo->status === 'added_to_daily_lpos')
+                                                            @elseif ($lpo->stage === 'added_to_daily_lpos')
                                                             <span
                                                                 class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-orange-100 text-orange-800 rounded-full">
-                                                                {{ $lpo->status }}
+                                                                {{ $lpo->stage }}
                                                             </span>
 
-                                                            @elseif ($lpo->status === 'approved')
+                                                            @elseif ($lpo->stage === 'approved')
                                                             <span
                                                                 class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
-                                                                {{ $lpo->status }}
+                                                                {{ $lpo->stage }}
                                                             </span>
 
-                                                            @elseif ($lpo->status === 'invoice_attached')
+                                                            @elseif ($lpo->stage === 'invoice_attached')
                                                             <span
                                                                 class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-teal-100 text-teal-800 rounded-full">
-                                                                {{ $lpo->status }}
+                                                                {{ $lpo->stage }}
                                                             </span>
                                                             @endif
                                                         </div>
@@ -221,7 +221,7 @@
                                                             </button> --}}
                                                             @endcan
 
-                                                            @if($lpo->status !== 'invoice_attached')
+                                                            @if($lpo->stage !== 'invoice_attached')
                                                             @can('delete lpos')
                                                             <button
                                                                 wire:click="$dispatch('pass-lpo-id', { id: '{{ $lpo->id }}' })"

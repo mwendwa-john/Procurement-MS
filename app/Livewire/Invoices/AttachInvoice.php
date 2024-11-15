@@ -40,9 +40,9 @@ class AttachInvoice extends Component
     public function mount($lpoOrderNumber)
     {
         // dd($lpoOrderNumber);
-        // $this->lpo = Lpo::with(['generatedBy', 'postedBy', 'addedToDailyLposBy', 'approvedBy'])->findOrFail($id);
+        // $this->lpo = Lpo::with(['createdBy', 'postedBy', 'addedToDailyLposBy', 'approvedBy'])->findOrFail($id);
 
-        $this->lpo = Lpo::with(['generatedBy', 'postedBy', 'addedToDailyLposBy', 'approvedBy'])
+        $this->lpo = Lpo::with(['createdBy', 'postedBy', 'addedToDailyLposBy', 'approvedBy'])
             ->where('lpo_order_number', $lpoOrderNumber)
             ->firstOrFail();
 
@@ -114,10 +114,10 @@ class AttachInvoice extends Component
             $deliveredQuantity = $expectedQuantity; // Adjust delivered quantity to expected
         }
 
-        // Update delivery and pending status
+        // Update delivery and pending stage
         if ($deliveredQuantity === 0) {
             $this->lpoItems[$index]['is_delivered'] = false;
-            $this->lpoItems[$index]['is_pending'] = false; // Reset pending status
+            $this->lpoItems[$index]['is_pending'] = false; // Reset pending stage
         } elseif ($deliveredQuantity < $expectedQuantity) {
             $this->lpoItems[$index]['is_delivered'] = false;
             $this->lpoItems[$index]['is_pending'] = true;
@@ -125,7 +125,7 @@ class AttachInvoice extends Component
             $this->lpoItems[$index]['is_delivered'] = false;
         } else {
             $this->lpoItems[$index]['is_delivered'] = true;
-            $this->lpoItems[$index]['is_pending'] = false; // Reset pending status
+            $this->lpoItems[$index]['is_pending'] = false; // Reset pending stage
         }
 
         // Update delivered quantity in the item after checks
@@ -162,76 +162,83 @@ class AttachInvoice extends Component
         $validatedData = $this->validate();
 
         // Start a database transaction
-        // DB::beginTransaction();
+        DB::beginTransaction();
 
-        // try {
+        try {
+            // Create the Invoice
+            $invoice = Invoice::create([
+                'invoice_number'       => $validatedData['invoice_number'],
+                'lpo_order_number'     => $this->lpo->lpo_order_number,
+                'hotel_id'             => $this->lpo->hotel_id,
+                'supplier_id'          => $this->lpo->supplier_id,
+                'delivery_date'        => $validatedData['delivery_date'],
+                'subtotal'             => $this->subtotal,
+                'vat_total'            => $this->vat_total,
+                'total_amount'         => $this->total_amount,
+                'invoice_attached_by'  => Auth::user()->id,
+            ]);
 
-        $invoice = Invoice::create([
-            'invoice_number'    => $validatedData['invoice_number'],
-            'lpo_order_number'  => $this->lpo->lpo_order_number,
-            'hotel_id'          => $this->lpo->hotel_id,
-            'supplier_id'       => $this->lpo->supplier_id,
-            'delivery_date'     => $validatedData['delivery_date'],
-            'subtotal'          => $this->subtotal,
-            'vat_total'         => $this->vat_total,
-            'total_amount'      => $this->total_amount,
-            'invoice_attached_by' => Auth::user()->id,
-        ]);
+            // Loop through LPO items and update each one
+            $allDelivered = true;
+            $someDelivered = false;
 
-        $invoice->lpo->update([
-            'status'        => 'invoice_attached',
-        ]);
-        
+            foreach ($this->lpoItems as $item) {
+                $lpoItem = LpoItem::where('lpo_item_number', $item['lpo_item_number'])->first();
 
-        // Loop through the saved items and update each one
-        foreach ($this->lpoItems as $item) {
-            // Find the existing LPO item by its unique identifier (assumed as lpo_item_number)
-            $lpoItem = LpoItem::where('lpo_item_number', $item['lpo_item_number'])->first(); // Using lpo_item_number instead of ID
+                if ($lpoItem) {
+                    // Update LPO item quantities
+                    $lpoItem->delivered_quantity = $item['delivered_quantity'] ?? 0;
+                    $lpoItem->pending_quantity   = $item['pending_quantity'] ?? 0;
+                    $lpoItem->price              = $item['price'];
+                    $lpoItem->vat                = $item['vat'];
+                    $lpoItem->is_delivered       = $item['is_delivered'];
+                    $lpoItem->is_pending         = $item['is_pending'];
+                    $lpoItem->save();
 
-            if ($lpoItem) {
-                // Update the attributes you want to change
-                $lpoItem->delivered_quantity   = $item['delivered_quantity'] ?? 0;
-                $lpoItem->pending_quantity     = $item['pending_quantity'] ?? 0;
-                $lpoItem->price                = $item['price'];
-                $lpoItem->vat                  = $item['vat'];
-                $lpoItem->is_delivered         = $item['is_delivered'];
-                $lpoItem->is_pending           = $item['is_pending'];
-                // Save the updated item back to the database
-                $lpoItem->save();
+                    // Check delivery status for updating LPO status
+                    if ($item['is_pending']) {
+                        $someDelivered = true;
+                        $allDelivered = false;
+                    }
 
-                // Filter and save only the items that have been marked as "delivered" or "pending"
-                if ($item['is_delivered'] || $item['is_pending']) {
-                    // Create a new invoice item with the invoice number and LPO item number
-                    InvoiceItem::create([
-                        'invoice_number'        => $invoice->invoice_number,
-                        'lpo_item_number'       => $lpoItem->lpo_item_number,
-                        'quantity_delivered'    => $item['delivered_quantity'] ?? 0,
-                        'quantity_pending'      => $item['pending_quantity'] ?? 0,
-                        'invoice_amount'        => $item['amount'],
-                    ]);
+                    // Save invoice items for delivered or pending items
+                    if ($item['is_delivered'] || $item['is_pending']) {
+                        InvoiceItem::create([
+                            'invoice_number'       => $invoice->invoice_number,
+                            'lpo_item_number'      => $lpoItem->lpo_item_number,
+                            'quantity_delivered'   => $item['delivered_quantity'] ?? 0,
+                            'quantity_pending'     => $item['pending_quantity'] ?? 0,
+                            'invoice_amount'       => $item['amount'],
+                        ]);
+                    }
                 }
             }
+
+            // Determine LPO status
+            $status = $allDelivered ? 'delivered' : ($someDelivered ? 'partially_delivered' : 'generated');
+
+            // Update LPO status
+            $invoice->lpo->update([
+                'status' => $status,
+            ]);
+
+            // Commit the transaction
+            DB::commit();
+
+            Alert::toast('Invoice created and attached', 'success');
+            return redirect()->route('invoices.show');
+        } catch (\Exception $e) {
+            // Rollback the transaction in case of error
+            DB::rollBack();
+
+            // Log error and show message
+            Log::error('Error attaching invoice: ' . $e->getMessage());
+            Alert::error('An error occurred while attaching the invoice. Please try again later.');
+
+            return redirect()->back();
         }
-
-
-        // Commit the database transaction
-        // DB::commit();
-
-        Alert::toast('Invoice created and attached', 'success');
-        return redirect()->route('invoices.show');
-        // } catch (\Exception $e) {
-        //     // Rollback the database transaction in case of any error
-        //     DB::rollBack();
-
-        //     // Handle the exception or log it
-        //     Log::error('Error attaching invoice: ' . $e->getMessage());
-
-        //     // Show an error message to the user
-        //     Alert::error('An error occurred while attaching the invoice. Please try again later.');
-
-        //     return redirect()->back();
-        // }
     }
+
 
 
 

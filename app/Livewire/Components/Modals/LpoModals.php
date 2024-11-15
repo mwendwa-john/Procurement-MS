@@ -58,14 +58,14 @@ class LpoModals extends Component
         }
     }
 
-    // Changing LPO statuses
+    // Changing LPO stage
     public function postLpo()
     {
         // Find the lpo
         $lpo = Lpo::findOrFail($this->lpoId);
 
         if ($lpo) {
-            $lpo->status    = 'posted';
+            $lpo->stage    = 'posted';
             $lpo->posted_by = Auth::user()->id;
             $lpo->save();
         }
@@ -80,7 +80,7 @@ class LpoModals extends Component
         $lpo = Lpo::findOrFail($this->lpoId);
 
         if ($lpo) {
-            $lpo->status                    = 'added_to_daily_lpos';
+            $lpo->stage                    = 'added_to_daily_lpos';
             $lpo->added_to_daily_lpos_by    = Auth::user()->id;
             $lpo->save();
         }
@@ -95,7 +95,7 @@ class LpoModals extends Component
         $lpo = Lpo::findOrFail($this->lpoId);
 
         if ($lpo) {
-            $lpo->status        = 'approved';
+            $lpo->stage        = 'approved';
             $lpo->approved_by   = Auth::user()->id;
             $lpo->save();
         }

@@ -100,45 +100,48 @@
                                                 <tr>
                                                     <th scope="col" class="ps-6 py-3 text-start">
                                                         <span
-                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800">#</span>
+                                                            class="text-xs font-semibold uppercase tracking-wide text-blue-600">#</span>
                                                     </th>
                                                     <th scope="col" class="px-6 py-3 text-start">
                                                         <span
-                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800">Hotel</span>
+                                                            class="text-xs font-semibold uppercase tracking-wide text-blue-600">Hotel</span>
                                                     </th>
                                                     <th scope="col" class="px-6 py-3 text-start">
                                                         <span
-                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800">Supplier</span>
+                                                            class="text-xs font-semibold uppercase tracking-wide text-blue-600">Supplier</span>
                                                     </th>
 
                                                     <th scope="col" class="px-6 py-3 text-center">
                                                         <span
-                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800">Status</span>
+                                                            class="text-xs font-semibold uppercase tracking-wide text-blue-600">Status</span>
                                                     </th>
 
                                                     <th scope="col" class="px-6 py-3 text-start">
                                                         <span
-                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                                                            class="text-xs font-semibold uppercase tracking-wide text-blue-600">
                                                             Lpo Number
                                                         </span>
                                                     </th>
 
                                                     <th scope="col" class="px-6 py-3 text-start">
                                                         <span
-                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                                                            class="text-xs font-semibold uppercase tracking-wide text-blue-600">
                                                             Invoice Number
                                                         </span>
                                                     </th>
 
                                                     <th scope="col" class="px-6 py-3 text-start">
                                                         <span
-                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800">Total
-                                                            Amount</span>
+                                                            class="text-xs font-semibold uppercase tracking-wide text-blue-600">
+                                                            Total Amount
+                                                        </span>
                                                     </th>
 
                                                     <th scope="col" class="px-6 py-3 text-center">
                                                         <span
-                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800">Action</span>
+                                                            class="text-xs font-semibold uppercase tracking-wide text-blue-600">
+                                                            Action
+                                                        </span>
                                                     </th>
 
                                                 </tr>
@@ -225,16 +228,6 @@
                                                             @endif
                                                             @endcan
 
-
-                                                            @can('make payments on invoice')
-                                                            <button
-                                                                wire:click="$dispatch('pass-invoice-id', { id: '{{ $invoice->id }}' })"
-                                                                data-hs-overlay="#hs-modal-edit-invoice"
-                                                                class="text-teal-500 text-sm hover:underline">
-                                                                Make Payment
-                                                            </button>
-                                                            @endcan
-
                                                             @can('delete invoices')
                                                             @if ($invoice->status === 'unpaid')
                                                             <button
@@ -250,8 +243,8 @@
                                                 </tr>
                                                 @empty
                                                 <tr>
-                                                    <td colspan="5" class="text-center py-3">
-                                                        <span class="text-sm font-semibold text-gray-800">
+                                                    <td colspan="8" class="text-center py-3">
+                                                        <span class="text-sm font-semibold text-red-400">
                                                             No invoices available
                                                         </span>
                                                     </td>
@@ -266,6 +259,7 @@
                                                         </div>
                                                     </td>
 
+                                                    <td></td>
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>

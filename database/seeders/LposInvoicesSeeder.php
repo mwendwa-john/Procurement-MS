@@ -40,8 +40,8 @@ class LposInvoicesSeeder extends Seeder
                 $lastOrderNumbers[$hotelAbbreviation]++;
             }
 
-            // Define possible statuses
-            $statuses = ['generated', 'posted', 'added_to_daily_lpos', 'approved', 'invoice_attached'];
+            // Define possible stage
+            $stages = ['created', 'posted', 'added_to_daily_lpos', 'approved', 'invoice_attached'];
 
             // Create the LPO record
             $lpo = Lpo::create([
@@ -51,11 +51,11 @@ class LposInvoicesSeeder extends Seeder
                 'tax_date'                  => now(),
                 'payment_terms'             => 'cash',
                 'delivery_date'             => now(),
-                'status'                    => $statuses[array_rand($statuses)],
+                'stage'                    => $stages[array_rand($stages)],
                 'subtotal'                  => 20086.21,
                 'vat_total'                 => 3213.79,
                 'total_amount'              => 23300.00,
-                'generated_by'              => 1,
+                'created_by'                => 1,
                 'posted_by'                 => null,
                 'added_to_daily_lpos_by'    => null,
                 'approved_by'               => null,
@@ -93,7 +93,7 @@ class LposInvoicesSeeder extends Seeder
         for ($i = 0; $i < 20; $i++) {
             $randomLpo          = Lpo::inRandomOrder()->first();
 
-            $statuses = ['unpaid', 'payment_made', 'payment_complete'];
+            $status = ['unpaid', 'payment_made', 'payment_complete'];
 
             $Invoice = Invoice::create([
                 'lpo_order_number'      => $randomLpo->lpo_order_number,
@@ -101,7 +101,7 @@ class LposInvoicesSeeder extends Seeder
                 'supplier_id'           => $randomLpo->supplier->id,
                 'invoice_number'        => 'INV00' . $i,
                 'delivery_date'         => now(),
-                'status'                => $statuses[array_rand($statuses)],
+                'status'                => $status[array_rand($status)],
                 'subtotal'              => 20086.21,
                 'vat_total'             => 3213.79,
                 'total_amount'          => 23300.00,
@@ -117,7 +117,7 @@ class LposInvoicesSeeder extends Seeder
         //         'amount'            => fake()->randomFloat(2, 10, 1000),
         //         'currency'          => fake()->currencyCode(),
         //         'payment_method'    => fake()->randomElement(['Credit Card', 'Bank Transfer', 'Cash', 'PayPal']),
-        //         'status'            => fake()->randomElement(['pending', 'completed', 'failed']),
+        //         'stage'            => fake()->randomElement(['pending', 'completed', 'failed']),
         //         'description'       => fake()->sentence(),
         //         'invoice_id'        => Invoice::inRandomOrder()->value('id'),
         //         'hotel_id'          => Hotel::inRandomOrder()->value('id'),

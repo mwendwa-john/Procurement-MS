@@ -16,7 +16,7 @@ class InvoiceAttachedLpos extends Component
     public $search = '';
     public $supplier_id = null;
     public $hotel_id = null;
-    public $has_invoice = null;
+    public $status = null;
 
     protected $queryString = ['search', 'supplier_id', 'hotel_id', 'has_invoice'];
 
@@ -45,7 +45,7 @@ class InvoiceAttachedLpos extends Component
         $perPage = GlobalHelpers::getPerPage();
         
         $lpos = Lpo::with(['hotel', 'supplier'])
-            ->where('status', 'invoice_attached')
+            ->where('stage', 'invoice_attached')
             ->when($this->search, function ($query) {
                 $query->where(function ($query) {
                     $query->whereHas('hotel', function ($query) {
@@ -63,12 +63,8 @@ class InvoiceAttachedLpos extends Component
             ->when($this->hotel_id, function ($query) {
                 $query->where('hotel_id', $this->hotel_id);
             })
-            ->when($this->has_invoice, function ($query) {
-                if ($this->has_invoice === 'with') {
-                    $query->whereNotNull('invoice_attached_by');
-                } elseif ($this->has_invoice === 'without') {
-                    $query->whereNull('invoice_attached_by');
-                }
+            ->when($this->status, function ($query) {
+                $query->where('status', $this->status);
             })
             ->latest()
             ->paginate($perPage ?? 15);

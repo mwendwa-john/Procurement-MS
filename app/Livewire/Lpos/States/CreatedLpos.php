@@ -47,7 +47,7 @@ class CreatedLpos extends Component
         $perPage = GlobalHelpers::getPerPage();
         
         $lpos = Lpo::with(['hotel', 'supplier'])
-            ->where('status', 'generated')
+            ->where('stage', 'created')
             ->when($this->search, function ($query) {
                 $query->where(function ($query) {
                     $query->whereHas('hotel', function ($query) {

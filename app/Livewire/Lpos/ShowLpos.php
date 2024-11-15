@@ -18,7 +18,7 @@ class ShowLpos extends Component
     public $search = ''; 
     public $supplier_id = null; 
     public $hotel_id = null; 
-    public $has_invoice = null; // New property for filtering by invoice status
+    public $has_invoice = null; // New property for filtering by invoice stage
 
     protected $queryString = ['search', 'supplier_id', 'hotel_id', 'has_invoice'];
 

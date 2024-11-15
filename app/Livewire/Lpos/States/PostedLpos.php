@@ -47,7 +47,7 @@ class PostedLpos extends Component
         $perPage = GlobalHelpers::getPerPage();
         
         $lpos = Lpo::with(['hotel', 'supplier'])
-            ->where('status', 'posted')
+            ->where('stage', 'posted')
             ->when($this->search, function ($query) {
                 $query->where(function ($query) {
                     $query->whereHas('hotel', function ($query) {

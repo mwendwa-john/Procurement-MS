@@ -18,12 +18,13 @@ class Lpo extends Model
         'tax_date',
         'payment_terms',
         'delivery_date',
+        'stage',
         'status',
         'subtotal',
         'include_vat',
         'vat_total',
         'total_amount',
-        'generated_by',
+        'created_by',
         'posted_by',
         'added_to_daily_lpos_by',
         'approved_by',
@@ -85,9 +86,9 @@ class Lpo extends Model
     }
 
     
-    public function generatedBy()
+    public function createdBy()
     {
-        return $this->belongsTo(User::class, 'generated_by');
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     public function postedBy()

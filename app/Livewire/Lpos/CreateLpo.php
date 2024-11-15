@@ -36,7 +36,14 @@ class CreateLpo extends Component
 
     public function mount()
     {
-        $this->hotels = Hotel::all();
+        if (auth()->user()->hasRole('admin')) {
+            $this->hotels = Hotel::all();
+        } elseif (auth()->user()->hasRole('store-keeper')) {
+            $this->hotels = Hotel::where('id', auth()->user()->hotel_id)->get();
+        } else {
+            abort(403);
+        }
+
         // set vat rate
         $this->vatRate = Valuestore::make(config_path('system_settings.json'))->get('vat_rate');
 
@@ -221,11 +228,12 @@ class CreateLpo extends Component
                 'tax_date'            => $validatedData['tax_date'],
                 'payment_terms'       => $validatedData['payment_terms'],
                 'delivery_date'       => $validatedData['delivery_date'],
+                'status'              => 'generated',
                 'subtotal'            => $this->subtotal,
                 'include_vat'         => $this->includeVat,
                 'vat_total'           => $this->vat_total,
                 'total_amount'        => $this->total_amount,
-                'generated_by'        => Auth::user()->id,
+                'created_by'          => Auth::user()->id,
             ]);
 
             // Filter and save only the items that have been marked as "saved"

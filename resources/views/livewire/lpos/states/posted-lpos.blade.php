@@ -121,7 +121,7 @@
 
                                                     <th scope="col" class="px-6 py-3 text-center">
                                                         <span
-                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800">Status</span>
+                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800">Stage</span>
                                                     </th>
 
 
@@ -161,34 +161,34 @@
 
                                                     <td class="px-6 py-3 text-center">
                                                         <div class="text-sm">
-                                                            @if ($lpo->status === 'generated')
+                                                            @if ($lpo->stage === 'created')
                                                             <span
                                                                 class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-lime-100 text-lime-800 rounded-full">
-                                                                {{ $lpo->status }}
+                                                                {{ $lpo->stage }}
                                                             </span>
 
-                                                            @elseif ($lpo->status === 'posted')
+                                                            @elseif ($lpo->stage === 'posted')
                                                             <span
                                                                 class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-purple-100 text-purple-800 rounded-full">
-                                                                {{ $lpo->status }}
+                                                                {{ $lpo->stage }}
                                                             </span>
 
-                                                            @elseif ($lpo->status === 'added_to_daily_lpos')
+                                                            @elseif ($lpo->stage === 'added_to_daily_lpos')
                                                             <span
                                                                 class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-orange-100 text-orange-800 rounded-full">
-                                                                {{ $lpo->status }}
+                                                                {{ $lpo->stage }}
                                                             </span>
 
-                                                            @elseif ($lpo->status === 'approved')
+                                                            @elseif ($lpo->stage === 'approved')
                                                             <span
                                                                 class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
-                                                                {{ $lpo->status }}
+                                                                {{ $lpo->stage }}
                                                             </span>
 
-                                                            @elseif ($lpo->status === 'invoice_attached')
+                                                            @elseif ($lpo->stage === 'invoice_attached')
                                                             <span
                                                                 class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-teal-100 text-teal-800 rounded-full">
-                                                                {{ $lpo->status }}
+                                                                {{ $lpo->stage }}
                                                             </span>
                                                             @endif
                                                         </div>
@@ -217,7 +217,7 @@
                                                             </button>
                                                             @endcan
 
-                                                            @if($lpo->status !== 'invoice_attached')
+                                                            @if($lpo->stage !== 'invoice_attached')
                                                             @can('delete lpos')
                                                             <button
                                                                 wire:click="$dispatch('pass-lpo-id', { id: '{{ $lpo->id }}' })"

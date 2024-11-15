@@ -60,18 +60,45 @@
                             <!-- End Buttons -->
 
                             <!-- Card -->
-                            <div class="flex flex-col p-4 sm:p-10 bg-white shadow-md rounded-xl">
+                            <div class="bg-white border flex flex-col p-4 sm:p-10 bg-white shadow-md rounded-xl shadow-sm
+                                @if($invoice->status === 'unpaid') border-blue-500
+                                @elseif($invoice->status === 'payment_made') border-red-600
+                                @elseif($invoice->status === 'payment_complete') border-teal-400
+                                @else border-gray-600
+                                @endif">
                                 <!-- Grid -->
                                 <div class="flex justify-between">
                                     <div>
-                                        <a href="{{ route('home') }}">
-                                            <img class="w-auto h-16 mx-auto"
-                                                src="{{ asset('front-assets/images/superiorLogo.png') }}" alt="logo">
-                                        </a>
+                                        <div class="bg-red-400 p-4 grid space-y-3">
+                                            <dl class="grid sm:flex gap-x-3 text-sm">
+                                                <dt class="min-w-36 max-w-[200px] text-gray-500">
+                                                    Invoice status:
+                                                </dt>
+                                                <dd class="font-medium text-gray-800">
+                                                    {{ $invoice->status }}
+                                                </dd>
+                                            </dl>
 
-                                        <h1 class="mt-2 text-lg md:text-xl font-semibold text-red-600">Superior Hotels,
-                                            Kenya.
-                                        </h1>
+                                            <dl class="grid sm:flex gap-x-3 text-sm">
+                                                <dt class="min-w-36 max-w-[200px] text-gray-500">
+                                                    Supplier:
+                                                </dt>
+                                                <dd class="font-medium text-gray-800">
+                                                    {{ $invoice->supplier->supplier_name }}
+                                                </dd>
+                                            </dl>
+
+                                            <dl class="grid sm:flex gap-x-3 text-sm">
+                                                <dt class="min-w-36 max-w-[200px] text-gray-500">
+                                                    Tax date:
+                                                </dt>
+                                                <dd class="font-medium text-gray-800">
+                                                    {{ $invoice->tax_date }}
+                                                </dd>
+                                            </dl>
+
+                                        </div>
+
                                     </div>
                                     <!-- Col -->
 
@@ -259,7 +286,7 @@
                                                 </tr>
                                                 @empty
                                                 <tr class="sm:space-y-0 space-y-3">
-                                                    <td colspan="6"
+                                                    <td colspan="9"
                                                         class="text-center text-orange-500 font-medium py-2 px-2">
                                                         <!-- Adjusted colspan to match columns -->
                                                         No items on this invoice
@@ -312,21 +339,21 @@
                                             <dl class="grid sm:grid-cols-5 gap-x-3">
                                                 <dt class="col-span-3 font-semibold text-gray-800">Subtotal:</dt>
                                                 <dd class="col-span-2 text-gray-500">
-                                                    {{ $invoice->subtotal }}
+                                                    {{ number_format($invoice->subtotal, 2) }}
                                                 </dd>
                                             </dl>
 
                                             <dl class="grid sm:grid-cols-5 gap-x-3">
                                                 <dt class="col-span-3 font-semibold text-gray-800">Total VAT:</dt>
                                                 <dd class="col-span-2 text-gray-500">
-                                                    {{ $invoice->vat_total }}
+                                                    {{ number_format($invoice->vat_total, 2) }}
                                                 </dd>
                                             </dl>
 
                                             <dl class="grid sm:grid-cols-5 gap-x-3">
                                                 <dt class="col-span-3 font-semibold text-gray-800">Total quote:</dt>
                                                 <dd class="col-span-2 text-gray-500">
-                                                    {{ $invoice->total_amount }}
+                                                    {{ number_format($invoice->total_amount, 2) }}
                                                 </dd>
                                             </dl>
 

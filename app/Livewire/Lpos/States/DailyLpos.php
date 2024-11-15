@@ -47,7 +47,7 @@ class DailyLpos extends Component
         $perPage = GlobalHelpers::getPerPage();
         
         $lpos = Lpo::with(['hotel', 'supplier'])
-            ->where('status', 'added_to_daily_lpos')
+            ->where('stage', 'added_to_daily_lpos')
             ->when($this->search, function ($query) {
                 $query->where(function ($query) {
                     $query->whereHas('hotel', function ($query) {

@@ -51,7 +51,7 @@ class RolesPermissionsSeeder extends Seeder
         $createLpo       = Permission::create(['name' => 'create lpo']);
         $editLpos        = Permission::create(['name' => 'edit lpos']);
         $deleteLpos      = Permission::create(['name' => 'delete lpos']);
-        // lpo statuses
+        // lpo stages
         $postLpos         = Permission::create(['name' => 'post lpo']);
         $addToDailyLpos   = Permission::create(['name' => 'add to daily lpo']);
         $approveLpos      = Permission::create(['name' => 'approve lpo']);
