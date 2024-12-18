@@ -106,6 +106,14 @@
                                         </div>
                                     </th>
 
+                                    <th scope="col" class="px-6 py-3 text-start">
+                                        <div class="flex items-center gap-x-2">
+                                            <span class="text-sm font-semibold uppercase tracking-wide text-blue-600">
+                                                Category
+                                            </span>
+                                        </div>
+                                    </th>
+
                                     <th scope="col" class="px-6 py-3 text-center">
                                         <div class="flex items-center gap-x-2">
                                             <span class="text-sm font-semibold uppercase tracking-wide text-blue-600">
@@ -134,7 +142,7 @@
                                 @forelse ($suppliers as $supplier)
                                 <tr>
                                     <td class="size-px whitespace-nowrap">
-                                        <div class="ps-6 py-3 text-blue-600">
+                                        <div class="ps-6 py-3 mx-2 text-blue-600">
                                             <div class="block text-sm font-semibold">
                                                 {{ ++$i }}
                                             </div>
@@ -158,6 +166,30 @@
                                             <span class="block text-sm font-semibold text-gray-800">{{
                                                 $supplier->phone_number }}</span>
                                             <span class="block text-sm text-gray-500">{{ $supplier->email }}</span>
+                                        </div>
+                                    </td>
+
+                                    <td class="h-px w-72 whitespace-nowrap">
+                                        <div class="px-6 py-3">
+                                            @if ($supplier->category === 'cash')
+                                            <span
+                                                class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-indigo-100 text-indigo-800 rounded-full">
+                                                {{ $supplier->category }}
+                                            </span>
+
+                                            @elseif ($supplier->category === 'credit')
+                                            <span
+                                                class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-fuchsia-100 text-fuchsia-800 rounded-full">
+                                                {{ $supplier->category }}
+                                            </span>
+
+                                            @elseif ($supplier->category === 'other')
+                                            <span
+                                                class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-rose-100 text-rose-800 rounded-full">
+                                                {{ $supplier->category }}
+                                            </span>
+
+                                            @endif
                                         </div>
                                     </td>
 

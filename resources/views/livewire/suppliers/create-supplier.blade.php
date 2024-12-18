@@ -71,16 +71,33 @@
                 <!-- End Floating Select --> --}}
 
                 <select wire:model.live="selectedHotels"
-                    class="py-3 px-4 pe-9 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                    class="py-2 px-4 pe-9 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
                     <option value="">select hotel</option>
                     @foreach ($hotels as $hotel)
                     <option value="{{ $hotel->id }}">{{ $hotel->hotel_name }}</option>
                     @endforeach
                 </select>
 
-
-
                 @error('selectedHotels')
+                <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
+                @enderror
+            </div>
+            <!-- End Form Group -->
+
+
+            <!-- Form Group - Category -->
+            <div>
+                <label for="category" class="block text-sm mb-2 text-start">Category *</label>
+
+                <select wire:model="category"
+                    class="py-2 px-4 pe-9 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                    <option value="">select category</option>
+                    <option value="credit">Credit</option>
+                    <option value="cash">Cash</option>
+                    <option value="other">Other</option>
+                </select>
+
+                @error('category')
                 <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
                 @enderror
             </div>

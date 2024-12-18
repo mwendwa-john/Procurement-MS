@@ -97,6 +97,14 @@
                                         </div>
                                     </th>
 
+                                    <th scope="col" class="px-6 py-3 text-start">
+                                        <div class="flex items-center gap-x-2">
+                                            <span class="text-sm font-semibold uppercase tracking-wide text-blue-600">
+                                                Category
+                                            </span>
+                                        </div>
+                                    </th>
+
                                     <th scope="col" class="px-6 py-3 text-center">
                                         <div class="flex items-center gap-x-2">
                                             <span class="text-sm font-semibold uppercase tracking-wide text-blue-600">
@@ -123,7 +131,7 @@
                                 @forelse ($trashedSuppliers as $trashedSupplier)
                                 <tr>
                                     <td class="size-px whitespace-nowrap">
-                                        <div class="ps-6 py-3 text-blue-600">
+                                        <div class="ps-6 py-3 mx-2 text-blue-600">
                                             <div class="block text-sm font-semibold">
                                                 {{ ++$i }}
                                             </div>
@@ -148,6 +156,30 @@
                                                 $trashedSupplier->phone_number }}</span>
                                             <span class="block text-sm text-gray-500">{{ $trashedSupplier->email
                                                 }}</span>
+                                        </div>
+                                    </td>
+
+                                    <td class="h-px w-72 whitespace-nowrap">
+                                        <div class="px-6 py-3">
+                                            @if ($trashedSupplier->category === 'cash')
+                                            <span
+                                                class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-indigo-100 text-indigo-800 rounded-full">
+                                                {{ $trashedSupplier->category }}
+                                            </span>
+
+                                            @elseif ($trashedSupplier->category === 'credit')
+                                            <span
+                                                class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-fuchsia-100 text-fuchsia-800 rounded-full">
+                                                {{ $trashedSupplier->category }}
+                                            </span>
+
+                                            @elseif ($trashedSupplier->category === 'other')
+                                            <span
+                                                class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-rose-100 text-rose-800 rounded-full">
+                                                {{ $trashedSupplier->category }}
+                                            </span>
+
+                                            @endif
                                         </div>
                                     </td>
 
@@ -190,7 +222,7 @@
                                         @can('manage suppliers')
                                         <div class="px-6 py-1.5">
                                             <button
-                                                wire:click="$dispatch('pass-slug', { slug: '{{ $trashedSupplier->slug }}' })"
+                                                wire:click="$dispatch('pass-supplier-slug', { slug: '{{ $trashedSupplier->slug }}' })"
                                                 class="inline-flex items-center gap-x-1 px-3 py-2 text-sm text-blue-500 decoration-2 hover:underline font-medium"
                                                 data-hs-overlay="#hs-modal-restore-supplier">
                                                 Restore

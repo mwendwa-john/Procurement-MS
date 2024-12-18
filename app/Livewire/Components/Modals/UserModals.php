@@ -4,12 +4,22 @@ namespace App\Livewire\Components\Modals;
 
 use App\Models\User;
 use Livewire\Component;
+use App\Mail\WelcomeEmail;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserModals extends Component
 {
     public $userSlug;
+
+    #[Validate()]
+    public $email;
+
+    protected $rules = [
+        'email' => 'required|email|unique:users,email'
+    ];
 
     public function render()
     {
@@ -20,6 +30,15 @@ class UserModals extends Component
     public function setUserSlug($slug)
     {
         $this->userSlug = $slug;
+    }
+
+    public function sendWelcomeMail()
+    {
+        // dd($this->email);
+        // Send welcome email to the user using the email address provided
+        Mail::to($this->email)->send(new WelcomeEmail());
+
+        $this->dispatch('close-welcome-modal');
     }
 
     public function activateAccount()

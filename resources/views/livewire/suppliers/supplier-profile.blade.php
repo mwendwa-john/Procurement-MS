@@ -58,7 +58,7 @@
         <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
             <!-- Card -->
             <div class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl">
-                <div class="h-44 flex flex-col justify-center items-center bg-blue-500 rounded-t-xl">
+                <div class="h-44 flex flex-col justify-center items-center bg-blue-400 rounded-t-xl">
                     <svg class="flex-shrink-0 size-32" fill="#FFFF" height="200px" width="200px" version="1.2"
                         baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 188" xml:space="preserve">
@@ -87,6 +87,9 @@
                     <h3 class="text-xl font-semibold text-gray-800">
                         {{ $supplier->supplier_name }}
                     </h3>
+                    <h2 class="text-base font-semibold text-gray-800">Category: 
+                        <span class="font-medium italic">{{ $supplier->category }}</span>
+                    </h2>
                 </div>
 
                 <div class="mt-auto flex justify-between gap-x-2 py-3 px-4 pb-5">
@@ -324,13 +327,13 @@
                                         </div>
                                     </td>
 
-                                    <td class="size-px whitespace-nowrap">
+                                    <td class="size-px text-center whitespace-nowrap">
                                         @can('manage suppliers')
                                         <div class="px-6 py-1.5">
-                                            <a class="inline-flex items-center gap-x-1 px-1.5 text-sm text-orange-400 decoration-2 hover:underline font-medium"
+                                            {{-- <a class="inline-flex items-center gap-x-1 px-1.5 text-sm text-orange-400 decoration-2 hover:underline font-medium"
                                                 href="{{ route('suppliers.view', ['slug' => $supplier->slug]) }}">
                                                 View Lpos & invoices
-                                            </a>
+                                            </a> --}}
 
                                             <button
                                                 wire:click="$dispatch('pass-hotel-id', { id: '{{ $supplierHotel->id }}', slug: '{{ $supplier->slug }}' })"

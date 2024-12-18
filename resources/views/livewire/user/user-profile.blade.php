@@ -11,7 +11,6 @@
                 class="bg-gradient-to-tl from-purple-50 via-violet-100 to-indigo-50 blur-3xl w-[90rem] h-[50rem] rounded-full origin-top-left -rotate-12 -translate-x-[15rem]">
             </div>
 
-
         </div>
         <!-- End Gradients -->
 

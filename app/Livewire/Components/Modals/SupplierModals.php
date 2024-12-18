@@ -50,6 +50,9 @@ class SupplierModals extends Component
     #[Validate()]
     public $email;
 
+    #[Validate()]
+    public $category;
+
     public function render()
     {
         return view('livewire.components.modals.supplier-modals');
@@ -83,6 +86,7 @@ class SupplierModals extends Component
                 'max:255',
                 Rule::unique('suppliers', 'email')->ignore($this->supplierId),
             ],
+            'category'          => 'required|in:credit,cash,other',
         ];
     }
 
@@ -122,6 +126,7 @@ class SupplierModals extends Component
             'slug',
             'phone_number',
             'email',
+            'category',
         ));
     }
 

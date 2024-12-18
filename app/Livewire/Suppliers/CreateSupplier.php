@@ -44,6 +44,9 @@ class CreateSupplier extends Component
     #[Validate()]
     public $email;
 
+    #[Validate()]
+    public $category;
+
     public function mount()
     {
         $this->hotels = Hotel::all();
@@ -65,6 +68,7 @@ class CreateSupplier extends Component
         'slug'              => 'required|string|max:255|unique:suppliers,slug',
         'phone_number'      => 'nullable|string|max:20',
         'email'             => 'required|email|max:255|unique:suppliers,email',
+        'category'          => 'required|in:credit,cash,other',
     ];
 
     public function updatedSupplierName()
@@ -89,6 +93,7 @@ class CreateSupplier extends Component
                 'slug'              => $validatedData['slug'],
                 'phone_number'      => $validatedData['phone_number'],
                 'email'             => $validatedData['email'],
+                'category'          => $validatedData['category'],
             ]);
 
             // Attach hotels if provided

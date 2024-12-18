@@ -13,27 +13,20 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->string('payment_number')->unique();
             $table->date('payment_date');
             $table->foreignId('payed_by')->nullable()->constrained('users')->onDelete('set null');
-            
+
             // Additional Columns
-            $table->decimal('amount', 15, 2);
-            $table->string('currency', 3)->default('KSH');
-            $table->string('payment_method'); // Payment method (e.g., Credit Card, Bank Transfer)
-            $table->string('status')->default('pending'); // Payment status (e.g., pending, completed, failed)
+            $table->decimal('amount_paid', 15, 2);
             $table->text('description')->nullable(); // Description or notes about the payment
-        
-            // Foreign Key Relationships
-            $table->foreignId('invoice_id')->nullable()->constrained('invoices')->onDelete('cascade');
-            $table->foreignId('hotel_id')->nullable()->constrained('hotels')->onDelete('set null');
-        
+            $table->string('payment_method');
             $table->timestamps();
-            
-            // Indexes
+
+            // Index for quick filtering
+            $table->index('payment_number'); 
             $table->index('payment_date'); // Index for quick filtering by date
-            $table->index('status'); // Index for quick filtering by status
         });
-        
     }
 
     /**

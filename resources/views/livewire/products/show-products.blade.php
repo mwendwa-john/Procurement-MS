@@ -151,7 +151,7 @@
                                             </thead>
                                             <tbody class="divide-y divide-gray-200">
                                                 @forelse ($products as $product)
-                                                <tr>
+                                                <tr class="hover:bg-gray-100">
                                                     <td class="ps-6 py-3 text-blue-600">
                                                         <div class="text-sm font-semibold">
                                                             {{ ($products->currentPage() - 1) * $products->perPage() +

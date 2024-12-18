@@ -62,16 +62,21 @@
                             <!-- Card -->
                             <div class="bg-white border flex flex-col p-4 sm:p-10 bg-white shadow-md rounded-xl shadow-sm
                                 @if($invoice->status === 'unpaid') border-blue-500
-                                @elseif($invoice->status === 'payment_made') border-red-600
+                                @elseif($invoice->status === 'partial_payment') border-red-600
                                 @elseif($invoice->status === 'payment_complete') border-teal-400
                                 @else border-gray-600
                                 @endif">
                                 <!-- Grid -->
                                 <div class="flex justify-between">
                                     <div>
-                                        <div class="bg-red-400 p-4 grid space-y-3">
+                                        <div class="p-4 grid space-y-3 rounded-xl
+                                            @if($invoice->status === 'unpaid') bg-blue-400
+                                            @elseif($invoice->status === 'partial_payment') bg-red-300
+                                            @elseif($invoice->status === 'payment_complete') bg-teal-300
+                                            @else border-gray-600
+                                            @endif">
                                             <dl class="grid sm:flex gap-x-3 text-sm">
-                                                <dt class="min-w-36 max-w-[200px] text-gray-500">
+                                                <dt class="min-w-36 max-w-[200px] font-medium text-gray-800">
                                                     Invoice status:
                                                 </dt>
                                                 <dd class="font-medium text-gray-800">
@@ -80,7 +85,7 @@
                                             </dl>
 
                                             <dl class="grid sm:flex gap-x-3 text-sm">
-                                                <dt class="min-w-36 max-w-[200px] text-gray-500">
+                                                <dt class="min-w-36 max-w-[200px] font-medium text-gray-800">
                                                     Supplier:
                                                 </dt>
                                                 <dd class="font-medium text-gray-800">
@@ -89,7 +94,7 @@
                                             </dl>
 
                                             <dl class="grid sm:flex gap-x-3 text-sm">
-                                                <dt class="min-w-36 max-w-[200px] text-gray-500">
+                                                <dt class="min-w-36 max-w-[200px] font-medium text-gray-800">
                                                     Tax date:
                                                 </dt>
                                                 <dd class="font-medium text-gray-800">

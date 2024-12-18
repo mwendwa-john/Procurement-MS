@@ -6,6 +6,7 @@ use App\Models\Product;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CreateProduct extends Component
@@ -32,16 +33,25 @@ class CreateProduct extends Component
 
     public function createProduct()
     {
+        // Validate input
+        $validatedData = $this->validate();
+
         try {
-            // Validate input
-            $validatedData = $this->validate();
+            // Begin the database transaction
+            DB::beginTransaction();
 
             Product::create($validatedData);
+
+            // Commit the transaction
+            DB::commit();
 
             Alert::toast('Product created', 'success');
             return redirect()->route('products.show');
         } catch (\Exception $e) {
-            Alert::toast('Failed to create product: ' . $e->getMessage(), 'error');
+            // Rollback the transaction in case of any error
+            DB::rollBack();
+
+            Alert::toast('Failed to create product, try again', 'error');
             return redirect()->route('products.show');
         }
     }

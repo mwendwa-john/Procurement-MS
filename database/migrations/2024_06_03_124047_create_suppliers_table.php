@@ -15,9 +15,15 @@ return new class extends Migration
             $table->id();
             $table->foreignId('address_id')->constrained()->onDelete('cascade');
             $table->string('supplier_name');
+            $table->string('supplier_number')->unique(); 
             $table->string('slug')->unique()->index();
             $table->string('phone_number')->nullable();
             $table->string('email')->unique();
+            $table->enum('category', [
+                'credit',
+                'cash',
+                'other'
+            ]);
             $table->softDeletes();
             $table->timestamps();
         });

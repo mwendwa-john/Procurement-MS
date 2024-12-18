@@ -7,7 +7,7 @@
         <div class="sm:max-w-lg sm:w-full m-3 sm:mx-auto">
 
             <div class="flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto">
-                
+
                 <div class="flex justify-end items-center py-3 px-4">
                     <button type="button"
                         class="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none"
@@ -43,16 +43,16 @@
                                     <input wire:model.live="email" type="email" id="email" name="email"
                                         class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                                         required aria-describedby="email">
-                
+
                                     <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
-                                        <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"
-                                            aria-hidden="true">
+                                        <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor"
+                                            viewBox="0 0 16 16" aria-hidden="true">
                                             <path
                                                 d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                                         </svg>
                                     </div>
                                 </div>
-                
+
                                 @error('email')
                                 <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
                                 @enderror
@@ -68,14 +68,14 @@
                                     data-hs-overlay="#hs-send-user-email-modal">
                                     Cancel
                                 </button>
-                
+
                                 <button type="submit"
                                     class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-500 disabled:opacity-50 disabled:pointer-events-none">
                                     Send welcome mail
                                 </button>
                             </div>
                             <!-- End Buttons -->
-                    
+
                         </x-livewire-forms>
 
                     </div>
@@ -88,7 +88,7 @@
 
 
 
-    
+
     <!--  Assign hotel -->
     <div wire:ignore.self id="hs-assign-hotel-modal"
         class="hs-overlay hs-overlay-open:opacity-100 hs-overlay-open:duration-500 hidden size-full fixed top-0 start-0 z-[80] opacity-0 overflow-x-hidden transition-all overflow-y-auto pointer-events-none"
@@ -132,7 +132,7 @@
                         <!-- End Icon -->
 
                         <div class="flex-1">
-                            
+
                             @livewire('user.assign-hotel')
                         </div>
                     </div>
@@ -343,7 +343,8 @@
                                 <span class="text-center font-semibold text-gray-700">
                                     Temporarily delete this account.
                                 </span>
-                                This action soft deletes the account, it is reversible, and one can restore the account later.
+                                This action soft deletes the account, it is reversible, and one can restore the account
+                                later.
                             </p>
                         </div>
 
@@ -436,3 +437,17 @@
     <!--  End: Restore Account -->
 
 </div>
+
+
+
+@script
+<script>
+    $wire.on('close-welcome-modal', () => {
+        // Handle the closing of the modal logic here
+        const modal = document.getElementById('hs-send-user-email-modal');
+        if (modal) {
+            window.HSOverlay.close(modal);
+        }
+    });
+</script>
+@endscript

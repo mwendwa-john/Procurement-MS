@@ -18,7 +18,8 @@ class ShowPayments extends Component
     {
         $perPage = GlobalHelpers::getPerPage();
 
-        $payments = Payment::latest('payment_date')->paginate($perPage ?? 15);
+        $payments = Payment::with(['invoices'])->latest('payment_date')->paginate($perPage ?? 15);
+
 
         foreach ($payments as $payment) {
             $user = User::findOrFail($payment->payed_by);

@@ -41,7 +41,7 @@ class PartiallyPaidInvoices extends Component
         $perPage = GlobalHelpers::getPerPage();
         
         $invoices = Invoice::with(['hotel', 'supplier'])
-            ->where('status', 'payment_made')
+            ->where('status', 'partial_payment')
             ->when($this->search, function ($query) {
                 $query->where(function ($query) {
                     $query->whereHas('hotel', function ($query) {

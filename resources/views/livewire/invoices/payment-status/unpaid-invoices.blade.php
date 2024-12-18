@@ -202,7 +202,7 @@
                                                                 {{ $invoice->status }}
                                                             </span>
 
-                                                            @elseif ($invoice->status === 'payment_made')
+                                                            @elseif ($invoice->status === 'partial_payment')
                                                             <span
                                                                 class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-amber-100 text-amber-800 rounded-full">
                                                                 {{ $invoice->status }}

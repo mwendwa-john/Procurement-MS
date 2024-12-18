@@ -54,11 +54,11 @@
 
                                 <!-- Grid -->
                                 <div class="rounded-xl
-                                @if($lpo->status === 'generated') bg-gradient-to-b from-blue-500 to-blue-100
-                                @elseif($lpo->status === 'partially_delivered') bg-gradient-to-b from-red-500 to-red-100
-                                @elseif($lpo->status === 'delivered') bg-gradient-to-b from-teal-500 to-teal-100
-                                @else bg-gradient-to-b from-gray-300 to-gray-100 
-                                @endif">
+                                    @if($lpo->status === 'generated') bg-gradient-to-b from-blue-500 to-blue-100
+                                    @elseif($lpo->status === 'partially_delivered') bg-gradient-to-b from-red-500 to-red-100
+                                    @elseif($lpo->status === 'delivered') bg-gradient-to-b from-teal-500 to-teal-100
+                                    @else bg-gradient-to-b from-gray-300 to-gray-100 
+                                    @endif">
                                     <div
                                         class="mb-5 p-8 pb-5 flex justify-between items-center border-b border-gray-200">
                                         <div>
@@ -66,10 +66,11 @@
                                                 Local Purchase Order
                                             </h2>
                                             <small>This is not a VAT Invoice</small>
+                                            <h3>LPO Status: <small>{{ $lpo->status }}</small></h3>
                                         </div>
                                         <!-- Col -->
 
-                                        <div class="inline-flex gap-x-2">
+                                        {{-- <div class="inline-flex gap-x-2">
                                             <a class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-lg border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm"
                                                 href="#">
                                                 <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +96,7 @@
                                                 </svg>
                                                 Print
                                             </a>
-                                        </div>
+                                        </div> --}}
                                         <!-- Col -->
                                     </div>
                                 </div>

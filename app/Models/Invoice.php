@@ -6,6 +6,7 @@ use App\Models\Scopes\StoreKeeperScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Invoice extends Model
 {
@@ -24,6 +25,7 @@ class Invoice extends Model
         'vat_total',
         'total_amount',
         'invoice_attached_by',
+        'added_to_cart',
     ];
 
     // Scope to load specific Hotel Invoices for store keepers
@@ -61,7 +63,7 @@ class Invoice extends Model
         return $this->hasMany(Invoice::class, 'parent_invoice_id');
     }
 
-    
+
     public function invoiceAttachedBy()
     {
         return $this->belongsTo(User::class, 'invoice_attached_by');
@@ -78,16 +80,16 @@ class Invoice extends Model
     }
 
 
-    // Many-to-many relationship with LpoItem
-    // public function lpoItems()
-    // {
-    //     return $this->belongsToMany(LpoItem::class, 'invoice_lpo_items', 'invoice_number', 'lpo_item_number')
-    //         ->withPivot('delivered_quantity', 'pending_quantity')
-    //         ->withTimestamps();
-    // }
-
     public function invoiceItems()
     {
         return $this->hasMany(InvoiceItem::class, 'invoice_number', 'invoice_number');
+    }
+
+
+    public function payments(): BelongsToMany
+    {
+        return $this->belongsToMany(Payment::class, 'invoice_payment', 'invoice_number', 'payment_number')
+                    ->withPivot('amount_paid', 'invoice_balance')
+                    ->withTimestamps();
     }
 }

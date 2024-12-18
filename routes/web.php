@@ -24,6 +24,8 @@ use App\Livewire\Stations\Location\LocationHotels;
 use App\Livewire\RolesPermissions\AssignPermissions;
 use App\Livewire\Stations\Location\TrashedLocations;
 use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Livewire\Expenses\CreateExpense;
+use App\Livewire\Expenses\ShowExpenses;
 use App\Livewire\Invoices\AttachChildInvoice;
 use App\Livewire\Invoices\AttachInvoice;
 use App\Livewire\Invoices\PaymentStatus\PaidInvoices;
@@ -40,7 +42,12 @@ use App\Livewire\Lpos\States\ApprovedLpos as StatesApprovedLpos;
 use App\Livewire\Lpos\States\InvoiceAttachedLpos as StatesInvoiceAttachedLpos;
 use App\Livewire\Lpos\TrashedLpos;
 use App\Livewire\Lpos\ViewLpo;
+use App\Livewire\Payments\Cart;
+use App\Livewire\Payments\PaymentsIndex;
+use App\Livewire\Payments\ShowInvoicePayments;
 use App\Livewire\Payments\ShowPayments;
+use App\Livewire\Payments\ShowSupplierInvoices;
+use App\Livewire\Payments\ShowSupplierPayments;
 use App\Livewire\Products\ShowProducts;
 use App\Livewire\Products\TrashedProducts;
 use App\Livewire\Settings\SettingsIndex;
@@ -128,7 +135,14 @@ Route::middleware(['auth', 'isActive', 'verified'])->group(function () {
     Route::get('invoice/partially/paid', PartiallyPaidInvoices::class)->name('invoices.partially.paid');
     Route::get('invoice/paid', PaidInvoices::class)->name('invoices.paid');
 
+    // Expenes Routes
+    Route::get('expenses', ShowExpenses::class)->name('expenses.show');
+
     // Payment routes
+    Route::get('invoice/payments', ShowInvoicePayments::class)->name('invoice.payments');
+    Route::get('supplier/payments', ShowSupplierPayments::class)->name('supplier.payments');
+    Route::get('supplier{supplierId}/invoices/payments', ShowSupplierInvoices::class)->name('supplier.invoices.payments');
+    Route::get('cart', Cart::class)->name('cart');
     Route::get('/payments/show', ShowPayments::class)->name('payments.show');
 
 

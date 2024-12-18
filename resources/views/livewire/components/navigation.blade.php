@@ -36,19 +36,23 @@
                 <div class="flex flex-col md:flex-row md:items-center md:justify-end py-2 md:py-0 md:ps-7">
                     @auth
 
-                    <a class="py-3 ps-px md:px-3 font-medium text-gray-700" href="{{ route('home') }}"
-                        aria-current="page">Home</a>
+                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg font-medium text-gray-800 hover:bg-gray-200"
+                        href="{{ route('home') }}" aria-current="page">
+                        Home
+                    </a>
 
                     @can('access admin dashboard')
-                    <a class="py-3 ps-px md:px-3 font-medium text-gray-700 hover:text-gray-400"
-                        href="{{ route('dashboard.admin') }}">Admin</a>
+                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg font-medium text-gray-800 hover:bg-gray-200"
+                        href="{{ route('dashboard.admin') }}">
+                        Admin
+                    </a>
                     @endcan
 
                     @if (auth()->user()->is_active)
                     <div
-                        class="hs-dropdown [--strategy:static] md:[--strategy:absolute] [--adaptive:none] md:[--trigger:hover] py-3 md:px-3 md:py-4">
+                        class="hs-dropdown [--strategy:static] md:[--strategy:absolute] [--adaptive:none] md:[--trigger:hover] ">
                         <button type="button"
-                            class="flex items-center w-full text-gray-700 hover:text-gray-400 font-medium">
+                            class="flex items-center py-2 px-3 rounded-lg font-medium text-gray-800 hover:bg-gray-200">
                             Dashboard
                             <svg class="flex-shrink-0 ms-2 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
                                 height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -200,84 +204,35 @@
                     </div>
                     @endif
 
-                    @can('manage products')
-                    <a class="py-3 ps-px md:px-3 font-medium text-gray-700" href="{{ route('products.show') }}"
-                        aria-current="page">Products</a>
+                    @can('acess expenses')
+                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg font-medium text-gray-800 hover:bg-gray-200"
+                        href="{{ route('expenses.show') }}" aria-current="page">
+                        Expenses
+                    </a>
                     @endcan
 
-                    @if (auth()->user()->is_active)
-                    <div
-                        class="hs-dropdown [--strategy:static] md:[--strategy:fixed] [--adaptive:none] md:[--trigger:hover] py-3 ps-px md:px-3">
-                        <button type="button"
-                            class="flex items-center w-full text-gray-700 hover:text-gray-400 font-medium">
-                            Quick Links
-                            <svg class="flex-shrink-0 ms-2 size-4 text-gray-500" xmlns="http://www.w3.org/2000/svg"
-                                width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="m6 9 6 6 6-6" />
-                            </svg>
-                        </button>
+                    @can('manage products')
+                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg font-medium text-gray-800 hover:bg-gray-200"
+                        href="{{ route('products.show') }}" aria-current="page">
+                        Products
+                    </a>
+                    @endcan
 
-                        <div
-                            class="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] md:duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 md:w-48 hidden z-10 bg-white md:shadow-md rounded-lg p-2 md: before:absolute top-full md:border before:-top-5 before:start-0 before:w-full before:h-5">
-                            <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
-                                href="#">
-                                About
-                            </a>
-                            <div
-                                class="hs-dropdown [--strategy:static] md:[--strategy:absolute] [--adaptive:none] md:[--trigger:hover] relative">
-                                <button type="button"
-                                    class="w-full flex justify-between items-center text-sm text-gray-800 rounded-lg py-2 px-3 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500">
-                                    Sub Menu
-                                    <svg class="sm:-rotate-90 flex-shrink-0 ms-2 size-4 text-gray-500"
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round">
-                                        <path d="m6 9 6 6 6-6" />
-                                    </svg>
-                                </button>
+                    @can('access payments')
+                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg font-medium text-gray-800 hover:bg-gray-200"
+                        href="{{ route('invoice.payments') }}">
+                        Payments
+                    </a>
+                    @endcan
 
-                                <div
-                                    class="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] md:duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 md:w-48 hidden z-10 bg-white md:shadow-md rounded-lg p-2 md: before:absolute md:border before:-end-5 before:top-0 before:h-full before:w-5 !mx-[10px] top-0 end-full">
-                                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
-                                        href="#">
-                                        About
-                                    </a>
-                                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
-                                        href="#">
-                                        Downloads
-                                    </a>
-                                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
-                                        href="#">
-                                        Team Account
-                                    </a>
-                                </div>
-                            </div>
-
-                            <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
-                                href="#">
-                                Make Payments
-                            </a>
-
-                            <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
-                                href="{{ route('payments.show') }}">
-                                Transactions
-                            </a>
-
-                            <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
-                                href="#">
-                                Annual Payments
-                            </a>
-                        </div>
-                    </div>
-                    @endif
                     @endauth
 
 
                     @if (Route::has('login'))
                     <div class="md:border-s md:border-gray-300">
                         @auth
-                        <div class="hs-dropdown m-2 relative inline-flex md:ps-6" data-hs-dropdown-placement="bottom-right">
+                        <div class="hs-dropdown m-2 relative inline-flex md:ps-6"
+                            data-hs-dropdown-placement="bottom-right">
                             <button id="hs-dropdown-with-header" type="button"
                                 class="hs-dropdown-toggle w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none">
 
@@ -303,7 +258,7 @@
                                     </p>
                                 </div>
                                 <div class="mt-2 py-2 first:pt-0 last:pb-0">
-                                    
+
                                     <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
                                         href="{{ route('user.profile', ['slug' => Auth::user()->slug]) }}">
                                         <svg class="flex-shrink-0 size-5" viewBox="0 0 24 24" fill="none"

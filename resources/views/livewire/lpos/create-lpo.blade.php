@@ -504,7 +504,6 @@
     @script
     <script>
         $wire.on('close-product-search-modal', () => {
-        console.log('Hello, world');
         // Handle the closing of the modal logic here
         const modal = document.getElementById('hs-search-product-modal');
         if (modal) {

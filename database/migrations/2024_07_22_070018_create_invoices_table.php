@@ -32,7 +32,7 @@ return new class extends Migration
             $table->string('comments')->nullable();
             $table->enum('status', [
                 'unpaid',
-                'payment_made',
+                'partial_payment',
                 'payment_complete'
             ])->default('unpaid');
 
@@ -43,9 +43,13 @@ return new class extends Migration
             $table->foreignId('invoice_attached_by')->nullable()->constrained('users')->onDelete('set null');
 
 
-            $table->boolean('is_final')->default(false); // Indicates if this invoice completes delivery
+            $table->boolean('added_to_cart')->default(false);
             $table->softDeletes();
             $table->timestamps();
+
+            // Index for quick filtering
+            $table->index('id'); 
+            $table->index('invoice_number'); 
         });
     }
 

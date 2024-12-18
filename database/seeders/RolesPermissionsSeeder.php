@@ -12,6 +12,7 @@ class RolesPermissionsSeeder extends Seeder
     public $adminRole;
     public $directorRole;
     public $headquartersRole;
+    public $managerRole;
     public $storeKeeperRole;
     public $AssignRolePermission;
     /**
@@ -22,6 +23,7 @@ class RolesPermissionsSeeder extends Seeder
         $this->adminRole            = Role::create(['name' => 'admin']);
         $this->directorRole         = Role::create(['name' => 'director']);
         $this->headquartersRole     = Role::create(['name' => 'headquarters']);
+        $this->managerRole      = Role::create(['name' => 'manager']);
         $this->storeKeeperRole      = Role::create(['name' => 'store-keeper']);
 
         $this->createPermissions();
@@ -60,6 +62,13 @@ class RolesPermissionsSeeder extends Seeder
         $attachInvoice   = Permission::create(['name' => 'attach invoice']);
         $editInvoice   = Permission::create(['name' => 'edit invoices']);
         $deleteInvoice   = Permission::create(['name' => 'delete invoices']);
+
+        // Expenses Permissions
+        $acessExpenses   = Permission::create(['name' => 'acess expenses']);
+        $manageExpenses   = Permission::create(['name' => 'manage expenses']);
+
+        // payments Permissions
+        $accessPayments   = Permission::create(['name' => 'access payments']);
         $makePaymentsOnInvoice   = Permission::create(['name' => 'make payments on invoice']);
 
 
@@ -90,6 +99,13 @@ class RolesPermissionsSeeder extends Seeder
             // invoices
             $editInvoice->id,
             $deleteInvoice->id,
+
+            // Expensess
+            $acessExpenses->id,
+            $manageExpenses->id,
+
+            // payments
+            $accessPayments->id,
             $makePaymentsOnInvoice->id,
         ]);
         // End Director Role
@@ -99,9 +115,27 @@ class RolesPermissionsSeeder extends Seeder
         $this->headquartersRole->permissions()->attach([
             $manageProducts->id,
             $addToDailyLpos->id,
+
+            // Expensess
+            $acessExpenses->id,
+            $manageExpenses->id,
             
+            // payments
+            $accessPayments->id,
+
         ]);
         // End Headquarters Role
+
+
+        // Manager Role
+        $this->managerRole->permissions()->attach([
+            $manageProducts->id,
+
+            // payments
+            $accessPayments->id,
+
+        ]);
+        // End Manager Role
 
 
         // Store Keeper Role
@@ -115,6 +149,9 @@ class RolesPermissionsSeeder extends Seeder
 
             // Invoices
             $attachInvoice->id,
+
+            // payments
+            $accessPayments->id,
         ]);
         // End Store Keeper Role
 

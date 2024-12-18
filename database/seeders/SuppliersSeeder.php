@@ -34,17 +34,21 @@ class SuppliersSeeder extends Seeder
         $supplier1 = Supplier::create([
             'address_id' => $address1->id,
             'supplier_name' => 'Supplier A',
+            'supplier_number' => '01',
             'slug' => 'supplier-a',
             'phone_number' => '123-456-7890',
             'email' => fake()->unique()->safeEmail(),
+            'category' => 'credit',
         ]);
 
         $supplier2 = Supplier::create([
             'address_id' => $address2->id,
             'supplier_name' => 'Supplier B',
+            'supplier_number' => '02',
             'slug' => 'supplier-b',
             'phone_number' => '123-456-7890',
             'email' => fake()->unique()->safeEmail(),
+            'category' => 'other',
         ]);
 
 

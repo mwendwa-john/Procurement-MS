@@ -190,14 +190,14 @@ class LocationHotelUserSeeder extends Seeder
         
         // ========================     Users   ===================================
         $this->userId = User::create([
-            'username'          => 'Super-Admin',
+            'username'          => 'Admin',
             'first_name'        => 'Superior',
-            'middle_name'       => 'Super',
+            'middle_name'       => 'admin',
             'last_name'         => 'Admin',
             'slug'              => 'superior-admin',
             'location_id'       => $this->superior->id,
             'hotel_id'          => $this->SuperiorHotel->id,
-            'email'             => 'superadmin@superadmin.com',
+            'email'             => 'admin@admin.com',
             'email_verified_at' => now(),
             'password'          => static::$password ??= Hash::make('password'),
             'is_active'         => true,

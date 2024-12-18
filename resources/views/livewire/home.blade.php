@@ -19,8 +19,6 @@
 
             <div class="relative z-10">
                 <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
-
-
                     <!-- Verify Email Banner -->
                     @if (session('verify-email'))
                     <div id="verify-email-alert" class="max-w-[55rem] m-3 px-4 sm:px-6 lg:px-8 mx-auto">

@@ -64,7 +64,6 @@ class ShowInvoices extends Component
             ->latest()
             ->paginate($perPage ?? 15);
 
-        // $invoices = Invoice::all();
 
         $suppliers  = Supplier::all(); 
         $hotels     = Hotel::all();

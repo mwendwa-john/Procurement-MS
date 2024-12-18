@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Expense;
 use App\Models\Lpo;
 use App\Models\User;
 use App\Models\Hotel;
@@ -9,6 +10,8 @@ use App\Models\Invoice;
 use App\Models\LpoItem;
 use App\Models\Payment;
 use App\Models\Supplier;
+use App\Models\PaymentMethod;
+use App\Models\ExpenseCategory;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -93,7 +96,7 @@ class LposInvoicesSeeder extends Seeder
         for ($i = 0; $i < 20; $i++) {
             $randomLpo          = Lpo::inRandomOrder()->first();
 
-            $status = ['unpaid', 'payment_made', 'payment_complete'];
+            $status = ['unpaid', 'partial_payment', 'payment_complete'];
 
             $Invoice = Invoice::create([
                 'lpo_order_number'      => $randomLpo->lpo_order_number,
@@ -123,5 +126,49 @@ class LposInvoicesSeeder extends Seeder
         //         'hotel_id'          => Hotel::inRandomOrder()->value('id'),
         //     ]);
         // }
+
+
+
+
+
+        $names = ['Mpesa 1', 'Mpesa 2', 'Bank', 'Open float', 'Other'];
+        foreach ($names as $name) {
+            PaymentMethod::create([
+                'payment_method_name' => $name
+            ]);
+        }
+
+        // ----------------------   EXPENSES --------------------
+
+        $expenseCategories = ['Transport', 'Fuel', 'Staff Cost', 'Directors'];
+        $counter = 1;
+
+        foreach ($expenseCategories as $category) {
+            ExpenseCategory::create([
+                'category_name' => $category,
+                'category_code' => str_pad($counter, 2, '0', STR_PAD_LEFT), // Generate sequential codes like 01, 02, etc.
+            ]);
+            $counter++;
+        }
+
+
+        // Get valid supplier numbers and expense category codes
+        $supplierNumbers = Supplier::pluck('supplier_number')->toArray();
+        $expenseCategoryCodes = ExpenseCategory::pluck('category_code')->toArray();
+
+        $units = ['Box', 'Service', 'Kg', 'Piece', 'Hour'];
+
+        // Loop to create 20 expense records
+        for ($k = 1; $k <= 20; $k++) {
+            Expense::create([
+                'item_name'             => 'Item ' . $k,
+                'amount'                => rand(100, 1000),
+                'description'           => 'Description for item ' . $k,
+                'unit_of_measure'       => $units[array_rand($units)],
+                'quantity'              => rand(1, 10),
+                'supplier_number'       => $supplierNumbers[array_rand($supplierNumbers)],
+                'expense_category_code' => $expenseCategoryCodes[array_rand($expenseCategoryCodes)],
+            ]);
+        }
     }
 }
