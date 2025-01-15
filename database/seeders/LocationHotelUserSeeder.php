@@ -52,22 +52,26 @@ class LocationHotelUserSeeder extends Seeder
     {
         // create location
         $this->superior = Location::create([
-            'location_name'  => 'Superior Hotels'
+            'location_name'  => 'Superior Hotels',
+            'location_slug'  => 'superior-hotels',
         ]);
 
         $this->nairobi = Location::create([
             'parent_id'      => $this->superior->id,
-            'location_name'  => 'Nairobi'
+            'location_name'  => 'Nairobi',
+            'location_slug'  => 'nairobi'
         ]);
 
         $this->naivasha = Location::create([
             'parent_id'      => $this->superior->id,
-            'location_name'  => 'Naivasha'
+            'location_name'  => 'Naivasha',
+            'location_slug'  => 'naivasha',
         ]);
 
         $this->limuru = Location::create([
             'parent_id'      => $this->superior->id,
-            'location_name'  => 'Limuru'
+            'location_name'  => 'Limuru',
+            'location_slug'  => 'limuru',
         ]);
         // End Location
     }
@@ -85,6 +89,7 @@ class LocationHotelUserSeeder extends Seeder
         $this->SuperiorHotel = Hotel::create([
             'address_id'    => $superiorAddress->id,
             'hotel_name'    => 'Superior Hotels',
+            'hotel_slug'    => 'superior-hotels',
             'hotel_abbreviation'    => 'SH',
             'hotel_kra_pin' => 123456789,
             'location_id'   => $this->superior->id,
@@ -102,6 +107,7 @@ class LocationHotelUserSeeder extends Seeder
             'parent_id'     => $this->SuperiorHotel->id,
             'address_id'    => $ridgeCabinAddress->id,
             'hotel_name'    => 'Ridge Cabin',
+            'hotel_slug'    => 'ridge-cabin',
             'hotel_abbreviation'    => 'RC',
             'hotel_kra_pin' => 123456789,
             'location_id'   => $this->limuru->id,
@@ -119,6 +125,7 @@ class LocationHotelUserSeeder extends Seeder
             'parent_id'     => $this->SuperiorHotel->id,
             'address_id'    => $westwoodAddress->id,
             'hotel_name'    => 'West Wood Hotel',
+            'hotel_slug'    => 'west-wood-hotel',
             'hotel_abbreviation'    => 'WW',
             'hotel_kra_pin' => 123456789,
             'location_id'   => $this->nairobi->id,
@@ -136,6 +143,7 @@ class LocationHotelUserSeeder extends Seeder
             'parent_id'     => $this->SuperiorHotel->id,
             'address_id'    => $hadassahAddress->id,
             'hotel_name'    => 'Hadassah Hotel',
+            'hotel_slug'    => 'hadassah-hotel',
             'hotel_abbreviation'    => 'HH',
             'hotel_kra_pin' => 123456789,
             'location_id'   => $this->nairobi->id,
@@ -153,6 +161,7 @@ class LocationHotelUserSeeder extends Seeder
             'parent_id'     => $this->SuperiorHotel->id,
             'address_id'    => $sweetLakeAddress->id,
             'hotel_name'    => 'Sweet Lake Resort',
+            'hotel_slug'    => 'sweet-lake-resort',
             'hotel_abbreviation'    => 'SLR',
             'hotel_kra_pin' => 123456789,
             'location_id'   => $this->naivasha->id,
@@ -170,6 +179,7 @@ class LocationHotelUserSeeder extends Seeder
             'parent_id'     => $this->SuperiorHotel->id,
             'address_id'    => $lnrAddress->id,
             'hotel_name'    => 'Lake Naivasha Resort',
+            'hotel_slug'    => 'lake-naivasha-resort',
             'hotel_abbreviation'    => 'LNR',
             'hotel_kra_pin' => 123456789,
             'location_id'   => $this->naivasha->id,

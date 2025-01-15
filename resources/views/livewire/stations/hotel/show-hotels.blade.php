@@ -17,7 +17,7 @@
     </svg>
     ',
     'pageTitle' => 'Hotels',
-    ])
+    ], key(now()->timestamp))
     <!-- End: Header -->
 
 

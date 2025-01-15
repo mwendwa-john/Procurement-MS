@@ -17,7 +17,7 @@
     </svg>
     ',
     'pageTitle' => 'Settings',
-    ])
+    ], key(now()->timestamp))
 
     <!-- End: Header -->
 

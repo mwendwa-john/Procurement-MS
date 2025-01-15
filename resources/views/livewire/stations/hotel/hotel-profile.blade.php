@@ -17,7 +17,7 @@
     </svg>
     ',
     'pageTitle' => 'Hotel Profile',
-    ])
+    ], key(now()->timestamp))
     <!-- End: Header -->
 
 
@@ -62,6 +62,9 @@
                     </h3>
                     <h2 class="text-base font-medium text-gray-800">
                         Abbreviation: <span>{{ $hotel->hotel_abbreviation }} </span>
+                    </h2>
+                    <h2 class="text-base font-medium text-gray-800">
+                        Slug: <span>{{ $hotel->hotel_slug }} </span>
                     </h2>
                     
                 </div>

@@ -5,6 +5,7 @@ namespace App\Livewire\Components\Modals;
 use App\Models\Hotel;
 use Livewire\Component;
 use App\Models\Location;
+use Illuminate\Support\Str;
 use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
@@ -64,21 +65,26 @@ class HotelModals extends Component
         return view('livewire.components.modals.hotel-modals');
     }
 
-    protected $rules = [
-        // Address
-        'street'             => 'required|string|max:255',
-        'city'               => 'required|string|max:255',
-        'state'              => 'required|string|max:255',
-        'postal_code'        => 'nullable|string|max:20',
-        // Hotels
-        'parent_id'          => 'nullable|integer',
-        'hotel_image_path'   => 'nullable|image|max:4096',
-        'hotel_name'         => 'required|min:3|unique:hotels,hotel_name,{{ $hotel->id }}',
-        'hotel_abbreviation' => 'required|unique:hotels,hotel_abbreviation,{{ $hotel->id }}',
-        'hotel_kra_pin'      => 'required|string|unique:hotels,hotel_kra_pin,{{ $hotel->id }}',
-        'location_id'        => 'required|exists:locations,id',
-    ];
-    
+    protected function rules()
+    {
+        return [
+            // Address validation
+            'street'            => 'required|string|max:255',
+            'city'              => 'required|string|max:255',
+            'state'             => 'required|string|max:255',
+            'postal_code'       => 'nullable|string|max:20',
+
+            // Hotel validation
+            'parent_id'         => 'nullable|integer',
+            'hotel_image_path'  => 'nullable|image|max:4096',
+            'hotel_name'        => 'required|string|min:3|unique:hotels,hotel_name,' . $this->hotelToEdit->id,
+            'hotel_abbreviation' => 'required|string|unique:hotels,hotel_abbreviation,' . $this->hotelToEdit->id,
+            'hotel_kra_pin'     => 'required|string|unique:hotels,hotel_kra_pin,' . $this->hotelToEdit->id,
+            'location_id'       => 'required|exists:locations,id',
+        ];
+    }
+
+
 
     #[On('edit-hotel')]
     public function findEditHotel($id)
@@ -123,7 +129,7 @@ class HotelModals extends Component
     public function editHotel()
     {
         // Validate the request inputs with custom error messages
-        $validatedData = $this->validate();
+        $validatedData = $this->validate($this->rules());
 
         try {
             $imageUpdated = false;
@@ -142,14 +148,18 @@ class HotelModals extends Component
             // Update the address record
             $addressUpdated = $this->hotelToEdit->address->update($validatedData);
 
+            // generate hotel_slug
+            $hotelSlug = Str::slug($validatedData['hotel_name'], '-');
+
             // Update the hotel record
             $hotelUpdated = $this->hotelToEdit->update([
-                'parent_id'        => $validatedData['parent_id'],
-                'hotel_image_path' => $hotelImagePath,
-                'hotel_name'       => $validatedData['hotel_name'],
-                'hotel_abbreviation'=> $validatedData['hotel_abbreviation'],
-                'hotel_kra_pin'    => $validatedData['hotel_kra_pin'],
-                'location_id'      => $validatedData['location_id'],
+                'parent_id'             => $validatedData['parent_id'],
+                'hotel_image_path'      => $hotelImagePath,
+                'hotel_name'            => $validatedData['hotel_name'],
+                'hotel_slug'            => $hotelSlug,
+                'hotel_abbreviation'    => $validatedData['hotel_abbreviation'],
+                'hotel_kra_pin'         => $validatedData['hotel_kra_pin'],
+                'location_id'           => $validatedData['location_id'],
             ]);
 
             if ($addressUpdated || $hotelUpdated) {
@@ -254,7 +264,6 @@ class HotelModals extends Component
             // Provide user feedback
             Alert::toast('Removed hotel successfully', 'success');
             return redirect()->route('hotel.profile', ['id' => $this->parentId]);
-            
         } catch (\Exception $e) {
             DB::rollBack();
 

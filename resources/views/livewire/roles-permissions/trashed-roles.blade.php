@@ -27,7 +27,7 @@
     </svg>
     ',
     'pageTitle' => 'Trashed Roles',
-    ])
+    ], key(now()->timestamp))
     <!-- End: Header -->
 
 

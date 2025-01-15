@@ -29,7 +29,7 @@
             SVG;
         @endphp
 
-        @livewire('components.admin-header', ['svgIcon' => $dynamicSvg, 'pageTitle' => 'Hotels In Location'])
+        @livewire('components.admin-header', ['svgIcon' => $dynamicSvg, 'pageTitle' => 'Hotels In Location'], key(now()->timestamp))
 
         <!-- End: Header -->
 

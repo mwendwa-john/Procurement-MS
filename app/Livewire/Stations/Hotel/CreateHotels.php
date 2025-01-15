@@ -6,6 +6,7 @@ use App\Models\Hotel;
 use App\Models\Address;
 use Livewire\Component;
 use App\Models\Location;
+use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -100,12 +101,16 @@ class CreateHotels extends Component
                 'postal_code'   => $validatedData['postal_code'],
             ]);
 
+            // generate hotel_slug
+            $hotelSlug = Str::slug($validatedData['hotel_name'], '-');
+
             // Create the hotel with the address ID
             Hotel::create([
                 'address_id'        => $address->id,
                 'parent_id'         => $validatedData['parent_id'],
                 'hotel_image_path'  => $hotelImagePath,
                 'hotel_name'        => $validatedData['hotel_name'],
+                'hotel_slug'        => $hotelSlug,
                 'hotel_abbreviation'=> $validatedData['hotel_abbreviation'],
                 'hotel_kra_pin'     => $validatedData['hotel_kra_pin'],
                 'location_id'       => $validatedData['location_id'],

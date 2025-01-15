@@ -22,7 +22,7 @@
     </svg>
     ',
     'pageTitle' => 'Roles and Permissions',
-    ])
+    ], key(now()->timestamp))
     <!-- End: Header -->
 
 

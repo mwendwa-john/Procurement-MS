@@ -97,7 +97,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('users.inactive') }}">
+                    <a href="{{ route('transfers.show') }}">
                         <button type="button"
                             class="hs-accordion-toggle w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white hover:text-white rounded-lg hover:bg-blue-600">
 

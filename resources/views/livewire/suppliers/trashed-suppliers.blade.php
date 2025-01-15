@@ -27,7 +27,7 @@
     </svg>
     ',
     'pageTitle' => 'Trashed Suppliers',
-    ])
+    ], key(now()->timestamp))
     <!-- End: Header -->
 
 

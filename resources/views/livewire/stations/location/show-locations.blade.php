@@ -27,7 +27,7 @@
     </svg>
     ',
     'pageTitle' => 'Locations',
-    ])
+    ], key(now()->timestamp))
     <!-- End: Header -->
 
 

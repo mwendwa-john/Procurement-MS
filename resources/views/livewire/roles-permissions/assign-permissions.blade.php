@@ -31,7 +31,7 @@
     </svg>
     ',
     'pageTitle' => 'Assign Permissions',
-    ])
+    ], key(now()->timestamp))
     <!-- End: Header -->
 
 

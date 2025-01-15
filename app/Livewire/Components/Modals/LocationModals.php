@@ -4,6 +4,7 @@ namespace App\Livewire\Components\Modals;
 
 use Livewire\Component;
 use App\Models\Location;
+use Illuminate\Support\Str;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -32,8 +33,12 @@ class LocationModals extends Component
         $validatedData = $this->validate();
 
         try {
+            $locationSlug = Str::slug($validatedData['location_name'], '-');
             // Assuming $validatedData contains the validated data for creating a location
-            Location::create($validatedData);
+            Location::create([
+                'location_name' => $validatedData['location_name'],
+                'location_slug' => $locationSlug,
+            ]);
             Alert::toast('Location created successfully', 'success');
         } catch (\Exception $e) {
             Alert::toast('Failed to create location: ' . $e->getMessage(), 'error');
@@ -68,12 +73,16 @@ class LocationModals extends Component
             // Validate the input data
             $validatedData = $this->validate();
 
-            // Update the user record
-            $this->locationToEdit->update($validatedData);
-            Alert::toast('Location updated successfully', 'success');
-            
-            return redirect()->route('locations.show');
+            $locationSlug = Str::slug($validatedData['location_name'], '-');
 
+            // Update the user record
+            $this->locationToEdit->update([
+                'location_name' => $validatedData['location_name'],
+                'location_slug' => $locationSlug,
+            ]);
+            Alert::toast('Location updated successfully', 'success');
+
+            return redirect()->route('locations.show');
         } catch (\Exception $e) {
             Alert::toast('Failed to edit location: ' . $e->getMessage(), 'error');
             return redirect()->route('locations.show');

@@ -28,7 +28,7 @@
     </svg>
     ',
     'pageTitle' => 'View Supplier',
-    ])
+    ], key(now()->timestamp))
 
     <!-- End: Header -->
 

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('parent_id')->nullable();
             $table->string('hotel_image_path')->nullable();
             $table->string('hotel_name');
+            $table->string('hotel_slug')->unique()->index();
             $table->string('hotel_abbreviation')->unique();
             $table->string('hotel_kra_pin');
             $table->foreignId('location_id')->constrained()->onDelete('cascade');

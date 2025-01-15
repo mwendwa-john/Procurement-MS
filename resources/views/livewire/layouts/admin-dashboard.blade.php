@@ -17,7 +17,7 @@
     </svg>
     ',
     'pageTitle' => 'Dashboard',
-    ])
+    ], key(now()->timestamp))
     <!-- End: Header -->
 
 

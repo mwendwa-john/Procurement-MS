@@ -1,37 +1,33 @@
 @extends('livewire.layouts.admin-sidebar')
 
 @section('admin-content')
-@livewire('components.modals.user-modals')
+@livewire('components.modals.transfer-modals')
 <div>
     <!-- Header -->
     @livewire('components.admin-header', [
     'svgIcon' => '
-    <svg class="flex-shrink-0 size-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg class="flex-shrink-0 size-6" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
         <g id="SVGRepo_iconCarrier">
-            <path
-                d="M18 7.16C17.94 7.15 17.87 7.15 17.81 7.16C16.43 7.11 15.33 5.98 15.33 4.58C15.33 3.15 16.48 2 17.91 2C19.34 2 20.49 3.16 20.49 4.58C20.48 5.98 19.38 7.11 18 7.16Z"
-                stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path
-                d="M16.9699 14.44C18.3399 14.67 19.8499 14.43 20.9099 13.72C22.3199 12.78 22.3199 11.24 20.9099 10.3C19.8399 9.59004 18.3099 9.35003 16.9399 9.59003"
-                stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path
-                d="M5.96998 7.16C6.02998 7.15 6.09998 7.15 6.15998 7.16C7.53998 7.11 8.63998 5.98 8.63998 4.58C8.63998 3.15 7.48998 2 6.05998 2C4.62998 2 3.47998 3.16 3.47998 4.58C3.48998 5.98 4.58998 7.11 5.96998 7.16Z"
-                stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path
-                d="M6.99994 14.44C5.62994 14.67 4.11994 14.43 3.05994 13.72C1.64994 12.78 1.64994 11.24 3.05994 10.3C4.12994 9.59004 5.65994 9.35003 7.02994 9.59003"
-                stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path
-                d="M12 14.63C11.94 14.62 11.87 14.62 11.81 14.63C10.43 14.58 9.32996 13.45 9.32996 12.05C9.32996 10.62 10.48 9.46997 11.91 9.46997C13.34 9.46997 14.49 10.63 14.49 12.05C14.48 13.45 13.38 14.59 12 14.63Z"
-                stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path
-                d="M9.08997 17.78C7.67997 18.72 7.67997 20.26 9.08997 21.2C10.69 22.27 13.31 22.27 14.91 21.2C16.32 20.26 16.32 18.72 14.91 17.78C13.32 16.72 10.69 16.72 9.08997 17.78Z"
-                stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            <title>Transfer</title>
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="Transfer">
+                    <rect id="Rectangle" fill-rule="nonzero" x="0" y="0" width="24" height="24"> </rect>
+                    <path d="M19,7 L5,7 M20,17 L5,17" id="Shape" stroke="#2563EB" stroke-width="2"
+                        stroke-linecap="round"> </path>
+                    <path d="M16,3 L19.2929,6.29289 C19.6834,6.68342 19.6834,7.31658 19.2929,7.70711 L16,11" id="Path"
+                        stroke="#2563EB" stroke-width="2" stroke-linecap="round"> </path>
+                    <path d="M8,13 L4.70711,16.2929 C4.31658,16.6834 4.31658,17.3166 4.70711,17.7071 L8,21" id="Path"
+                        stroke="#2563EB" stroke-width="2" stroke-linecap="round"> </path>
+                </g>
+            </g>
         </g>
     </svg>
+
     ',
-    'pageTitle' => 'Users',
+    'pageTitle' => 'Transfer Users',
     ], key(now()->timestamp))
     <!-- End: Header -->
 
@@ -39,58 +35,32 @@
     <!-- Buttons -->
     <div class="flex flex-col md:flex-row justify-between items-center mt-4 space-y-2">
         <div class="flex items-center space-x-4">
-            <a href="{{ route('users.new') }}">
+            <a href="{{ route('transfers.show') }}">
                 <button type="button"
-                    class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-200 text-blue-800 hover:bg-blue-300 focus:outline-none focus:bg-blue-200 disabled:opacity-50 disabled:pointer-events-none">
-                    New Users
+                    class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent 
+                    {{ Route::is('transfers.show') ? 'bg-blue-600 text-white' : 'bg-blue-200 text-blue-800' }} 
+                    hover:bg-blue-300 focus:outline-none focus:bg-blue-200 disabled:opacity-50 disabled:pointer-events-none">
+                    User Transfer
                 </button>
             </a>
 
-            <a href="{{ route('users.inactive') }}">
+            <a href="{{ route('transfers.history') }}">
                 <button type="button"
-                    class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-200 text-blue-800 hover:bg-blue-300 focus:outline-none focus:bg-blue-200 disabled:opacity-50 disabled:pointer-events-none">
-                    Inactive Users
+                    class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent 
+                    {{ Route::is('transfers.history') ? 'bg-blue-600 text-white' : 'bg-blue-200 text-blue-800' }} 
+                    hover:bg-blue-300 focus:outline-none focus:bg-blue-200 disabled:opacity-50 disabled:pointer-events-none">
+                    Transfer History
                 </button>
             </a>
+
         </div>
 
-        <div class="flex items-center space-x-4 mt-4 md:mt-0">
-            <a href="{{ route('users.trashed') }}">
-                <button
-                    class="inline-flex items-center gap-x-2 bg-red-400 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-300 transition duration-300">
-                    <svg class="flex-shrink-0 w-6 h-6" fill="#ffffff" viewBox="0 0 32 32" version="1.1"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                        <g id="SVGRepo_iconCarrier">
-                            <title>recycle</title>
-                            <path
-                                d="M15.966 1.232c-0.97 0.021-1.901 0.261-2.807 0.655l1.404 2.62c0.463-0.165 0.937-0.277 1.404-0.281 1.599 0 3.292 0.853 4.585 3.088l5.333 9.264 1.778-2.901-4.491-7.86c-1.714-2.964-4.434-4.608-7.205-4.585 0 0 0 0 0 0zM7.171 8.811l-4.117 7.205c-1.569 2.715-1.68 5.792-0.374 8.234 0.541 1.012 1.362 1.842 2.339 2.526l1.497-2.526c-0.502-0.397-0.929-0.867-1.216-1.403-0.781-1.46-0.831-3.41 0.281-5.334l5.053-8.702h-3.462zM27.194 21.536c-0.098 0.48-0.239 0.896-0.468 1.311-0.801 1.448-2.372 2.526-4.866 2.526h-10.199l1.778 2.994h8.421c3.402 0 6.146-1.601 7.486-4.023 0.472-0.855 0.732-1.824 0.842-2.807l-2.994 0zM11.272 12.6l-6.728-3.879 6.728-3.879-0 7.759zM22.219 15.005l6.728 3.879 0-7.759-6.729 3.879zM8.193 26.81l6.728-3.879 0 7.759-6.729-3.879z">
-                            </path>
-                    </svg>
-                    Trashed Users
-                </button>
-            </a>
-
-            <button type="button"
-                class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-send-user-email-modal"
-                data-hs-overlay="#hs-send-user-email-modal">
-                <svg class="flex-shrink-0 w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M5 12h14" />
-                    <path d="M12 5v14" />
-                </svg>
-                Add User
-            </button>
-        </div>
     </div>
     <!-- End: Buttons -->
 
 
     <!-- Table Section -->
-    <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+    <div class="max-w-[95rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <!-- Card -->
         <div class="flex flex-col">
             <div class="-m-1.5 overflow-x-auto">
@@ -103,14 +73,15 @@
                                 <p class="text-sm text-blue-500">
                                     Add users, edit and more.
                                 </p>
+
                             </div>
 
                             <!-- Filter Section -->
                             <div class="flex items-center gap-4">
                                 <!-- Search Filter -->
                                 <div>
-                                    <input wire:model.live.debounce.500ms="search" type="text"
-                                        placeholder="Search"
+                                    <input wire:model.live.debounce.300ms="search" type="text"
+                                        placeholder="Search by Name or Email"
                                         class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
                                 </div>
 
@@ -135,7 +106,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-
                             </div>
                         </div>
                         <!-- End Header -->
@@ -269,30 +239,15 @@
 
                                     <td class="size-px whitespace-nowrap">
                                         <div class="px-6 py-1.5">
-                                            <a class="inline-flex items-center gap-x-1 text-sm text-blue-500 decoration-2 hover:underline font-medium"
-                                                href="{{ route('user.profile', ['slug' => $user->slug]) }}">
-                                                View
-                                            </a>
 
                                             @can('manage users')
-                                            @if ($user->is_active == true)
                                             <button type="button"
                                                 wire:click="$dispatch('pass-user-slug', { slug: '{{ $user->slug }}' })"
-                                                class="inline-flex items-center gap-x-1 text-sm text-yellow-500 decoration-2 hover:underline font-medium"
+                                                class="inline-flex items-center gap-x-1 text-sm text-blue-500 decoration-2 hover:underline font-medium"
                                                 aria-haspopup="dialog" aria-expanded="false"
-                                                aria-controls="deactivate-account-modal"
-                                                data-hs-overlay="#deactivate-account-modal">
-                                                Deactivate
-                                            </button>
-                                            @endif
-
-                                            <button type="button"
-                                                wire:click="$dispatch('pass-user-slug', { slug: '{{ $user->slug }}' })"
-                                                class="inline-flex items-center gap-x-1 text-sm text-red-400 decoration-2 hover:underline font-medium"
-                                                aria-haspopup="dialog" aria-expanded="false"
-                                                aria-controls="hs-delete-account-modal"
-                                                data-hs-overlay="#hs-delete-account-modal">
-                                                Delete
+                                                aria-controls="hs-transfer-user-modal"
+                                                data-hs-overlay="#hs-transfer-user-modal">
+                                                Transfer
                                             </button>
                                             @endcan
                                         </div>
@@ -315,6 +270,7 @@
                                 @endforelse
 
                             </tbody>
+
                         </table>
                         <!-- End Table -->
 
@@ -323,7 +279,9 @@
                             class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t divide-gray-200">
                             <div>
                                 <p class="text-sm text-gray-600">
-                                    <span class="font-semibold text-gray-800">{{ count($users) }}</span> users
+                                    <span class="font-semibold text-gray-800">
+                                        {{ count($users) }}
+                                    </span> users
                                 </p>
                             </div>
 

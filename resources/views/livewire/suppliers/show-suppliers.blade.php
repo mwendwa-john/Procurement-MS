@@ -17,7 +17,7 @@
     </svg>
     ',
     'pageTitle' => 'Suppliers',
-    ])
+    ], key(now()->timestamp))
 
     <!-- End: Header -->
 

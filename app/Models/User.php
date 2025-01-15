@@ -107,6 +107,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Hotel::class);
     }
 
+    /**
+     * Get the transfers associated with the user.
+     */
+    public function transfers()
+    {
+        return $this->hasMany(UserTransfer::class, 'user_slug', 'slug');
+    }
+
     public function payments()
     {
         return $this->hasMany(Payment::class, 'payed_by');

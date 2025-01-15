@@ -1,18 +1,15 @@
 <?php
 
-namespace App\Livewire\User;
+namespace App\Livewire\UserTransfers;
 
 use App\Models\User;
+use App\Models\Hotel;
 use Livewire\Component;
 use App\Models\Location;
 use Livewire\WithPagination;
 use App\Helpers\GlobalHelpers;
-use App\Models\Hotel;
-use Livewire\Attributes\Title;
-use Spatie\Permission\Models\Role;
 
-#[Title('Users')]
-class ShowUsers extends Component
+class ShowTransfers extends Component
 {
     use WithPagination;
 
@@ -24,7 +21,6 @@ class ShowUsers extends Component
 
     public function updating($field)
     {
-        // dd('holla');
         // Reset pagination when filters are updated
         $this->resetPage();
     }
@@ -33,7 +29,6 @@ class ShowUsers extends Component
     public function render()
     {
         $perPage = GlobalHelpers::getPerPage();
-
 
         $users = User::query()
             ->when($this->search, function ($query) {
@@ -49,10 +44,10 @@ class ShowUsers extends Component
             ->paginate($perPage ?? 15);
 
 
-        return view('livewire.user.show-users', [
-            'users'     => $users,
-            'locations' => Location::all(),
-            'hotels'    => Hotel::all(),
-        ]);
+
+        $locations = Location::all();
+        $hotels = Hotel::all();
+
+        return view('livewire.user-transfers.show-transfers', compact('users', 'hotels', 'locations'));
     }
 }

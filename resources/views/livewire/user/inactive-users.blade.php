@@ -1,4 +1,4 @@
-@extends('livewire.layouts.admin-dashboard')
+@extends('livewire.layouts.admin-sidebar')
 
 @section('admin-content')
 @livewire('components.modals.user-modals')
@@ -32,7 +32,7 @@
     </svg>
     ',
     'pageTitle' => 'Inactive Users',
-    ])
+    ], key(now()->timestamp))
     <!-- End: Header -->
 
     <!-- Buttons -->

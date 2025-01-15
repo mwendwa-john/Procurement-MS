@@ -26,6 +26,7 @@ use App\Livewire\Stations\Location\TrashedLocations;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Livewire\Expenses\CreateExpense;
 use App\Livewire\Expenses\ShowExpenses;
+use App\Livewire\Expenses\TrashedExpenses;
 use App\Livewire\Invoices\AttachChildInvoice;
 use App\Livewire\Invoices\AttachInvoice;
 use App\Livewire\Invoices\PaymentStatus\PaidInvoices;
@@ -57,6 +58,8 @@ use App\Livewire\User\ChangePassword;
 use App\Livewire\User\InactiveUsers;
 use App\Livewire\User\NewUsers;
 use App\Livewire\User\TrashedUsers;
+use App\Livewire\UserTransfers\ShowTransfers;
+use App\Livewire\UserTransfers\TransferHistory;
 
 /*
 |--------------------------------------------------------------------------
@@ -114,6 +117,10 @@ Route::middleware(['auth', 'isActive', 'verified'])->group(function () {
     // products routes
     Route::get('/products', ShowProducts::class)->name('products.show');
     Route::get('/products/trashed', TrashedProducts::class)->name('products.trashed');
+
+    // Transfer routes
+    Route::get('transfers', ShowTransfers::class)->name('transfers.show');
+    Route::get('transfer/history', TransferHistory::class)->name('transfers.history');
     
     // lpo routes
     Route::get('lpo/create', CreateLpo::class)->name('lpo.create');
@@ -135,8 +142,9 @@ Route::middleware(['auth', 'isActive', 'verified'])->group(function () {
     Route::get('invoice/partially/paid', PartiallyPaidInvoices::class)->name('invoices.partially.paid');
     Route::get('invoice/paid', PaidInvoices::class)->name('invoices.paid');
 
-    // Expenes Routes
+    // Expenses Routes
     Route::get('expenses', ShowExpenses::class)->name('expenses.show');
+    Route::get('expenses/trashed', TrashedExpenses::class)->name('expenses.trashed');
 
     // Payment routes
     Route::get('invoice/payments', ShowInvoicePayments::class)->name('invoice.payments');

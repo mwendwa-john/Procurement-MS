@@ -13,6 +13,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 class ExpensesModals extends Component
 {
     public $expense;
+    public $restoreExpenseId;
 
     #[Validate()]
     public $item_name;
@@ -102,6 +103,54 @@ class ExpensesModals extends Component
         } catch (\Exception $e) {
             Alert::toast('Failed to update expense: ' . $e->getMessage(), 'error');
             return redirect()->route('expenses.show');
+        }
+    }
+
+
+    public function deleteExpense()
+    {
+        try {
+            $expenseToDelete = $this->expense;
+
+            // Check if expense is paid partially or fully
+            // if ($hotelToDelete->users->isNotEmpty()) {
+            //     Alert::toast('Cannot delete ' . $hotelToDelete->hotel_name . ' ' . ', users are assigned to it.', 'error');
+            //     return redirect()->route('expenses.show');
+            // }
+
+            // Delete the hotel
+            $expenseToDelete->delete();
+
+            Alert::toast($expenseToDelete->item_name . ' ' . 'deleted successfully', 'success');
+            return redirect()->route('expenses.show');
+        } catch (\Exception $e) {
+
+            Alert::toast('Failed to delete hotel: ' . $e->getMessage(), 'error');
+            return redirect()->route('expenses.show');
+        }
+    }
+
+    #[On('pass-restore-expense-id')]
+    public function bindRestoreId($id)
+    {
+        $this->restoreExpenseId = $id;
+    }
+
+    public function restoreExpense()
+    {
+        try {
+            // Find the expense
+            $expenseToRestore = Expense::onlyTrashed()->findOrFail($this->restoreExpenseId);
+
+            // Restore the hotel
+            $expenseToRestore->restore();
+
+            Alert::toast($expenseToRestore->item_name.''.'restored successfully', 'success');
+            return redirect()->route('expenses.trashed');
+        } catch (\Exception $e) {
+
+            Alert::toast('Failed to restore expense: '. $e->getMessage(), 'error');
+            return redirect()->route('expenses.trashed');
         }
     }
 

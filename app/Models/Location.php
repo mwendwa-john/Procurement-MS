@@ -13,6 +13,7 @@ class Location extends Model
     protected $fillable = [
         'parent_id',
         'location_name',
+        'location_slug',
     ];
 
     // relationship with user
@@ -24,4 +25,6 @@ class Location extends Model
     public function hotels() {
         return $this->hasMany(Hotel::class);
     }
+
+
 }

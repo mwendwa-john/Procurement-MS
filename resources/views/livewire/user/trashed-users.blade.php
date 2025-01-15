@@ -27,7 +27,7 @@
     </svg>
     ',
     'pageTitle' => 'Trashed Users',
-    ])
+    ], key(now()->timestamp))
     <!-- End: Header -->
 
 

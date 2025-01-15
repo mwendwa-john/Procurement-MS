@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('parent_id')->nullable();
             $table->string('location_name');
+            $table->string('location_slug')->unique();
             $table->softDeletes();
             $table->timestamps();
         });

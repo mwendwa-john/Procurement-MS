@@ -27,7 +27,7 @@
     </svg>
     ',
     'pageTitle' => 'Trashed Hotels',
-    ])
+    ], key(now()->timestamp))
     <!-- End: Header -->
 
 
