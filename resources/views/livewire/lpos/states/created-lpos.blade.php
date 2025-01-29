@@ -79,7 +79,8 @@
 
                                                 @if(!auth()->user()->hasRole('store-keeper'))
                                                 <!-- Hotel Filter -->
-                                                <select wire:model.live="hotel_id" class="py-2 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500">
+                                                <select wire:model.live="hotel_id"
+                                                    class="py-2 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500">
                                                     <option value="">All Hotels</option>
                                                     @foreach($hotels as $hotel)
                                                     <option value="{{ $hotel->id }}">{{ $hotel->hotel_name }}</option>
@@ -219,12 +220,9 @@
                                                             @endcan
 
                                                             @can('edit lpos')
-                                                            <button
-                                                                wire:click="$dispatch('pass-lpo-id', { id: '{{ $lpo->id }}' })"
-                                                                data-hs-overlay="#hs-modal-edit-supplier"
-                                                                class="text-blue-600 text-sm hover:underline">
+                                                            <a href="{{ route('lpo.edit', ['id' => $lpo->id]) }}" class="text-blue-600 text-sm hover:underline">
                                                                 Edit
-                                                            </button>
+                                                            </a>
                                                             @endcan
                                                             @endif
 

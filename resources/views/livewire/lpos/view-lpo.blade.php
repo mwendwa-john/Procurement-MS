@@ -279,6 +279,23 @@
                                             class="mt-8 flex flex-col sm:flex-row sm:justify-between space-y-4 sm:space-y-0 sm:space-x-8">
                                             <!-- VAT Summary Table -->
                                             <div class="w-full sm:max-w-md">
+                                                <!-- VAT Inclusion Checkbox -->
+                                                <div class="flex p-4">
+                                                    @if ($lpo->include_vat === 1)
+                                                    <input type="checkbox" wire:model.live="includeVat" checked
+                                                        class="shrink-0 mt-0.5 border-blue-300 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                                        id="hs-default-checkbox">
+                                                    @else
+                                                    {{-- {{ dd($lpo->include_vat) }} --}}
+                                                    <input type="checkbox" wire:model.live="includeVat"
+                                                        class="shrink-0 mt-0.5 border-blue-300 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                                        id="hs-default-checkbox">
+                                                    @endif
+    
+                                                    <label for="hs-default-checkbox" class="text-sm text-gray-700 ms-3">
+                                                        Include VAT in total price
+                                                    </label>
+                                                </div>
                                                 <table class="min-w-full divide-y divide-gray-200">
                                                     <thead class="bg-gray-50">
                                                         <tr>

@@ -36,7 +36,8 @@
                         </div>
                         <!-- End Title -->
 
-                        @livewire('lpos.view-lpo-invoices-buttons', ['lpoNumber' => $invoice->lpo->lpo_order_number])
+                        @livewire('lpos.view-lpo-invoices-buttons', ['lpoNumber' => $invoice->lpo->lpo_order_number, 'invoiceNumber' => $invoice->invoice_number])
+
                     </div>
 
                     <!-- ========== MAIN CONTENT ========== -->

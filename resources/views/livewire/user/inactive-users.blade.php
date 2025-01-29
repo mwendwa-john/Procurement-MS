@@ -103,6 +103,39 @@
                                     Inactive Users
                                 </p>
                             </div>
+
+                            <!-- Filter Section -->
+                            <div class="flex items-center gap-4">
+                                <!-- Search Filter -->
+                                <div>
+                                    <input wire:model.live.debounce.500ms="search" type="text"
+                                        placeholder="Search"
+                                        class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                                </div>
+
+                                <!-- Location Filter -->
+                                <div>
+                                    <select wire:model.live="selectedLocation"
+                                        class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                                        <option value="">All Locations</option>
+                                        @foreach ($locations as $location)
+                                        <option value="{{ $location->id }}">{{ $location->location_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <!-- Hotel Filter -->
+                                <div>
+                                    <select wire:model.live="selectedHotel"
+                                        class="py-2 px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                                        <option value="">All Hotels</option>
+                                        @foreach ($hotels as $hotel)
+                                        <option value="{{ $hotel->id }}">{{ $hotel->hotel_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                            </div>
                         </div>
                         <!-- End Header -->
 
@@ -276,11 +309,11 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="6" class="text-center">
+                                    <td colspan="7" class="text-center">
                                         <div class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3">
                                             <div class="flex justify-center items-center gap-x-3">
                                                 <div class="grow">
-                                                    <span class="block text-sm font-semibold text-gray-800">
+                                                    <span class="block text-sm font-semibold text-red-400">
                                                         No inactive users registered in the system
                                                     </span>
                                                 </div>

@@ -26,13 +26,13 @@
                 <div class="max-w-2xl text-center mx-auto">
                     <a href="#"
                         class="inline-block text-sm font-medium bg-clip-text bg-gradient-to-l from-blue-600 to-violet-500 text-transparent">
-                        Create LPO
+                        Edit LPO
                     </a>
 
                     <!-- Title -->
                     <div class="mt-5 max-w-2xl">
                         <h1 class="block font-semibold text-blue-600 text-xl md:text-3xl lg:text-4xl">
-                            Create Local Purchase Order
+                            Edit Local Purchase Order
                         </h1>
                     </div>
                     <!-- End Title -->
@@ -47,8 +47,8 @@
                     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
 
                         <div class="bg-white p-8 border border-t-4 border-t-blue-600 rounded-xl shadow-sm">
-                            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Create Local Purchase Order</h2>
-                            <x-livewire-forms submitAction="createLPO" formId="createLPOForm">
+                            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Edit Local Purchase Order</h2>
+                            <x-livewire-forms submitAction="updateLpo" formId="updateLpoForm">
                                 @csrf
                                 <!-- LPO Grid -->
                                 <div class="grid md:grid-cols-2 gap-3 gap-x-6">
@@ -60,8 +60,7 @@
                                                 *</label>
                                             <input wire:model.live="lpo_order_number" type="text"
                                                 name="lpo_order_number" id="lpo_order_number" disabled
-                                                class="text-gray-800 px-4 py-2 block w-full rounded-lg text-sm border-blue-200 bg-gray-100"
-                                                required>
+                                                class="text-gray-800 px-4 py-2 block w-full rounded-lg text-sm border-blue-200 bg-gray-100">
 
                                             @error('lpo_order_number')
                                             <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
@@ -69,22 +68,17 @@
                                         </div>
 
                                         <div>
-                                            <label for="hotel_id" class="block text-sm mb-2 text-start">Ship to (Hotel)
-                                                *</label>
-                                            <select wire:model.live="selectedHotel" name="hotel_id" id="hotel_id"
-                                                class="px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                                required>
-                                                <option value="">select hotel</option>
-                                                @foreach($hotels as $hotel)
-                                                <option value="{{ $hotel->id }}">{{ $hotel->hotel_name }}</option>
-                                                @endforeach
-                                            </select>
+                                            <label for="hotel_name" class="block text-sm mb-2 text-start">
+                                                Ship to (Hotel) *
+                                            </label>
+                                            <input wire:model.live="hotel_name" type="text"
+                                                name="hotel_name" id="hotel_name" disabled
+                                                class="text-gray-800 px-4 py-2 block w-full rounded-lg text-sm border-blue-200 bg-gray-100">
 
-                                            @error('selectedHotels')
+                                            @error('hotel_name')
                                             <p class="text-xs text-red-600 mt-2">{{ $message }}</p>
                                             @enderror
                                         </div>
-
 
                                         <div>
                                             <label for="supplier_id" class="block text-sm mb-2 text-start">
@@ -92,15 +86,12 @@
                                             </label>
                                             <select wire:model.live="selectedSupplier" name="supplier_id"
                                                 id="supplier_id"
-                                                class="px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                                                required>
-                                                <option value="">select hotel to load suppliers</option>
-                                                @if ($selectedHotel)
+                                                class="px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                                                <option value="">{{ $lpo->supplier->supplier_name }}</option>
                                                 @foreach($suppliers as $supplier)
                                                 <option value="{{ $supplier->id }}">{{ $supplier->supplier_name }}
                                                 </option>
                                                 @endforeach
-                                                @endif
                                             </select>
 
                                             @error('selectedSupplier')
@@ -137,8 +128,8 @@
                                         <div>
                                             <label for="payment_terms" class="block text-sm mb-2 text-start">Payment
                                                 Terms </label>
-                                            <textarea wire:model.live="payment_terms" name="payment_terms"
-                                                id="payment_terms" rows="3"
+                                            <textarea wire:model="payment_terms" name="payment_terms" id="payment_terms"
+                                                rows="3"
                                                 class="px-4 block w-full border-blue-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"></textarea>
 
                                             @error('payment_terms')
@@ -203,125 +194,58 @@
                                                 @foreach ($lpoItems as $index => $lpoItem)
                                                 <tr class="item-row">
                                                     <td class="px-3 py-2 whitespace-nowrap">
-                                                        @if ($lpoItem['is_saved'])
-                                                        <span class="block w-full text-sm">
-                                                            {{ $lpoItem['item_name'] }}
-                                                        </span>
-
-                                                        @else
                                                         <input wire:model="lpoItems.{{ $index }}.item_name" type="text"
                                                             name="lpoItem[{{ $index }}][item_name]"
                                                             class="block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                                        @endif
                                                     </td>
 
                                                     <td class="px-3 py-2 whitespace-nowrap">
-                                                        @if ($lpoItem['is_saved'])
-                                                        <span class="block w-full text-sm">
-                                                            {{ $lpoItem['description'] }}
-                                                        </span>
-
-                                                        @else
                                                         <input wire:model="lpoItems.{{ $index }}.description"
                                                             type="text" name="lpoItem[{{ $index }}][description]"
                                                             class="block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                                        @endif
                                                     </td>
 
                                                     <td class="px-3 py-2 whitespace-nowrap">
-                                                        @if ($lpoItem['is_saved'])
-                                                        <span class="block w-full text-sm">
-                                                            {{ $lpoItem['expected_quantity'] }}
-                                                        </span>
-
-                                                        @else
                                                         <input
                                                             wire:model.live.debounce.500ms="lpoItems.{{ $index }}.expected_quantity"
                                                             type="number"
                                                             name="lpoItem[{{ $index }}][expected_quantity]"
                                                             class="block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                                        @endif
                                                     </td>
 
                                                     <td class="px-3 py-2 whitespace-nowrap">
-                                                        @if ($lpoItem['is_saved'])
-                                                        <span class="block w-full text-sm">
-                                                            {{ $lpoItem['unit_of_measure'] }}
-                                                        </span>
-
-                                                        @else
                                                         <input wire:model="lpoItems.{{ $index }}.unit_of_measure"
                                                             type="text" name="lpoItem[{{ $index }}][unit_of_measure]"
                                                             class="block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                                        @endif
                                                     </td>
 
                                                     <td class="px-3 py-2 whitespace-nowrap">
-                                                        @if ($lpoItem['is_saved'])
-                                                        <span class="block w-full text-sm">
-                                                            {{ number_format($lpoItem['price'], 2) }}
-                                                        </span>
-
-                                                        @else
                                                         <input
                                                             wire:model.live.debounce.500ms="lpoItems.{{ $index }}.price"
                                                             type="number" name="lpoItem[{{ $index }}][price]"
                                                             step="0.01"
                                                             class="block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-
-                                                        @endif
                                                     </td>
 
                                                     <td class="px-3 py-2 whitespace-nowrap">
-                                                        @if ($lpoItem['is_saved'])
-                                                        <span class="block w-full text-sm">
-                                                            {{ $lpoItem['vat'] }}
-                                                        </span>
-
-                                                        @else
                                                         <input wire:model="lpoItems.{{ $index }}.vat" type="number"
-                                                            name="lpoItem[{{ $index }}][vat]" disabled
-                                                            class="text-gray-800 px-4 py-2 block w-full rounded-md text-sm bg-gray-100 border border-transparent">
-                                                        @endif
+                                                            name="lpoItem[{{ $index }}][vat]" 
+                                                            step="0.01"
+                                                            class="block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                                     </td>
 
                                                     <td class="px-3 py-2 whitespace-nowrap">
-                                                        @if ($lpoItem['is_saved'])
                                                         <span class="block w-full text-sm">
                                                             {{ number_format($lpoItem['amount'], 2) }}
                                                         </span>
 
-                                                        @else
-                                                        <input wire:model.live="lpoItems.{{ $index }}.amount"
+                                                        {{-- <input wire:model.live="lpoItems.{{ $index }}.amount"
                                                             type="number" name="lpoItem[{{ $index }}][amount]"
                                                             class="block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                                        @endif
+                                                        --}}
                                                     </td>
 
                                                     <td class="px-6 py-4 whitespace-nowrap text-right">
-                                                        @if ($editingIndex === $index)
-                                                        <!-- When in edit mode -->
-                                                        <button wire:click.prevent="updateItem({{ $index }})"
-                                                            type="button"
-                                                            class="px-2 py-1 text-xs font-medium text-teal-400 hover:underline">
-                                                            Update
-                                                        </button>
-                                                        @elseif ($lpoItem['is_saved'])
-                                                        <!-- When saved but not editing -->
-                                                        <button wire:click.prevent="editItem({{ $index }})"
-                                                            type="button"
-                                                            class="px-2 py-1 text-xs font-medium text-blue-500 hover:underline">
-                                                            Edit
-                                                        </button>
-                                                        @else
-                                                        <!-- Default state when item is not saved -->
-                                                        <button wire:click.prevent="saveItem({{ $index }})"
-                                                            type="button"
-                                                            class="px-2 py-1 text-xs font-medium text-teal-400 hover:underline">
-                                                            Save
-                                                        </button>
-                                                        @endif
-                                                        <!-- Always show Remove button -->
                                                         <button wire:click.prevent="removeItem({{ $index }})"
                                                             type="button"
                                                             class="px-2 py-1 text-xs font-medium text-red-600 hover:underline">
@@ -370,9 +294,16 @@
                                         <div class="w-full sm:max-w-md">
                                             <!-- VAT Inclusion Checkbox -->
                                             <div class="flex p-4">
+                                                @if ($lpo->include_vat === 1)
+                                                <input type="checkbox" wire:model.live="includeVat" checked
+                                                    class="shrink-0 mt-0.5 border-blue-300 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                                    id="hs-default-checkbox">
+                                                @else
                                                 <input type="checkbox" wire:model.live="includeVat"
                                                     class="shrink-0 mt-0.5 border-blue-300 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                                                     id="hs-default-checkbox">
+                                                @endif
+
                                                 <label for="hs-default-checkbox" class="text-sm text-gray-700 ms-3">
                                                     Include VAT in total price
                                                 </label>
@@ -401,7 +332,10 @@
                                                             {{ number_format($vat_total, 2) }}
                                                         </td>
                                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                            {{ number_format($subtotal, 2) }}
+                                                            <input type="text"
+                                                                value="{{ number_format($subtotal, 2, '.', '') }}"
+                                                                disabled
+                                                                class="text-gray-800 px-4 py-2 block w-full rounded-md text-sm border border-transparent">
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -412,7 +346,10 @@
                                                             {{ number_format($vat_total, 2) }}
                                                         </td>
                                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                            {{ number_format($subtotal, 2) }}
+                                                            <input type="text"
+                                                                value="{{ number_format($subtotal, 2, '.', '') }}"
+                                                                disabled
+                                                                class="text-gray-800 px-4 py-2 block w-full rounded-md text-sm border border-transparent">
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -481,12 +418,12 @@
                                 <div class="mt-8 flex justify-end">
                                     <button type="submit"
                                         class="px-4 py-2 bg-green-600 text-white text-sm font-semibold rounded-lg hover:bg-green-700">
-                                        Create LPO
+                                        Save Changes
                                     </button>
                                 </div>
 
-
                             </x-livewire-forms>
+
                         </div>
 
                     </div>

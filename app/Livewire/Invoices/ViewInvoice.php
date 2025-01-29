@@ -15,8 +15,6 @@ class ViewInvoice extends Component
         $this->invoice = Invoice::with(['invoiceAttachedBy', 'invoiceItems.lpoItem'])
             ->where('invoice_number', $invoiceNumber)
             ->firstOrFail();
-
-        // dd($this->invoice->invoiceItems);
     }
 
 

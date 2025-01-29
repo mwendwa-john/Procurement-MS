@@ -19,7 +19,8 @@ return new class extends Migration
             // Define foreign key constraints
             $table->foreign('invoice_number')
             ->references('invoice_number')->on('invoices')
-            ->onDelete('cascade');
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
 
             $table->foreign('lpo_item_number')
             ->references('lpo_item_number')->on('lpo_items')

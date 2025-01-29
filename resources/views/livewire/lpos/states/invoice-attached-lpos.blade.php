@@ -211,7 +211,7 @@
                                                             @can('attach invoice')
                                                             <a href="{{ route('invoice.attach', ['lpoOrderNumber' => $lpo->lpo_order_number]) }}"
                                                                 class="text-blue-500 text-sm hover:underline">
-                                                                Attach Invoice
+                                                                Attach child Invoice
                                                             </a>
                                                             {{-- <button
                                                                 wire:click="$dispatch('pass-lpo-id', { id: '{{ $lpo->id }}' })"

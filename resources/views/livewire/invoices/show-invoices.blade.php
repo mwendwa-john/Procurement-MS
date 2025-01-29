@@ -219,12 +219,9 @@
 
                                                             @can('edit invoices')
                                                             @if ($invoice->status === 'unpaid')
-                                                            <button
-                                                                wire:click="$dispatch('pass-invoice-id', { id: '{{ $invoice->id }}' })"
-                                                                data-hs-overlay="#hs-modal-edit-invoice"
-                                                                class="text-blue-600 text-sm hover:underline">
+                                                            <a href="{{ route('invoice.edit', ['invoiceNumber' => $invoice->invoice_number]) }}" class="text-blue-600 text-sm hover:underline">
                                                                 Edit
-                                                            </button>
+                                                            </a>
                                                             @endif
                                                             @endcan
 
