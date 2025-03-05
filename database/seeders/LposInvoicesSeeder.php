@@ -44,7 +44,7 @@ class LposInvoicesSeeder extends Seeder
             }
 
             // Define possible stage
-            $stages = ['created', 'posted', 'added_to_daily_lpos', 'approved', 'invoice_attached'];
+            $stages = ['created', 'posted', 'forwarded', 'added_to_daily_lpos', 'approved', 'invoice_attached'];
 
             // Create the LPO record
             $lpo = Lpo::create([

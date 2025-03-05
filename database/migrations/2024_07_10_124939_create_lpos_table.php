@@ -23,6 +23,7 @@ return new class extends Migration
             $table->enum('stage', [
                 'created',
                 'posted',
+                'forwarded',
                 'added_to_daily_lpos',
                 'approved',
                 'invoice_attached',
@@ -41,6 +42,7 @@ return new class extends Migration
 
             $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('posted_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('forwarded_by')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('added_to_daily_lpos_by')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('approved_by')->nullable()->constrained('users')->onDelete('set null');
 

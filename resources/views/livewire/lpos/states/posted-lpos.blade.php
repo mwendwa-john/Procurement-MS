@@ -173,6 +173,12 @@
                                                                 {{ $lpo->stage }}
                                                             </span>
 
+                                                            @elseif ($lpo->stage === 'forwarded')
+                                                            <span
+                                                                class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-slate-200 text-slate-800 rounded-full">
+                                                                {{ $lpo->stage }}
+                                                            </span>
+
                                                             @elseif ($lpo->stage === 'added_to_daily_lpos')
                                                             <span
                                                                 class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-orange-100 text-orange-800 rounded-full">
@@ -208,12 +214,12 @@
                                                                 View
                                                             </a>
 
-                                                            @can('add to daily lpo')
+                                                            @can('forward lpo')
                                                             <button
                                                                 wire:click="$dispatch('pass-lpo-id', { id: '{{ $lpo->id }}' })"
-                                                                data-hs-overlay="#hs-modal-add-to-daily-lpo"
+                                                                data-hs-overlay="#hs-modal-forward-lpo"
                                                                 class="text-violet-400 text-sm hover:underline">
-                                                                Add to Daily Lpo
+                                                                Forward Lpo
                                                             </button>
                                                             @endcan
 

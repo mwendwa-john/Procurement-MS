@@ -25,6 +25,14 @@
                 </button>
             </a>
 
+            <!-- Posted LPOs -->
+            <a href="{{ route('lpos.forwarded') }}"
+                class="py-2 px-3 inline-flex justify-center items-center gap-2 -ms-px first:rounded-s-lg first:ms-0 last:rounded-e-lg text-sm font-medium focus:z-10 border border-gray-200 bg-cyan-500 text-white shadow-sm hover:bg-cyan-400 focus:outline-none focus:bg-cyan-400">
+                <button type="button" class="disabled:opacity-50 disabled:pointer-events-none">
+                    Forwarded LPOs
+                </button>
+            </a>
+
             <!-- Daily LPOs -->
             <a href="{{ route('lpos.daily') }}"
                 class="py-2 px-3 inline-flex justify-center items-center gap-2 -ms-px first:rounded-s-lg first:ms-0 last:rounded-e-lg text-sm font-medium focus:z-10 border border-gray-200 bg-indigo-500 text-white shadow-sm hover:bg-indigo-400 focus:outline-none focus:bg-indigo-400">

@@ -61,6 +61,7 @@ use App\Livewire\Lpos\States\PostedLpos as StatesPostedLpos;
 use App\Livewire\Invoices\PaymentStatus\PartiallyPaidInvoices;
 use App\Livewire\Lpos\States\CreatedLpos as StatesCreatedLpos;
 use App\Livewire\Lpos\States\ApprovedLpos as StatesApprovedLpos;
+use App\Livewire\Lpos\States\ForwardedLpos as StatesForwardedLpos;
 use App\Livewire\Lpos\States\InvoiceAttachedLpos as StatesInvoiceAttachedLpos;
 
 /*
@@ -129,6 +130,7 @@ Route::middleware(['auth', 'isActive', 'verified'])->group(function () {
     Route::get('lpo/edit/{id}', EditLpo::class)->name('lpo.edit');
     Route::get('lpo/created', StatesCreatedLpos::class)->name('lpos.created');
     Route::get('lpo/posted', StatesPostedLpos::class)->name('lpos.posted');
+    Route::get('lpo/forwarded', StatesForwardedLpos::class)->name('lpos.forwarded');
     Route::get('lpo/daily', StatesDailyLpos::class)->name('lpos.daily');
     Route::get('lpo/approved', StatesApprovedLpos::class)->name('lpos.approved');
     Route::get('lpo/invoice/attached', StatesInvoiceAttachedLpos::class)->name('lpos.invoice.attached');

@@ -74,6 +74,21 @@ class LpoModals extends Component
         return redirect()->route('lpos.posted');
     }
 
+    public function forwardLpo()
+    {
+        // Find the lpo
+        $lpo = Lpo::findOrFail($this->lpoId);
+
+        if ($lpo) {
+            $lpo->stage    = 'forwarded';
+            $lpo->forwarded_by = Auth::user()->id;
+            $lpo->save();
+        }
+
+        Alert::toast('Lpo forwarded', 'success');
+        return redirect()->route('lpos.posted');
+    }
+
     public function addToDailyLpo()
     {
         // Find the lpo

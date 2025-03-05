@@ -55,6 +55,7 @@ class RolesPermissionsSeeder extends Seeder
         $deleteLpos      = Permission::create(['name' => 'delete lpos']);
         // lpo stages
         $postLpos         = Permission::create(['name' => 'post lpo']);
+        $forwardLpos         = Permission::create(['name' => 'forward lpo']);
         $addToDailyLpos   = Permission::create(['name' => 'add to daily lpo']);
         $approveLpos      = Permission::create(['name' => 'approve lpo']);
 
@@ -130,6 +131,7 @@ class RolesPermissionsSeeder extends Seeder
         // Manager Role
         $this->managerRole->permissions()->attach([
             $manageProducts->id,
+            $forwardLpos->id,
 
             // payments
             $accessPayments->id,

@@ -26,6 +26,7 @@ class Lpo extends Model
         'total_amount',
         'created_by',
         'posted_by',
+        'forwarded_by',
         'added_to_daily_lpos_by',
         'approved_by',
         'invoice_attached_by',
@@ -94,6 +95,11 @@ class Lpo extends Model
     public function postedBy()
     {
         return $this->belongsTo(User::class, 'posted_by');
+    }
+
+    public function forwardedBy()
+    {
+        return $this->belongsTo(User::class, 'forwarded_by');
     }
 
     public function addedToDailyLposBy()

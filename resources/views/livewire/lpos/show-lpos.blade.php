@@ -171,6 +171,12 @@
                                                                 {{ $lpo->stage }}
                                                             </span>
 
+                                                            @elseif ($lpo->stage === 'forwarded')
+                                                            <span
+                                                                class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-slate-200 text-slate-800 rounded-full">
+                                                                {{ $lpo->stage }}
+                                                            </span>
+
                                                             @elseif ($lpo->stage === 'added_to_daily_lpos')
                                                             <span
                                                                 class="py-1 px-2 inline-flex items-center gap-x-1 text-xs font-medium bg-orange-100 text-orange-800 rounded-full">
